@@ -1,5 +1,5 @@
 import type iAncestry from './iAncestry';
-import type iTraits from './iTraits';
+import type iTrait from './iTraits';
 
 interface iMoniker {
   name: string;
@@ -18,7 +18,7 @@ interface iChosenStats {
   agility: number;
   mind: number;
   magic: number;
-  ancestryTrait: iTraits;
+  ancestryTrait: iTrait;
 }
 
 export interface iDerivedStats {

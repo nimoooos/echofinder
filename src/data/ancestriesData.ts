@@ -1,6 +1,38 @@
 import type iAncestry from '@/interfaces/iAncestry';
+import type iTrait from '@/interfaces/iTraits';
 
-export const ancestriesData: iAncestry[] = [
+export function ancestry(ancestryName: string): iAncestry {
+  let output: iAncestry = {
+    name: '',
+    size: 0,
+    traits: [],
+  };
+
+  ancestriesData.forEach((anc) => {
+    if (anc.name === ancestryName) {
+      output = anc;
+    }
+  });
+
+  return output;
+}
+
+export function ancestryTrait(ancestry: iAncestry, traitname: string): iTrait {
+  let output: iTrait = {
+    name: '',
+    text: '',
+  };
+
+  ancestry.traits.forEach((trt) => {
+    if (trt.name === traitname) {
+      output = trt;
+    }
+  });
+
+  return output;
+}
+
+const ancestriesData: iAncestry[] = [
   {
     name: 'Avian',
     size: 1,
