@@ -4,8 +4,10 @@ import { ref, watch } from 'vue';
 
 import type iCharacterData from './interfaces/iCharacterData';
 import { ancestry, ancestryTrait } from './data/ancestriesData';
+import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
+import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
 
-const blankCharacterData: iCharacterData = {
+const blankCharData: iCharacterData = {
   moniker: { name: '', title: '', pronouns: '' },
   basicInfo: { level: 1, ancestry: ancestry(''), job: null },
   chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', text: '' } },
@@ -30,7 +32,7 @@ const blankCharacterData: iCharacterData = {
   loadout: null,
 };
 
-const selectedCharacterData = ref<iCharacterData>({
+const chosenCharData = ref<iCharacterData>({
   moniker: {
     name: 'Dhalia',
     title: 'the All-Knowing',
@@ -84,7 +86,7 @@ const toggleEdit = ref({
 function recalculateStats() {
   console.log('calculating...');
   //initialize derived stats
-  selectedCharacterData.value.derivedStats = blankCharacterData.derivedStats;
+  chosenCharData.value.derivedStats = blankCharData.derivedStats;
 
   //get size from ancestry
 
@@ -107,7 +109,8 @@ function recalculateStats() {
   //get techniques
 }
 
-watch([selectedCharacterData.value], (newData, oldData) => {
+//recalculate stats whenever data changes
+watch([chosenCharData.value], (newData, oldData) => {
   recalculateStats();
 });
 </script>
@@ -126,10 +129,9 @@ watch([selectedCharacterData.value], (newData, oldData) => {
   </header>
   <div id="charsheet">
     <div id="charsheet-moniker">
-      <h1>
-        {{ selectedCharacterData.moniker.name }}, {{ selectedCharacterData.moniker.title }} ({{
-          selectedCharacterData.moniker.pronouns
-        }}) <button @click="toggleEdit.moniker = !toggleEdit.moniker">📝</button>
+      <h1 id="moniker-summary">
+        {{ chosenCharData.moniker.name }}, {{ chosenCharData.moniker.title }} ({{ chosenCharData.moniker.pronouns }})
+        <button @click="toggleEdit.moniker = !toggleEdit.moniker">📝</button>
       </h1>
       <div id="charsheet-moniker-edit" v-if="toggleEdit.moniker">
         <table>
@@ -140,23 +142,21 @@ watch([selectedCharacterData.value], (newData, oldData) => {
           </tr>
           <tr>
             <td>
-              <input v-model="selectedCharacterData.moniker.name" placeholder="name" />
+              <input v-model="chosenCharData.moniker.name" placeholder="name" />
             </td>
             <td>
-              <input v-model="selectedCharacterData.moniker.title" placeholder="title" />
+              <input v-model="chosenCharData.moniker.title" placeholder="title" />
             </td>
             <td>
-              <input v-model="selectedCharacterData.moniker.pronouns" placeholder="pronouns" />
+              <input v-model="chosenCharData.moniker.pronouns" placeholder="pronouns" />
             </td>
           </tr>
         </table>
       </div>
     </div>
     <div id="charsheet-basicinfo">
-      <h2>
-        Level {{ selectedCharacterData.basicInfo.level }}
-        {{ selectedCharacterData.basicInfo.ancestry.name }}
-        {{ selectedCharacterData.basicInfo.job }}
+      <h2 id="basicinfo-summary">
+        Level {{ chosenCharData.basicInfo.level }} {{ chosenCharData.basicInfo.ancestry.name }} {{ chosenCharData.basicInfo.job }}
         <button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
       </h2>
       <div id="charsheet-basicinfo-edit" v-if="toggleEdit.basicinfo">
@@ -169,22 +169,22 @@ watch([selectedCharacterData.value], (newData, oldData) => {
           </tr>
           <tr>
             <td>
-              <input
-                id="level-input"
-                type="number"
-                min="1"
-                max="12"
-                v-model="selectedCharacterData.basicInfo.level"
+              <input id="level-input" type="number" min="1" max="12" v-model="chosenCharData.basicInfo.level" />
+            </td>
+            <td>
+              <AncestrySelect
+                @set-ancestry="
+                  (anc) => {
+                    chosenCharData.basicInfo.ancestry = ancestry(anc);
+                  }
+                "
               />
             </td>
             <td>
-              <input placeholder="ancestry" />
+              <AncestryTraitSelect v-bind:traits="chosenCharData.basicInfo.ancestry.traits" :key="chosenCharData.basicInfo.ancestry.name" />
             </td>
             <td>
-              <input placeholder="ancestryTrait" />
-            </td>
-            <td>
-              <input v-model="selectedCharacterData.basicInfo.job" />
+              <input v-model="chosenCharData.basicInfo.job" />
             </td>
           </tr>
         </table>
@@ -201,40 +201,16 @@ watch([selectedCharacterData.value], (newData, oldData) => {
         </tr>
         <tr>
           <td>
-            <input
-              id="input-bulk"
-              type="number"
-              min="1"
-              max="6"
-              v-model="selectedCharacterData.chosenStats.bulk"
-            />
+            <input id="input-bulk" type="number" min="0" max="6" v-model="chosenCharData.chosenStats.bulk" />
           </td>
           <td>
-            <input
-              id="input-agility"
-              type="number"
-              min="1"
-              max="6"
-              v-model="selectedCharacterData.chosenStats.agility"
-            />
+            <input id="input-agility" type="number" min="0" max="6" v-model="chosenCharData.chosenStats.agility" />
           </td>
           <td>
-            <input
-              id="input-mind"
-              type="number"
-              min="1"
-              max="6"
-              v-model="selectedCharacterData.chosenStats.mind"
-            />
+            <input id="input-mind" type="number" min="0" max="6" v-model="chosenCharData.chosenStats.mind" />
           </td>
           <td>
-            <input
-              id="input-magic"
-              type="number"
-              min="1"
-              max="6"
-              v-model="selectedCharacterData.chosenStats.magic"
-            />
+            <input id="input-magic" type="number" min="0" max="6" v-model="chosenCharData.chosenStats.magic" />
           </td>
         </tr>
       </table>
@@ -244,16 +220,21 @@ watch([selectedCharacterData.value], (newData, oldData) => {
 
 <style scoped>
 th {
-  border: 1px solid black;
-  background-color: aliceblue;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-accent);
+  color: var(--color-text);
   width: 200px;
 }
 td {
   border: 1px solid black;
+  padding: 0;
 }
 
-input {
+input,
+select {
   width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 #navbar {
@@ -262,7 +243,7 @@ input {
   padding-left: 1rem;
   margin-bottom: 3em;
   border-bottom-right-radius: 3em;
-  border: 9px double white;
+  border: 9px double var(--color-background);
 }
 
 #navbar h1 {
@@ -275,51 +256,8 @@ header {
   max-height: 100vh;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
+button {
+  border: transparent;
   background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
 }
 </style>
