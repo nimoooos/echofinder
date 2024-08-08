@@ -262,6 +262,12 @@ input {
   padding-left: 1rem;
   margin-bottom: 3em;
   border-bottom-right-radius: 3em;
+  border: 9px double white;
+}
+
+#navbar h1 {
+  color: white;
+  font-weight: 600;
 }
 
 header {
