@@ -121,7 +121,12 @@ watch([chosenCharData.value], (newData, oldData) => {
 <template>
   <header>
     <div id="navbar">
-      <h1>EchoFinder</h1>
+      <h1 id="title">EchoFinder</h1>
+      <ul>
+        <li>About EchoFinder</li>
+        <li>Beacon RPG</li>
+        <li>@nimoooos</li>
+      </ul>
     </div>
     <div class="wrapper">
       <!-- <nav>
@@ -228,13 +233,16 @@ watch([chosenCharData.value], (newData, oldData) => {
 <style scoped>
 th {
   border: 1px solid var(--color-border);
+  border-top-right-radius: 1rem;
   background-color: var(--color-accent);
   color: var(--color-text);
   width: 200px;
 }
 td {
-  border: 1px solid black;
-  padding: 0;
+  border: 1px solid var(--color-border);
+  border-bottom-right-radius: 1rem;
+  background-color: var(--color-background-soft);
+  padding: 0 1rem;
 }
 
 input,
@@ -242,22 +250,32 @@ select {
   width: 100%;
   height: 100%;
   border: 0;
-  background-color: var(--color-background);
+  background-color: var(--color-background-soft);
   color: var(--color-text);
 }
 
 #navbar {
   width: 100%;
-  background-color: skyblue;
+  background-color: var(--color-accent-bold);
   padding-left: 1rem;
   margin-bottom: 3em;
   border-bottom-right-radius: 3em;
   border: 9px double var(--color-background);
 }
 
-#navbar h1 {
-  color: white;
+#navbar #title {
+  color: var(--color-background-soft);
   font-weight: 600;
+  display: inline-block;
+}
+
+#navbar ul {
+  display: inline-block;
+}
+
+#navbar li {
+  display: inline-block;
+  padding: 1rem;
 }
 
 header {
