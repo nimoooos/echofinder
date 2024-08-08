@@ -109,6 +109,10 @@ function recalculateStats() {
   //get techniques
 }
 
+function setAncestryTrait(newAncestryTraitName: string) {
+  chosenCharData.value.chosenStats.ancestryTrait = ancestryTrait(chosenCharData.value.basicInfo.ancestry, newAncestryTraitName);
+}
+
 //recalculate stats whenever data changes
 watch([chosenCharData.value], (newData, oldData) => {
   recalculateStats();
@@ -181,7 +185,11 @@ watch([chosenCharData.value], (newData, oldData) => {
               />
             </td>
             <td>
-              <AncestryTraitSelect v-bind:traits="chosenCharData.basicInfo.ancestry.traits" :key="chosenCharData.basicInfo.ancestry.name" />
+              <AncestryTraitSelect
+                v-bind:traits="chosenCharData.basicInfo.ancestry.traits"
+                :key="chosenCharData.basicInfo.ancestry.name"
+                @set-trait="setAncestryTrait"
+              />
             </td>
             <td>
               <input v-model="chosenCharData.basicInfo.job" />
@@ -235,6 +243,8 @@ select {
   width: 100%;
   height: 100%;
   border: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 #navbar {

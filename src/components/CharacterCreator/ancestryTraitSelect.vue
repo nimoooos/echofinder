@@ -6,15 +6,14 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'setAncestryTrait', newAncestryTraitName: string): string;
+  (e: 'setTrait', newAncestryTraitName: string): string;
 }>();
 
 let options = props.traits.map((trt) => trt.name);
 
 function onChange(event: any) {
   let input = event.target.value;
-  console.log(props.traits);
-  emit('setAncestryTrait', input);
+  emit('setTrait', input);
 }
 </script>
 
