@@ -31,7 +31,6 @@ const blankCharData: iCharacterData = {
   },
   loadout: null,
 };
-
 const chosenCharData = ref<iCharacterData>({
   moniker: {
     name: 'Dhalia',
