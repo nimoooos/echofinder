@@ -32,7 +32,7 @@ export function ancestryTrait(ancestry: iAncestry, traitname: string): iTrait {
   return output;
 }
 
-const ancestriesData: iAncestry[] = [
+export const ancestriesData: iAncestry[] = [
   {
     name: 'Avian',
     size: 1,
