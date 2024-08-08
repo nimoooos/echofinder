@@ -1,3 +1,6 @@
+import type iAncestry from './iAncestry';
+import type iTraits from './iTraits';
+
 interface iMoniker {
   name: string;
   title: string;
@@ -6,7 +9,7 @@ interface iMoniker {
 
 interface iBasicInfo {
   level: number;
-  ancestry: any; //TODO: should be custom interface
+  ancestry: iAncestry;
   job: any; //TODO: should be custom interface
 }
 
@@ -15,7 +18,7 @@ interface iChosenStats {
   agility: number;
   mind: number;
   magic: number;
-  ancestryTrait: any; //TODO: should be custom interface
+  ancestryTrait: iTraits;
 }
 
 export interface iDerivedStats {
