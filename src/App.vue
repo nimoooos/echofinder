@@ -3,11 +3,12 @@ import { RouterLink, RouterView } from 'vue-router';
 import { ref, watch } from 'vue';
 
 import type iCharacterData from './interfaces/iCharacterData';
+import { ancestry, ancestryTrait } from './data/ancestriesData';
 
 const blankCharacterData: iCharacterData = {
   moniker: { name: '', title: '', pronouns: '' },
-  basicInfo: { level: 1, ancestry: null, job: null },
-  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: null },
+  basicInfo: { level: 1, ancestry: ancestry(''), job: null },
+  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', text: '' } },
   derivedStats: {
     bulk: 0,
     agility: 0,
@@ -37,7 +38,7 @@ const selectedCharacterData = ref<iCharacterData>({
   },
   basicInfo: {
     level: 1,
-    ancestry: 'Elf',
+    ancestry: ancestry('Elf'),
     job: 'Equinox',
   },
   chosenStats: {
@@ -45,7 +46,7 @@ const selectedCharacterData = ref<iCharacterData>({
     agility: 0,
     mind: 0,
     magic: 0,
-    ancestryTrait: 'Elven Accuracy',
+    ancestryTrait: ancestryTrait(ancestry('Elf'), 'Elven Accuracy'),
   },
   derivedStats: {
     bulk: 0,
@@ -131,46 +132,133 @@ watch([selectedCharacterData.value], (newData, oldData) => {
         }}) <button @click="toggleEdit.moniker = !toggleEdit.moniker">📝</button>
       </h1>
       <div id="charsheet-moniker-edit" v-if="toggleEdit.moniker">
-        <input v-model="selectedCharacterData.moniker.name" placeholder="name" />
-        <input v-model="selectedCharacterData.moniker.title" placeholder="title" />
-        <input v-model="selectedCharacterData.moniker.pronouns" placeholder="pronouns" />
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Pronouns</th>
+          </tr>
+          <tr>
+            <td>
+              <input v-model="selectedCharacterData.moniker.name" placeholder="name" />
+            </td>
+            <td>
+              <input v-model="selectedCharacterData.moniker.title" placeholder="title" />
+            </td>
+            <td>
+              <input v-model="selectedCharacterData.moniker.pronouns" placeholder="pronouns" />
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div id="charsheet-basicinfo">
       <h2>
         Level {{ selectedCharacterData.basicInfo.level }}
-        {{ selectedCharacterData.basicInfo.ancestry }}
+        {{ selectedCharacterData.basicInfo.ancestry.name }}
         {{ selectedCharacterData.basicInfo.job }}
         <button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
       </h2>
       <div id="charsheet-basicinfo-edit" v-if="toggleEdit.basicinfo">
-        <input v-model="selectedCharacterData.basicInfo.level" placeholder="level" />
-        <input v-model="selectedCharacterData.basicInfo.ancestry" />
-        <input v-model="selectedCharacterData.basicInfo.job" />
+        <table>
+          <tr>
+            <th>Level</th>
+            <th>Ancestry</th>
+            <th>Ancestry Trait</th>
+            <th>Job</th>
+          </tr>
+          <tr>
+            <td>
+              <input
+                id="level-input"
+                type="number"
+                min="1"
+                max="12"
+                v-model="selectedCharacterData.basicInfo.level"
+              />
+            </td>
+            <td>
+              <input placeholder="ancestry" />
+            </td>
+            <td>
+              <input placeholder="ancestryTrait" />
+            </td>
+            <td>
+              <input v-model="selectedCharacterData.basicInfo.job" />
+            </td>
+          </tr>
+        </table>
+        <!-- TODO: change to dropdown -->
       </div>
     </div>
     <div id="charsheet-bamm">
-      <label for="input-bulk">Bulk</label>
-      <input id="input-bulk" type="number" v-model="selectedCharacterData.chosenStats.bulk" />
-      <label for="input-agility">Agility</label>
-      <input id="input-agility" type="number" v-model="selectedCharacterData.chosenStats.agility" />
-      <label for="input-mind">Mind</label>
-      <input id="input-mind" type="number" v-model="selectedCharacterData.chosenStats.mind" />
-      <label for="input-magic">Magic</label>
-      <input id="input-magic" type="number" v-model="selectedCharacterData.chosenStats.magic" />
+      <table>
+        <tr>
+          <th>Bulk</th>
+          <th>Agility</th>
+          <th>Mind</th>
+          <th>Magic</th>
+        </tr>
+        <tr>
+          <td>
+            <input
+              id="input-bulk"
+              type="number"
+              min="1"
+              max="6"
+              v-model="selectedCharacterData.chosenStats.bulk"
+            />
+          </td>
+          <td>
+            <input
+              id="input-agility"
+              type="number"
+              min="1"
+              max="6"
+              v-model="selectedCharacterData.chosenStats.agility"
+            />
+          </td>
+          <td>
+            <input
+              id="input-mind"
+              type="number"
+              min="1"
+              max="6"
+              v-model="selectedCharacterData.chosenStats.mind"
+            />
+          </td>
+          <td>
+            <input
+              id="input-magic"
+              type="number"
+              min="1"
+              max="6"
+              v-model="selectedCharacterData.chosenStats.magic"
+            />
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
 
 <style scoped>
-label {
-  padding-left: 5px;
-  padding-right: 15px;
+th {
+  border: 1px solid black;
+  background-color: aliceblue;
+  width: 200px;
+}
+td {
+  border: 1px solid black;
+}
+
+input {
+  width: 100%;
 }
 
 #navbar {
   width: 100%;
-  background-color: aquamarine;
+  background-color: skyblue;
   padding-left: 1rem;
   margin-bottom: 3em;
   border-bottom-right-radius: 3em;
