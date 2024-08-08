@@ -18,23 +18,23 @@ interface iChosenStats {
   ancestryTrait: any; //TODO: should be custom interface
 }
 
-interface iDerivedStats {
-  bulk: number;
-  agility: number;
-  mind: number;
-  magic: number;
-  size: number;
-  grit: number;
-  scope: number;
-  memory: number;
-  saveTarget: number;
-  hp: number;
-  stress: number;
-  mp: number;
-  recoveries: number;
-  speed: number;
-  dodge: number;
-  adef: number;
+export interface iDerivedStats {
+  bulk?: number;
+  agility?: number;
+  mind?: number;
+  magic?: number;
+  size?: number;
+  grit?: number;
+  scope?: number;
+  memory?: number;
+  saveTarget?: number;
+  hp?: number;
+  stress?: number;
+  mp?: number;
+  recoveries?: number;
+  speed?: number;
+  dodge?: number;
+  adef?: number;
 }
 
 export default interface iCharacterData {
