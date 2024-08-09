@@ -25,6 +25,16 @@ function recalculateStats() {
   chosenCharData.value.derivedStats.size = chosenCharData.value.basicInfo.ancestry.size;
 
   //get baseline from jobs
+  chosenCharData.value.derivedStats.scope = chosenCharData.value.basicInfo.job.baseStats.scope;
+  chosenCharData.value.derivedStats.saveTarget = chosenCharData.value.basicInfo.job.baseStats.saveTarget;
+  chosenCharData.value.derivedStats.hp = chosenCharData.value.basicInfo.job.baseStats.hp;
+  chosenCharData.value.derivedStats.recoveries = chosenCharData.value.basicInfo.job.baseStats.recoveries;
+  chosenCharData.value.derivedStats.dodge = chosenCharData.value.basicInfo.job.baseStats.dodge;
+  chosenCharData.value.derivedStats.speed = chosenCharData.value.basicInfo.job.baseStats.speed;
+  chosenCharData.value.derivedStats.stress = chosenCharData.value.basicInfo.job.baseStats.stress;
+  chosenCharData.value.derivedStats.memory = chosenCharData.value.basicInfo.job.baseStats.memory;
+  chosenCharData.value.derivedStats.adef = chosenCharData.value.basicInfo.job.baseStats.adef;
+  chosenCharData.value.derivedStats.mp = chosenCharData.value.basicInfo.job.baseStats.mp;
 
   //get extra stuff from jobs
 
@@ -42,6 +52,9 @@ function recalculateStats() {
   //get weapons
   //get supports
   //get techniques
+
+  //print new charData
+  console.log(chosenCharData.value);
 }
 
 function setAncestryTrait(newAncestryTraitName: string) {
@@ -49,7 +62,7 @@ function setAncestryTrait(newAncestryTraitName: string) {
 }
 
 //recalculate stats whenever data changes
-watch([chosenCharData.value], (newData, oldData) => {
+watch([chosenCharData.value.basicInfo, chosenCharData.value.chosenStats], (newData, oldData) => {
   recalculateStats();
 });
 </script>
@@ -132,7 +145,6 @@ watch([chosenCharData.value], (newData, oldData) => {
               />
             </td>
             <td>
-              <!-- <input v-model="chosenCharData.basicInfo.job.name" /> -->
               <JobSelect
                 @set-job="
                   (jobName) => {
@@ -140,7 +152,6 @@ watch([chosenCharData.value], (newData, oldData) => {
                   }
                 "
               />
-              <!-- TODO: make a JobSelect -->
             </td>
           </tr>
         </table>
