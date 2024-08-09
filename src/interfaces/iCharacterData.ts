@@ -54,7 +54,7 @@ export interface iCharacterData {
 
 export const blankCharData: iCharacterData = {
   moniker: { name: '', title: '', pronouns: '' },
-  basicInfo: { level: 1, ancestry: ancestry(''), job: null },
+  basicInfo: { level: 1, ancestry: ancestry(''), job: job('') },
   chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', type: featureType.trait, text: '' } },
   derivedStats: {
     bulk: 0,
