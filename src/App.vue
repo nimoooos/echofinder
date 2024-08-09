@@ -77,7 +77,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
         <button @click="toggleEdit.moniker = !toggleEdit.moniker">📝</button>
       </h1>
       <div id="charsheet-moniker-edit" v-if="toggleEdit.moniker">
-        <table>
+        <table id="charsheet-moniker-table">
           <tr>
             <th>Name</th>
             <th>Title</th>
@@ -103,7 +103,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
         <button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
       </h2>
       <div id="charsheet-basicinfo-edit" v-if="toggleEdit.basicinfo">
-        <table>
+        <table id="charsheet-basicinfo-table">
           <tr>
             <th>Level</th>
             <th>Ancestry</th>
@@ -140,7 +140,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </div>
     </div>
     <div id="charsheet-bamm">
-      <table>
+      <table id="charsheet-bamm-table">
         <tr>
           <th>Bulk</th>
           <th>Agility</th>
