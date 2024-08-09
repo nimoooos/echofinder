@@ -4,8 +4,10 @@ import { ref, watch } from 'vue';
 
 import { type iCharacterData, blankCharData, defaultCharData } from './interfaces/iCharacterData';
 import { ancestry, ancestryTrait } from './data/ancestriesData';
+import { job } from './data/jobsData';
 import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
 import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
+import JobSelect from './components/CharacterCreator/jobSelect.vue';
 
 const chosenCharData = ref<iCharacterData>(defaultCharData);
 
@@ -130,8 +132,15 @@ watch([chosenCharData.value], (newData, oldData) => {
               />
             </td>
             <td>
-              <input v-model="chosenCharData.basicInfo.job.name" />
-              <!-- TODO: make a JobTraitSelect -->
+              <!-- <input v-model="chosenCharData.basicInfo.job.name" /> -->
+              <JobSelect
+                @set-job="
+                  (jobName) => {
+                    chosenCharData.basicInfo.job = job(jobName);
+                  }
+                "
+              />
+              <!-- TODO: make a JobSelect -->
             </td>
           </tr>
         </table>
