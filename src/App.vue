@@ -8,6 +8,7 @@ import { job } from './data/jobsData';
 import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
 import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
 import JobSelect from './components/CharacterCreator/jobSelect.vue';
+import NavBar from './components/NavBar/NavBar.vue';
 
 const chosenCharData = ref<iCharacterData>(defaultCharData);
 
@@ -68,22 +69,7 @@ watch([chosenCharData.value.basicInfo, chosenCharData.value.chosenStats], (newDa
 </script>
 
 <template>
-  <header>
-    <div id="navbar">
-      <h1 id="title">EchoFinder</h1>
-      <ul>
-        <li>About EchoFinder</li>
-        <li>Beacon RPG</li>
-        <li>@nimoooos</li>
-      </ul>
-    </div>
-    <div class="wrapper">
-      <!-- <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav> -->
-    </div>
-  </header>
+  <NavBar />
   <div id="charsheet">
     <div id="charsheet-moniker">
       <h1 id="moniker-summary">
@@ -206,35 +192,6 @@ select {
   border: 0;
   background-color: var(--color-background-soft);
   color: var(--color-text);
-}
-
-#navbar {
-  width: 100%;
-  background-color: var(--color-accent-bold);
-  padding-left: 1rem;
-  margin-bottom: 3em;
-  border-bottom-right-radius: 3em;
-  border: 9px double var(--color-background);
-}
-
-#navbar #title {
-  color: var(--color-background-soft);
-  font-weight: 600;
-  display: inline-block;
-}
-
-#navbar ul {
-  display: inline-block;
-}
-
-#navbar li {
-  display: inline-block;
-  padding: 1rem;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
 }
 
 button {
