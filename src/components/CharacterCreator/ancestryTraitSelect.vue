@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type iTrait from '@/interfaces/iTraits';
+import { type iTrait } from '@/interfaces/iFeature';
 
 const props = defineProps<{
   traits: iTrait[];

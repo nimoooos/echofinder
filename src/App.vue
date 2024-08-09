@@ -2,80 +2,14 @@
 import { RouterLink, RouterView } from 'vue-router';
 import { ref, watch } from 'vue';
 
-import type iCharacterData from './interfaces/iCharacterData';
+import { type iCharacterData, blankCharData, defaultCharData } from './interfaces/iCharacterData';
 import { ancestry, ancestryTrait } from './data/ancestriesData';
+import { job } from './data/jobsData';
 import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
 import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
+import JobSelect from './components/CharacterCreator/jobSelect.vue';
 
-const blankCharData: iCharacterData = {
-  moniker: { name: '', title: '', pronouns: '' },
-  basicInfo: { level: 1, ancestry: ancestry(''), job: null },
-  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', text: '' } },
-  derivedStats: {
-    bulk: 0,
-    agility: 0,
-    mind: 0,
-    magic: 0,
-    size: 0,
-    grit: 0,
-    scope: 0,
-    memory: 0,
-    saveTarget: 0,
-    hp: 0,
-    stress: 0,
-    mp: 0,
-    recoveries: 0,
-    speed: 0,
-    dodge: 0,
-    adef: 0,
-  },
-  loadout: null,
-};
-const chosenCharData = ref<iCharacterData>({
-  moniker: {
-    name: 'Dhalia',
-    title: 'the All-Knowing',
-    pronouns: 'she/her',
-  },
-  basicInfo: {
-    level: 1,
-    ancestry: ancestry('Elf'),
-    job: 'Equinox',
-  },
-  chosenStats: {
-    bulk: 0,
-    agility: 0,
-    mind: 0,
-    magic: 0,
-    ancestryTrait: ancestryTrait(ancestry('Elf'), 'Elven Accuracy'),
-  },
-  derivedStats: {
-    bulk: 0,
-    agility: 0,
-    mind: 0,
-    magic: 0,
-    size: 1,
-    grit: 1,
-    scope: 12,
-    memory: 8,
-    saveTarget: 12,
-    hp: 7,
-    stress: 6,
-    mp: 5,
-    recoveries: 3,
-    speed: 4,
-    dodge: 6,
-    adef: 11,
-  },
-  loadout: {
-    traits: [],
-    weaponSlots: [],
-    supportSlots: [],
-    techniques: [],
-    talents: [],
-    actions: [],
-  },
-});
+const chosenCharData = ref<iCharacterData>(defaultCharData);
 
 const toggleEdit = ref({
   moniker: false,
@@ -88,8 +22,20 @@ function recalculateStats() {
   chosenCharData.value.derivedStats = blankCharData.derivedStats;
 
   //get size from ancestry
+  chosenCharData.value.derivedStats.size = chosenCharData.value.basicInfo.ancestry.size;
 
   //get baseline from jobs
+  chosenCharData.value.derivedStats.scope = chosenCharData.value.basicInfo.job.baseStats.scope;
+  chosenCharData.value.derivedStats.saveTarget = chosenCharData.value.basicInfo.job.baseStats.saveTarget;
+  chosenCharData.value.derivedStats.hp = chosenCharData.value.basicInfo.job.baseStats.hp;
+  chosenCharData.value.derivedStats.recoveries = chosenCharData.value.basicInfo.job.baseStats.recoveries;
+  chosenCharData.value.derivedStats.dodge = chosenCharData.value.basicInfo.job.baseStats.dodge;
+  chosenCharData.value.derivedStats.speed = chosenCharData.value.basicInfo.job.baseStats.speed;
+  chosenCharData.value.derivedStats.stress = chosenCharData.value.basicInfo.job.baseStats.stress;
+  chosenCharData.value.derivedStats.memory = chosenCharData.value.basicInfo.job.baseStats.memory;
+  chosenCharData.value.derivedStats.adef = chosenCharData.value.basicInfo.job.baseStats.adef;
+  chosenCharData.value.derivedStats.mp = chosenCharData.value.basicInfo.job.baseStats.mp;
+
   //get extra stuff from jobs
 
   //get extra stuff from ancestry
@@ -106,6 +52,9 @@ function recalculateStats() {
   //get weapons
   //get supports
   //get techniques
+
+  //print new charData
+  console.log(chosenCharData.value);
 }
 
 function setAncestryTrait(newAncestryTraitName: string) {
@@ -113,7 +62,7 @@ function setAncestryTrait(newAncestryTraitName: string) {
 }
 
 //recalculate stats whenever data changes
-watch([chosenCharData.value], (newData, oldData) => {
+watch([chosenCharData.value.basicInfo, chosenCharData.value.chosenStats], (newData, oldData) => {
   recalculateStats();
 });
 </script>
@@ -121,7 +70,12 @@ watch([chosenCharData.value], (newData, oldData) => {
 <template>
   <header>
     <div id="navbar">
-      <h1>EchoFinder</h1>
+      <h1 id="title">EchoFinder</h1>
+      <ul>
+        <li>About EchoFinder</li>
+        <li>Beacon RPG</li>
+        <li>@nimoooos</li>
+      </ul>
     </div>
     <div class="wrapper">
       <!-- <nav>
@@ -159,7 +113,7 @@ watch([chosenCharData.value], (newData, oldData) => {
     </div>
     <div id="charsheet-basicinfo">
       <h2 id="basicinfo-summary">
-        Level {{ chosenCharData.basicInfo.level }} {{ chosenCharData.basicInfo.ancestry.name }} {{ chosenCharData.basicInfo.job }}
+        Level {{ chosenCharData.basicInfo.level }} {{ chosenCharData.basicInfo.ancestry.name }} {{ chosenCharData.basicInfo.job.name }}
         <button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
       </h2>
       <div id="charsheet-basicinfo-edit" v-if="toggleEdit.basicinfo">
@@ -191,11 +145,16 @@ watch([chosenCharData.value], (newData, oldData) => {
               />
             </td>
             <td>
-              <input v-model="chosenCharData.basicInfo.job" />
+              <JobSelect
+                @set-job="
+                  (jobName) => {
+                    chosenCharData.basicInfo.job = job(jobName);
+                  }
+                "
+              />
             </td>
           </tr>
         </table>
-        <!-- TODO: change to dropdown -->
       </div>
     </div>
     <div id="charsheet-bamm">
@@ -228,13 +187,16 @@ watch([chosenCharData.value], (newData, oldData) => {
 <style scoped>
 th {
   border: 1px solid var(--color-border);
+  border-top-right-radius: 1rem;
   background-color: var(--color-accent);
   color: var(--color-text);
   width: 200px;
 }
 td {
-  border: 1px solid black;
-  padding: 0;
+  border: 1px solid var(--color-border);
+  border-bottom-right-radius: 1rem;
+  background-color: var(--color-background-soft);
+  padding: 0 1rem;
 }
 
 input,
@@ -242,22 +204,32 @@ select {
   width: 100%;
   height: 100%;
   border: 0;
-  background-color: var(--color-background);
+  background-color: var(--color-background-soft);
   color: var(--color-text);
 }
 
 #navbar {
   width: 100%;
-  background-color: skyblue;
+  background-color: var(--color-accent-bold);
   padding-left: 1rem;
   margin-bottom: 3em;
   border-bottom-right-radius: 3em;
   border: 9px double var(--color-background);
 }
 
-#navbar h1 {
-  color: white;
+#navbar #title {
+  color: var(--color-background-soft);
   font-weight: 600;
+  display: inline-block;
+}
+
+#navbar ul {
+  display: inline-block;
+}
+
+#navbar li {
+  display: inline-block;
+  padding: 1rem;
 }
 
 header {

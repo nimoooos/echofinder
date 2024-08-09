@@ -1,4 +1,4 @@
-import type iTrait from './iTraits';
+import type { iTrait } from './iFeature';
 
 export default interface iAncestry {
   name: string;
