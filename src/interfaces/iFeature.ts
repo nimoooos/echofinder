@@ -1,7 +1,9 @@
 import type { iDerivedStats } from './iCharacterData';
 
-// this covers traits, weapons, support items, and actions
-export enum feature {
+/**
+ * used for feature type
+ */
+export enum featureType {
   trait,
   weapon,
   supportItem,
@@ -10,7 +12,7 @@ export enum feature {
 
 export interface iFeature {
   name: string;
-  type: feature;
+  type: featureType;
   text: string;
 }
 
