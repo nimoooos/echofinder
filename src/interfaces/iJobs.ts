@@ -9,7 +9,7 @@ export enum jobClass {
   Support,
 }
 
-export default interface iJobs {
+export default interface iJob {
   name: string;
   class: jobClass[];
   baseStats: iDerivedStats;

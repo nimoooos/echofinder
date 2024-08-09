@@ -1,8 +1,8 @@
 import { featureType } from '@/interfaces/iFeature';
-import type iJobs from '@/interfaces/iJobs';
+import type iJob from '@/interfaces/iJobs';
 import { jobClass } from '@/interfaces/iJobs';
 
-export const jobsData: iJobs[] = [
+export const jobsData: iJob[] = [
   {
     name: 'Assassin',
     class: [jobClass.Striker],
@@ -54,7 +54,7 @@ export const jobsData: iJobs[] = [
         name: 'Day/Night Cycle',
         type: featureType.trait,
         text: "You have two special resources - Sun and Moon - that each start at 0. You can only have one of these resources at a time, and they reset to 0 at the end of each combat scene. \n Sun and Moon have the following effects: \n\t* Sun: For each Sun you have, your AOE spells and artifact weapons gain +1 to their AOEs (Line AOEs have their width increased by +1, instead); however, you must spend +1 MP each time you use one of these spells or weapons. If you can't, you immediately lose all Sun. \n\t* Moon: For each Moon you have, your Scope and Range with artifact weapons and spells that have a Range increase by +4; however, you take 1 Stress each time you target something with a spell or artifact weapon attack beyond your normal Scope or the weapon's Range.",
-        action: null, //TODO: add Day/Night Cycle Minor Action
+        gainedAction: null, //TODO: add Day/Night Cycle Minor Action
       },
       {
         name: 'Mage Tower',
@@ -67,3 +67,21 @@ export const jobsData: iJobs[] = [
     limitBreak: null, //TODO: add Equinox Limit Break
   },
 ];
+
+export function job(jobName: string): iJob {
+  let output: iJob = {
+    name: '',
+    class: [],
+    baseStats: {},
+    jobTraits: [],
+    weaponSlots: [],
+    supportSlots: [],
+    limitBreak: undefined,
+  };
+  jobsData.map((jobData) => {
+    if (jobData.name === jobName) {
+      output = jobData;
+    }
+  });
+  return output;
+}

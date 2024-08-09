@@ -2,6 +2,8 @@ import { ancestry, ancestryTrait } from '@/data/ancestriesData';
 import type iAncestry from './iAncestry';
 import type { iTrait } from './iFeature';
 import { featureType } from './iFeature';
+import type iJob from './iJobs';
+import { job } from '@/data/jobsData';
 
 interface iMoniker {
   name: string;
@@ -12,7 +14,7 @@ interface iMoniker {
 interface iBasicInfo {
   level: number;
   ancestry: iAncestry;
-  job: any; //TODO: should be custom interface
+  job: iJob;
 }
 
 interface iChosenStats {
@@ -84,7 +86,7 @@ export const defaultCharData: iCharacterData = {
   basicInfo: {
     level: 1,
     ancestry: ancestry('Elf'),
-    job: 'Equinox',
+    job: job('Equinox'),
   },
   chosenStats: {
     bulk: 0,

@@ -98,7 +98,7 @@ watch([chosenCharData.value], (newData, oldData) => {
     </div>
     <div id="charsheet-basicinfo">
       <h2 id="basicinfo-summary">
-        Level {{ chosenCharData.basicInfo.level }} {{ chosenCharData.basicInfo.ancestry.name }} {{ chosenCharData.basicInfo.job }}
+        Level {{ chosenCharData.basicInfo.level }} {{ chosenCharData.basicInfo.ancestry.name }} {{ chosenCharData.basicInfo.job.name }}
         <button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
       </h2>
       <div id="charsheet-basicinfo-edit" v-if="toggleEdit.basicinfo">
@@ -130,11 +130,11 @@ watch([chosenCharData.value], (newData, oldData) => {
               />
             </td>
             <td>
-              <input v-model="chosenCharData.basicInfo.job" />
+              <input v-model="chosenCharData.basicInfo.job.name" />
+              <!-- TODO: make a JobTraitSelect -->
             </td>
           </tr>
         </table>
-        <!-- TODO: change to dropdown -->
       </div>
     </div>
     <div id="charsheet-bamm">

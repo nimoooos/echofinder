@@ -1,5 +1,5 @@
 import type iAncestry from '@/interfaces/iAncestry';
-import type iTrait from '@/interfaces/iTraits';
+import { type iTrait, featureType } from '@/interfaces/iFeature';
 
 export function ancestry(ancestryName: string): iAncestry {
   let output: iAncestry = {
@@ -20,6 +20,7 @@ export function ancestry(ancestryName: string): iAncestry {
 export function ancestryTrait(ancestry: iAncestry, traitname: string): iTrait {
   let output: iTrait = {
     name: '',
+    type: featureType.trait,
     text: '',
   };
 
@@ -39,21 +40,25 @@ export const ancestriesData: iAncestry[] = [
     traits: [
       {
         name: 'Flight',
+        type: featureType.trait,
         text: 'You have flight.',
       },
       {
         name: 'Get the Flock Outta There',
+        type: featureType.trait,
         text: 'You gain the "Get the Flock Outta There" reaction, which is equipped for free.',
-        action: null, //TODO: GtFOT reaction
+        gainedAction: null, //TODO: GtFOT reaction
       },
       {
         name: 'Flock Tactics',
+        type: featureType.trait,
         text: '1/round, you gain +1 ACC on a melee attack roll if one of your allies is adjacent to the target.',
       },
       {
         name: 'Gust',
+        type: featureType.trait,
         text: 'You gain the Gust spell, which is equipped for free.',
-        action: null, //TODO: Gust spell
+        gainedAction: null, //TODO: Gust spell
       },
     ],
   },
@@ -63,15 +68,18 @@ export const ancestriesData: iAncestry[] = [
     traits: [
       {
         name: 'Elven Accuracy',
+        type: featureType.trait,
         text: '1/round when you use the Reroll Table for an attack roll, you can roll an additional d20 on the attack and use either result.',
       },
       {
         name: 'Nature Step',
+        type: featureType.trait,
         text: 'You ignore movement penalties from difficult terrain, and gain +1 ACC on dangerous terrain checks.',
-        action: null, //TODO: Nature Step minor action
+        gainedAction: null, //TODO: Nature Step minor action
       },
       {
         name: 'Fast Movement',
+        type: featureType.trait,
         text: 'You gain +1 SPEED.',
         statBonus: {
           speed: 1,
@@ -79,19 +87,15 @@ export const ancestriesData: iAncestry[] = [
       },
       {
         name: 'Fey Step',
+        type: featureType.trait,
         text: 'You gain the "Fey Step" free action, which is equipped for free.',
-        action: null, //TODO: Fey Step free action
+        gainedAction: null, //TODO: Fey Step free action
       },
     ],
   },
 ];
 
 // export const ancestriesData = {
-//   Avian: {
-//     name: 'Avian',
-//     size: 1,
-//     traits: ['Flight', 'Get the Flock Outta There', 'Flock Tactics', 'Gust'],
-//   },
 //   Cambion: {
 //     name: 'Cambion',
 //     size: 1,
@@ -111,11 +115,6 @@ export const ancestriesData: iAncestry[] = [
 //     name: 'Elemental',
 //     size: 1,
 //     traits: ['Energy Resistance', 'Energy Aura', 'Elemental Nova', 'Elemental Form'],
-//   },
-//   Elf: {
-//     name: 'Elf',
-//     size: 1,
-//     traits: ['Elven Accuracy', 'Nature Step', 'Fast Movement', 'Fey Step'],
 //   },
 //   Gigan: {
 //     name: 'Gigan',
