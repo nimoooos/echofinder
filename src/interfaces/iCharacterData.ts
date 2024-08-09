@@ -1,4 +1,4 @@
-import { ancestry } from '@/data/ancestriesData';
+import { ancestry, ancestryTrait } from '@/data/ancestriesData';
 import type iAncestry from './iAncestry';
 import type iTrait from './iTraits';
 
@@ -72,4 +72,50 @@ export const blankCharData: iCharacterData = {
     adef: 0,
   },
   loadout: null,
+};
+
+export const defaultCharData: iCharacterData = {
+  moniker: {
+    name: 'Dhalia',
+    title: 'the All-Knowing',
+    pronouns: 'she/her',
+  },
+  basicInfo: {
+    level: 1,
+    ancestry: ancestry('Elf'),
+    job: 'Equinox',
+  },
+  chosenStats: {
+    bulk: 0,
+    agility: 0,
+    mind: 0,
+    magic: 0,
+    ancestryTrait: ancestryTrait(ancestry('Elf'), 'Elven Accuracy'),
+  },
+  derivedStats: {
+    bulk: 0,
+    agility: 0,
+    mind: 0,
+    magic: 0,
+    size: 1,
+    grit: 1,
+    scope: 12,
+    memory: 8,
+    saveTarget: 12,
+    hp: 7,
+    stress: 6,
+    mp: 5,
+    recoveries: 3,
+    speed: 4,
+    dodge: 6,
+    adef: 11,
+  },
+  loadout: {
+    traits: [],
+    weaponSlots: [],
+    supportSlots: [],
+    techniques: [],
+    talents: [],
+    actions: [],
+  },
 };

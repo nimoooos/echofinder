@@ -2,56 +2,12 @@
 import { RouterLink, RouterView } from 'vue-router';
 import { ref, watch } from 'vue';
 
-import { type iCharacterData, blankCharData } from './interfaces/iCharacterData';
+import { type iCharacterData, blankCharData, defaultCharData } from './interfaces/iCharacterData';
 import { ancestry, ancestryTrait } from './data/ancestriesData';
 import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
 import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
 
-const chosenCharData = ref<iCharacterData>({
-  moniker: {
-    name: 'Dhalia',
-    title: 'the All-Knowing',
-    pronouns: 'she/her',
-  },
-  basicInfo: {
-    level: 1,
-    ancestry: ancestry('Elf'),
-    job: 'Equinox',
-  },
-  chosenStats: {
-    bulk: 0,
-    agility: 0,
-    mind: 0,
-    magic: 0,
-    ancestryTrait: ancestryTrait(ancestry('Elf'), 'Elven Accuracy'),
-  },
-  derivedStats: {
-    bulk: 0,
-    agility: 0,
-    mind: 0,
-    magic: 0,
-    size: 1,
-    grit: 1,
-    scope: 12,
-    memory: 8,
-    saveTarget: 12,
-    hp: 7,
-    stress: 6,
-    mp: 5,
-    recoveries: 3,
-    speed: 4,
-    dodge: 6,
-    adef: 11,
-  },
-  loadout: {
-    traits: [],
-    weaponSlots: [],
-    supportSlots: [],
-    techniques: [],
-    talents: [],
-    actions: [],
-  },
-});
+const chosenCharData = ref<iCharacterData>(defaultCharData);
 
 const toggleEdit = ref({
   moniker: false,
