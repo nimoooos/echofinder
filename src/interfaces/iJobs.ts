@@ -1,5 +1,5 @@
 import type { iDerivedStats } from './iCharacterData';
-import type iTrait from './iTraits';
+import type { iTrait } from './iFeature';
 
 export enum jobClass {
   Artillery,
