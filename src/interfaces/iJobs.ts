@@ -1,0 +1,20 @@
+import type { iDerivedStats } from './iCharacterData';
+import type iTrait from './iTraits';
+
+export enum jobClass {
+  Artillery,
+  Controller,
+  Defender,
+  Striker,
+  Support,
+}
+
+export default interface iJobs {
+  name: string;
+  class: jobClass[];
+  baseStats: iDerivedStats;
+  jobTraits: iTrait[];
+  weaponSlots: any[]; //TODO: make iWeapon
+  supportSlots: any[]; //TODO: make iSupport
+  limitBreak: any; //TODO: make iAction
+}
