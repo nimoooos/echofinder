@@ -2,35 +2,11 @@
 import { RouterLink, RouterView } from 'vue-router';
 import { ref, watch } from 'vue';
 
-import type iCharacterData from './interfaces/iCharacterData';
+import { type iCharacterData, blankCharData } from './interfaces/iCharacterData';
 import { ancestry, ancestryTrait } from './data/ancestriesData';
 import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
 import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
 
-const blankCharData: iCharacterData = {
-  moniker: { name: '', title: '', pronouns: '' },
-  basicInfo: { level: 1, ancestry: ancestry(''), job: null },
-  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', text: '' } },
-  derivedStats: {
-    bulk: 0,
-    agility: 0,
-    mind: 0,
-    magic: 0,
-    size: 0,
-    grit: 0,
-    scope: 0,
-    memory: 0,
-    saveTarget: 0,
-    hp: 0,
-    stress: 0,
-    mp: 0,
-    recoveries: 0,
-    speed: 0,
-    dodge: 0,
-    adef: 0,
-  },
-  loadout: null,
-};
 const chosenCharData = ref<iCharacterData>({
   moniker: {
     name: 'Dhalia',
@@ -88,8 +64,10 @@ function recalculateStats() {
   chosenCharData.value.derivedStats = blankCharData.derivedStats;
 
   //get size from ancestry
+  chosenCharData.value.derivedStats.size = chosenCharData.value.basicInfo.ancestry.size;
 
   //get baseline from jobs
+
   //get extra stuff from jobs
 
   //get extra stuff from ancestry
