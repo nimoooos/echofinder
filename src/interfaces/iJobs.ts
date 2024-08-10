@@ -1,3 +1,4 @@
+import type { iAction } from './iAction';
 import type { iDerivedStats } from './iCharacterData';
 import type { iSupport, iTrait, iWeapon } from './iItem';
 
@@ -16,5 +17,5 @@ export default interface iJob {
   jobTraits: iTrait[];
   weaponSlots: iWeapon[];
   supportSlots: iSupport[];
-  limitBreak: any; //TODO: make iAction
+  limitBreak: iAction;
 }
