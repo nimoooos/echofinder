@@ -21,9 +21,36 @@ interface iItem extends iFeature {
   actionType?: actionType;
 }
 
+export enum rangeType {
+  range,
+  reach,
+  blast,
+  closeBlast,
+  burst,
+  line,
+}
+
+export interface iRange {
+  rangeType: rangeType;
+  amount: number | 'scope';
+}
+
+export enum damageType {
+  physical,
+  force,
+  astral,
+  lunar,
+  discord,
+}
+
+export interface iDamage {
+  damageType: damageType;
+  amount: number;
+}
+
 export interface iAttackProfile {
-  range: any; //TODO: create iRange. Should be reach, range, line, blast, close blast, burst, etc. and number or "scope".
-  damage: string; //TODO: make iDamage for damage amount and type
+  range: iRange;
+  damage: iDamage;
 }
 
 export interface iTrait extends iFeature {
