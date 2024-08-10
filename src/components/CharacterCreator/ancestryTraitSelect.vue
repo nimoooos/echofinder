@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type iEvent from '@/interfaces/iEvent';
-import { type iTrait } from '@/interfaces/iFeature';
+import type { iTrait } from '@/interfaces/iItem';
 
 const props = defineProps<{
   traits: iTrait[];

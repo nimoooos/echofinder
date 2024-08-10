@@ -1,3 +1,4 @@
+import { actionType, phase } from '@/interfaces/iAction';
 import { featureType } from '@/interfaces/iFeature';
 import type iJob from '@/interfaces/iJobs';
 import { jobClass } from '@/interfaces/iJobs';
@@ -76,7 +77,13 @@ export function job(jobName: string): iJob {
     jobTraits: [],
     weaponSlots: [],
     supportSlots: [],
-    limitBreak: undefined,
+    limitBreak: {
+      actionType: actionType.none,
+      phase: phase.any,
+      name: '',
+      type: featureType.action,
+      text: '',
+    },
   };
   jobsData.map((jobData) => {
     if (jobData.name === jobName) {

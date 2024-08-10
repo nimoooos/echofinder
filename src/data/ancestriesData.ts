@@ -1,5 +1,6 @@
 import type iAncestry from '@/interfaces/iAncestry';
-import { type iTrait, featureType } from '@/interfaces/iFeature';
+import { featureType } from '@/interfaces/iFeature';
+import type { iTrait } from '@/interfaces/iItem';
 
 export function ancestry(ancestryName: string): iAncestry {
   let output: iAncestry = {
@@ -47,7 +48,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Get the Flock Outta There',
         type: featureType.trait,
         text: 'You gain the "Get the Flock Outta There" reaction, which is equipped for free.',
-        gainedAction: null, //TODO: GtFOT reaction
+        gainedAction: [], //TODO: GtFOT reaction
       },
       {
         name: 'Flock Tactics',
@@ -58,7 +59,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Gust',
         type: featureType.trait,
         text: 'You gain the Gust spell, which is equipped for free.',
-        gainedAction: null, //TODO: Gust spell
+        gainedAction: [], //TODO: Gust spell
       },
     ],
   },
@@ -75,7 +76,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Nature Step',
         type: featureType.trait,
         text: 'You ignore movement penalties from difficult terrain, and gain +1 ACC on dangerous terrain checks.',
-        gainedAction: null, //TODO: Nature Step minor action
+        gainedAction: [], //TODO: Nature Step minor action
       },
       {
         name: 'Fast Movement',
@@ -89,7 +90,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Fey Step',
         type: featureType.trait,
         text: 'You gain the "Fey Step" free action, which is equipped for free.',
-        gainedAction: null, //TODO: Fey Step free action
+        gainedAction: [], //TODO: Fey Step free action
       },
     ],
   },
