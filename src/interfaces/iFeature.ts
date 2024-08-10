@@ -84,7 +84,7 @@ export interface iFeature {
   type: featureType;
   text: string;
   synergies?: any; //TODO: this is for things like "when you do X..."
-  gainedAction?: any | iFeature[]; //new actions that get granted by this feature //TODO: only iFeature[]
+  gainedAction?: iFeature[]; //new actions that get granted by this feature
   statBonus?: iDerivedStats; //how much stat you gain
 }
 
@@ -113,7 +113,6 @@ export enum itemSize {
  */
 interface iItem extends iFeature {
   type: featureType.weapon | featureType.supportItem | featureType.technique;
-  itemType: any; //TODO: make enum for weapon, support, technique
   tags?: any[]; //TODO: make iTags
   actionType?: actionType;
 }
@@ -128,8 +127,13 @@ export interface iSupport extends iItem {
   supportSize: itemSize;
 }
 
+enum techniqueType {
+  spell,
+  skill,
+}
+
 export interface iTechnique extends iItem {
-  techniqueType: any; //spell or skill?
-  memoryCost: number; //memory cost
+  techniqueType: techniqueType;
+  memoryCost: number;
   attackProfiles?: iAttackProfile[];
 }
