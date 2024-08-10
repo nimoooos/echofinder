@@ -13,11 +13,15 @@ import NavBar from './components/NavBar/NavBar.vue';
 const charData = ref<iCharacterData>(defaultCharData);
 
 const toggleEdit = ref({
-  moniker: false,
-  basicinfo: false,
+  moniker: true,
+  basicinfo: true,
+  bamm: true,
 });
 
-function recalculateStats() {
+/**
+ * calculates stats again each time there's a change
+ */
+function recalculateStats(): void {
   console.log('calculating...');
   //initialize derived stats
   charData.value.derivedStats = blankCharData.derivedStats;
@@ -71,8 +75,21 @@ function recalculateStats() {
   console.log(charData.value);
 }
 
-function setAncestryTrait(newAncestryTraitName: string) {
+/**
+ * sets ancestry trait, called by ancestry trait menu
+ */
+function setAncestryTrait(newAncestryTraitName: string): void {
   charData.value.chosenStats.ancestryTrait = ancestryTrait(charData.value.basicInfo.ancestry, newAncestryTraitName);
+}
+
+function checkBamm(): { caution: boolean; message: string } {
+  let output = { caution: false, message: '' };
+  const bammSum = charData.value.chosenStats.bulk + charData.value.chosenStats.agility + charData.value.chosenStats.mind + charData.value.chosenStats.magic;
+  const bammMax = charData.value.basicInfo.level + 1;
+  output.caution = bammSum != bammMax;
+  output.message = `${bammSum}/${bammMax} pts`;
+
+  return output;
 }
 
 //recalculate stats whenever data changes
@@ -153,7 +170,12 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </div>
     </div>
     <div id="charsheet-bamm">
-      <h3>Ability Scores</h3>
+      <h3 class="table-heading">Ability Scores</h3>
+      <p class="caution" id="bamm-caution" :v-if="checkBamm().caution">
+        {{ checkBamm().message }}
+      </p>
+      <button @click="toggleEdit.bamm = !toggleEdit.bamm">📝</button>
+
       <table id="charsheet-bamm-table">
         <tr>
           <th>Bulk</th>
@@ -161,7 +183,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
           <th>Mind</th>
           <th>Magic</th>
         </tr>
-        <tr>
+        <tr class="middle-row" v-if="toggleEdit.bamm">
           <td>
             <input id="input-bulk" type="number" min="0" max="6" v-model="charData.chosenStats.bulk" />
           </td>
@@ -175,13 +197,6 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
             <input id="input-magic" type="number" min="0" max="6" v-model="charData.chosenStats.magic" />
           </td>
         </tr>
-        <h3>with Modifications</h3>
-        <tr>
-          <th>Bulk</th>
-          <th>Agility</th>
-          <th>Mind</th>
-          <th>Magic</th>
-        </tr>
         <tr>
           <td><input type="number" disabled v-model="charData.derivedStats.bulk" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.agility" /></td>
@@ -191,7 +206,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </table>
     </div>
     <div id="charsheet-derivedstats">
-      <h3>Derived Stats</h3>
+      <h3 class="table-heading">Attributes</h3>
       <table id="charsheet-derivedstats-table">
         <tr>
           <th>Size</th>
@@ -205,11 +220,13 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
         </tr>
         <tr>
           <th>HP</th>
+          <th>Armor</th>
           <th>Stress Cap</th>
           <th>MP</th>
         </tr>
         <tr>
           <td><input type="number" disabled v-model="charData.derivedStats.hp" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.armor" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.stress" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.mp" /></td>
         </tr>
@@ -235,10 +252,30 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
         </tr>
       </table>
     </div>
+    <div id="charsheet-weapons">
+      <h3>Weapons</h3>
+    </div>
+    <div id="charsheet-supportItems">
+      <h3>Support Items</h3>
+    </div>
+    <div id="charsheet-techniques">
+      <h3>Techniques</h3>
+    </div>
+    <div id="charsheet-talents">
+      <h3>Talents</h3>
+    </div>
   </div>
 </template>
 
 <style scoped>
+h3.table-heading {
+  display: inline-block;
+}
+p.caution {
+  color: var(--color-accent-bold);
+  display: inline-block;
+  margin-left: 1rem;
+}
 th {
   border: 1px solid var(--color-border);
   border-top-right-radius: 1rem;
@@ -252,6 +289,9 @@ td {
   background-color: var(--color-background-soft);
   padding: 0 1rem;
 }
+tr.middle-row td {
+  border-bottom-right-radius: 0rem;
+}
 
 input,
 select {
@@ -260,12 +300,12 @@ select {
   border: 0;
   background-color: var(--color-background-soft);
   color: var(--color-text);
+  text-align: center;
 }
 
 input:disabled {
   -webkit-appearance: none;
   -moz-appearance: textfield;
-  text-align: center;
 }
 
 button {
