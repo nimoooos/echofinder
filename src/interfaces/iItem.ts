@@ -1,5 +1,7 @@
 import type { actionType } from './iAction';
+import type { iDamage } from './iDamage';
 import type { featureType, iFeature } from './iFeature';
+import type { iRange } from './iRange';
 
 /**
  * For weapons and support items. Light=2, Main=3, Heavy=5. Multiply the primes for linked weapons
@@ -21,46 +23,25 @@ interface iItem extends iFeature {
   actionType?: actionType;
 }
 
-export enum rangeType {
-  range,
-  reach,
-  blast,
-  closeBlast,
-  burst,
-  line,
-}
-
-export interface iRange {
-  rangeType: rangeType;
-  amount: number | 'scope';
-}
-
-export enum damageType {
-  physical,
-  force,
-  astral,
-  lunar,
-  discord,
-}
-
-export interface iDamage {
-  damageType: damageType;
-  amount: number;
-}
-
-export interface iAttackProfile {
-  range: iRange;
-  damage: iDamage;
-}
-
 export interface iTrait extends iFeature {
   type: featureType.trait;
+}
+
+export enum weaponType {
+  artifact,
+  blade,
+  bow,
+  club,
+  longarm,
+  magitech,
+  melee,
+  ranged,
 }
 
 export interface iWeapon extends iItem {
   attackProfiles: iAttackProfile[];
   weaponSize: itemSize;
-  weaponType: any[]; //TODO: iWeaponType for things like melee, ranged, bow, magitech, etc.
+  weaponType: weaponType[];
 }
 
 export interface iSupport extends iItem {
@@ -76,4 +57,9 @@ export interface iTechnique extends iItem {
   techniqueType: techniqueType;
   memoryCost: number;
   attackProfiles?: iAttackProfile[];
+}
+
+export interface iAttackProfile {
+  range?: iRange;
+  damage?: iDamage;
 }
