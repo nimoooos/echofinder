@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { jobsData } from '@/data/jobsData';
+import type iEvent from '@/interfaces/iEvent';
 
 const emit = defineEmits<{
   (e: 'setJob', newJobName: string): string;
@@ -7,7 +8,7 @@ const emit = defineEmits<{
 
 const options = jobsData.map((anc) => anc.name);
 
-function onChange(event: any) {
+function onChange(event: iEvent) {
   let input = event.target.value;
   emit('setJob', input);
 }

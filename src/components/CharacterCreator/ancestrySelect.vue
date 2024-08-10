@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ancestriesData } from '@/data/ancestriesData';
+import type iEvent from '@/interfaces/iEvent';
 
 const emit = defineEmits<{
   (e: 'setAncestry', newAncestryName: string): string;
@@ -7,7 +8,8 @@ const emit = defineEmits<{
 
 const options = ancestriesData.map((anc) => anc.name);
 
-function onChange(event: any) {
+function onChange(event: iEvent) {
+  console.log(event);
   let input = event.target.value;
   emit('setAncestry', input);
 }

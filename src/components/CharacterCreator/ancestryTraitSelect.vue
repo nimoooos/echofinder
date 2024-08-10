@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type iEvent from '@/interfaces/iEvent';
 import { type iTrait } from '@/interfaces/iFeature';
 
 const props = defineProps<{
@@ -11,7 +12,7 @@ const emit = defineEmits<{
 
 let options = props.traits.map((trt) => trt.name);
 
-function onChange(event: any) {
+function onChange(event: iEvent) {
   let input = event.target.value;
   emit('setTrait', input);
 }
