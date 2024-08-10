@@ -1,9 +1,10 @@
 import { ancestry, ancestryTrait } from '@/data/ancestriesData';
 import type iAncestry from './iAncestry';
-import type { iSupport, iTechnique, iTrait, iWeapon } from './iFeature';
 import { featureType } from './iFeature';
 import type iJob from './iJobs';
 import { job } from '@/data/jobsData';
+import type { iAction } from './iAction';
+import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
 
 interface iMoniker {
   name: string;
@@ -55,7 +56,7 @@ export interface iCharacterData {
     supportSlots: iSupport[];
     techniques: iTechnique[];
     talents: any[]; //TODO: make iTalent
-    actions: any[]; //TODO: this becomes a list of all actions
+    actions: iAction[]; //TODO: this becomes a list of all actions
   };
 }
 
