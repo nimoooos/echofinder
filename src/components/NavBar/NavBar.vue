@@ -1,10 +1,16 @@
+<script setup lang="ts">
+import logoGithub from '@/assets/logos/github.png';
+</script>
+
 <template>
   <div id="navbar">
     <h1 id="title">EchoFinder</h1>
     <ul>
       <li>About EchoFinder</li>
       <li><a href="https://pirategonzalezgames.itch.io/beacon-ttrpg">Beacon RPG</a></li>
-      <li>@nimoooos</li>
+      <li>
+        <a href="https://github.com/nimoooos"><img :src="logoGithub" class="logo" />@nimoooos</a>
+      </li>
     </ul>
   </div>
   <div class="wrapper">
@@ -47,6 +53,15 @@ a {
 
 a:hover {
   color: var(--color-text-mute);
+  transition: 0.3s;
+}
+
+.logo {
+  height: 16px;
+  width: 16px;
+}
+
+.logo:hover {
   transition: 0.3s;
 }
 </style>
