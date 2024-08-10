@@ -1,6 +1,6 @@
 import { ancestry, ancestryTrait } from '@/data/ancestriesData';
 import type iAncestry from './iAncestry';
-import type { iTrait } from './iFeature';
+import type { iSupport, iTechnique, iTrait, iWeapon } from './iFeature';
 import { featureType } from './iFeature';
 import type iJob from './iJobs';
 import { job } from '@/data/jobsData';
@@ -49,7 +49,14 @@ export interface iCharacterData {
   basicInfo: iBasicInfo;
   chosenStats: iChosenStats;
   derivedStats: iDerivedStats;
-  loadout: any;
+  loadout: {
+    traits: iTrait[];
+    weaponSlots: iWeapon[];
+    supportSlots: iSupport[];
+    techniques: iTechnique[];
+    talents: any[]; //TODO: make iTalent
+    actions: any[]; //TODO: this becomes a list of all actions
+  };
 }
 
 export const blankCharData: iCharacterData = {
@@ -74,7 +81,14 @@ export const blankCharData: iCharacterData = {
     dodge: 0,
     adef: 0,
   },
-  loadout: null,
+  loadout: {
+    traits: [],
+    weaponSlots: [],
+    supportSlots: [],
+    techniques: [],
+    talents: [],
+    actions: [],
+  },
 };
 
 export const defaultCharData: iCharacterData = {
