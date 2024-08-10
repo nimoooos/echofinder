@@ -140,6 +140,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </div>
     </div>
     <div id="charsheet-bamm">
+      <h3>Ability Scores</h3>
       <table id="charsheet-bamm-table">
         <tr>
           <th>Bulk</th>
@@ -160,6 +161,64 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
           <td>
             <input id="input-magic" type="number" min="0" max="6" v-model="charData.chosenStats.magic" />
           </td>
+        </tr>
+        <h3>with Modifications</h3>
+        <tr>
+          <th>Bulk</th>
+          <th>Agility</th>
+          <th>Mind</th>
+          <th>Magic</th>
+        </tr>
+        <tr>
+          <td><input type="number" disabled v-model="charData.derivedStats.bulk" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.agility" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.mind" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.magic" /></td>
+        </tr>
+      </table>
+    </div>
+    <div id="charsheet-derivedstats">
+      <h3>Derived Stats</h3>
+      <table id="charsheet-derivedstats-table">
+        <tr>
+          <th>Size</th>
+          <th>Grit</th>
+          <th>Recoveries</th>
+        </tr>
+        <tr>
+          <td><input type="number" disabled v-model="charData.derivedStats.size" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.grit" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.recoveries" /></td>
+        </tr>
+        <tr>
+          <th>HP</th>
+          <th>Stress Cap</th>
+          <th>MP</th>
+        </tr>
+        <tr>
+          <td><input type="number" disabled v-model="charData.derivedStats.hp" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.stress" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.mp" /></td>
+        </tr>
+        <tr>
+          <th>Scope</th>
+          <th>Memory</th>
+          <th>Save Target</th>
+        </tr>
+        <tr>
+          <td><input type="number" disabled v-model="charData.derivedStats.scope" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.memory" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.saveTarget" /></td>
+        </tr>
+        <tr>
+          <th>Speed</th>
+          <th>Dodge</th>
+          <th>A-Defense</th>
+        </tr>
+        <tr>
+          <td><input type="number" disabled v-model="charData.derivedStats.speed" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.dodge" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.adef" /></td>
         </tr>
       </table>
     </div>
