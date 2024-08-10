@@ -249,6 +249,12 @@ select {
   color: var(--color-text);
 }
 
+input:disabled {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  text-align: center;
+}
+
 button {
   border: transparent;
   background-color: transparent;
