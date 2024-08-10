@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import logoGithub from '@/assets/logos/github.png';
+import logoItchIo from '@/assets/logos/itchio.png';
 </script>
 
 <template>
@@ -7,7 +8,9 @@ import logoGithub from '@/assets/logos/github.png';
     <h1 id="title">EchoFinder</h1>
     <ul>
       <li>About EchoFinder</li>
-      <li><a href="https://pirategonzalezgames.itch.io/beacon-ttrpg">Beacon RPG</a></li>
+      <li>
+        <a href="https://pirategonzalezgames.itch.io/beacon-ttrpg"><img :src="logoItchIo" class="logo" />Beacon RPG</a>
+      </li>
       <li>
         <a href="https://github.com/nimoooos"><img :src="logoGithub" class="logo" />@nimoooos</a>
       </li>
