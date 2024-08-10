@@ -122,7 +122,7 @@ export const defaultCharData: iCharacterData = {
     mind: 0,
     magic: 0,
     size: 1,
-    grit: 1,
+    grit: 0,
     scope: 12,
     memory: 8,
     saveTarget: 12,

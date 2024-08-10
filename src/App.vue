@@ -37,13 +37,13 @@ function recalculateStats() {
   charData.value.derivedStats.adef = charData.value.basicInfo.job.baseStats.adef;
   charData.value.derivedStats.mp = charData.value.basicInfo.job.baseStats.mp;
 
-  //get extra stuff from jobs
-
-  //get extra stuff from ancestry
-
   //calcaulate derived bamm (mostly reserves)
+  //grit
+  charData.value.derivedStats.grit = Math.floor(charData.value.basicInfo.level / 2);
+
   //calculate bonuses from bamm
 
+  //get stuff from traits
   //get stuff from weapons
   //get stuff from supports
   //get stuff from techniques
