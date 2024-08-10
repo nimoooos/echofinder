@@ -1,3 +1,7 @@
+/**
+ * for weapon, support, or technique
+ */
+
 import type { actionType } from './iAction';
 import type { iDamage } from './iDamage';
 import type { featureType, iFeature } from './iFeature';
@@ -14,12 +18,12 @@ export enum itemSize {
   mainlight = 6,
 }
 
-/**
- * for weapon, support, or technique
- */
 interface iItem extends iFeature {
   type: featureType.weapon | featureType.supportItem | featureType.technique;
-  tags?: any[]; //TODO: make iTags
+  tags?: {
+    name: string;
+    amount?: number;
+  };
   actionType?: actionType;
 }
 
