@@ -26,7 +26,32 @@ interface iChosenStats {
   ancestryTrait: iTrait;
 }
 
+/**
+ * Derived stats after bonuses. All field are required.
+ */
 export interface iDerivedStats {
+  bulk: number;
+  agility: number;
+  mind: number;
+  magic: number;
+  size: number;
+  grit: number;
+  scope: number;
+  memory: number;
+  saveTarget: number;
+  hp: number;
+  stress: number;
+  mp: number;
+  recoveries: number;
+  speed: number;
+  dodge: number;
+  adef: number;
+}
+
+/**
+ * Amount of bonus stats offered by traits, equipment, etc. No fields are required.
+ */
+export interface iStatBonus {
   bulk?: number;
   agility?: number;
   mind?: number;

@@ -1,4 +1,4 @@
-import type { iDerivedStats } from './iCharacterData';
+import type { iStatBonus } from './iCharacterData';
 
 /**
  * Used for feature type. Feature is called "Ability" in game.
@@ -20,5 +20,5 @@ export interface iFeature {
   text: string;
   synergies?: any; //TODO: this is for things like "when you do X..."
   gainedAction?: iFeature[]; //new actions that get granted by this feature
-  statBonus?: iDerivedStats; //how much stat you gain
+  statBonus?: iStatBonus; //how much bonus stats you gain
 }
