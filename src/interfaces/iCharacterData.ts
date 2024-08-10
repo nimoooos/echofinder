@@ -34,9 +34,10 @@ export interface iDerivedStats {
   agility: number;
   mind: number;
   magic: number;
-  size: number;
   grit: number;
+  size: number;
   scope: number;
+  armor: number;
   memory: number;
   saveTarget: number;
   hp: number;
@@ -56,9 +57,10 @@ export interface iStatBonus {
   agility?: number;
   mind?: number;
   magic?: number;
-  size?: number;
   grit?: number;
+  size?: number;
   scope?: number;
+  armor?: number;
   memory?: number;
   saveTarget?: number;
   hp?: number;
@@ -97,8 +99,9 @@ export const blankCharData: iCharacterData = {
     agility: 0,
     mind: 0,
     magic: 0,
-    size: 0,
     grit: 0,
+    size: 0,
+    armor: 0,
     scope: 0,
     memory: 0,
     saveTarget: 0,
@@ -144,27 +147,28 @@ export const defaultCharData: iCharacterData = {
   derivedStats: {
     bulk: 0,
     agility: 0,
-    mind: 0,
-    magic: 0,
+    mind: 1,
+    magic: 1,
     size: 1,
     grit: 0,
     scope: 12,
-    memory: 8,
-    saveTarget: 12,
-    hp: 7,
-    stress: 6,
+    memory: 7,
+    saveTarget: 11,
+    hp: 6,
+    stress: 5,
     mp: 5,
     recoveries: 3,
     speed: 4,
     dodge: 6,
     adef: 11,
+    armor: 0,
   },
   loadout: {
     traits: [],
     weaponSlots: [],
     supportSlots: [],
-    techniques: [],
-    talents: [],
+    techniques: [], //TODO: exobomb, scar
+    talents: [], //TODO: Archmage 1, Enchanter 1, Leyline Walker 1
   },
   features: {
     passives: [],
