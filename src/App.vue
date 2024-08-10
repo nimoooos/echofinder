@@ -38,21 +38,34 @@ function recalculateStats() {
   charData.value.derivedStats.mp = charData.value.basicInfo.job.baseStats.mp;
 
   //calcaulate derived bamm (mostly reserves)
+  charData.value.derivedStats.bulk = charData.value.chosenStats.bulk;
+  charData.value.derivedStats.agility = charData.value.chosenStats.agility;
+  charData.value.derivedStats.mind = charData.value.chosenStats.mind;
+  charData.value.derivedStats.magic = charData.value.chosenStats.magic;
+
   //grit
   charData.value.derivedStats.grit = Math.floor(charData.value.basicInfo.level / 2);
 
   //calculate bonuses from bamm
-
-  //get stuff from traits
-  //get stuff from weapons
-  //get stuff from supports
-  //get stuff from techniques
-  //get stuff from talents
+  charData.value.derivedStats.hp += 2 * charData.value.derivedStats.bulk;
+  charData.value.derivedStats.recoveries += Math.floor(charData.value.derivedStats.bulk / 2);
+  charData.value.derivedStats.dodge += charData.value.derivedStats.agility;
+  charData.value.derivedStats.speed += Math.floor(charData.value.derivedStats.agility / 2);
+  charData.value.derivedStats.stress += charData.value.derivedStats.mind;
+  charData.value.derivedStats.memory += Math.floor(charData.value.derivedStats.mind / 2);
+  charData.value.derivedStats.adef += charData.value.derivedStats.magic;
+  charData.value.derivedStats.mp += Math.floor(charData.value.derivedStats.magic / 2);
 
   //get traits
   //get weapons
   //get supports
   //get techniques
+
+  //get stat bonus from traits
+  //get stat bonus from weapons
+  //get stat bonus from supports
+  //get stat bonus from techniques
+  //get stat bonus from talents
 
   //print new charData
   console.log(charData.value);
