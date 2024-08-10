@@ -13,9 +13,9 @@ import NavBar from './components/NavBar/NavBar.vue';
 const charData = ref<iCharacterData>(defaultCharData);
 
 const toggleEdit = ref({
-  moniker: true,
-  basicinfo: true,
-  bamm: true,
+  moniker: false,
+  basicinfo: false,
+  bamm: false,
 });
 
 /**
@@ -197,7 +197,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
             <input id="input-magic" type="number" min="0" max="6" v-model="charData.chosenStats.magic" />
           </td>
         </tr>
-        <tr>
+        <tr v-if="!toggleEdit.bamm">
           <td><input type="number" disabled v-model="charData.derivedStats.bulk" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.agility" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.mind" /></td>
