@@ -140,8 +140,8 @@ export const defaultCharData: iCharacterData = {
   chosenStats: {
     bulk: 0,
     agility: 0,
-    mind: 0,
-    magic: 0,
+    mind: 1,
+    magic: 1,
     ancestryTrait: ancestryTrait(ancestry('Elf'), 'Elven Accuracy'),
   },
   derivedStats: {
