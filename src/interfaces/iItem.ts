@@ -11,11 +11,11 @@ import type { iRange } from './iRange';
  * For weapons and support items. Light=2, Main=3, Heavy=5. Multiply the primes for linked weapons
  */
 export enum SlotSize {
-  light = 2,
-  main = 3,
-  lightlight = 4,
-  heavy = 5,
-  mainlight = 6,
+  Light = 2,
+  Main = 3,
+  LightLight = 4,
+  Heavy = 5,
+  MainLight = 6,
 }
 
 interface iItem extends iFeature {

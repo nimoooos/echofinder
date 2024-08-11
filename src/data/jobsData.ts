@@ -31,8 +31,8 @@ export const jobsData: iJob[] = [
         text: 'At the end of each of your turns while HIDDEN, you gain 1 Prep, to a maximum of 6. After making an attack roll, you can decide to spend any amount of Prep, adding +1 to the attack roll per Prep. Prep lasts for the rest of the scene or until spent.',
       },
     ],
-    weaponSlots: [SlotSize.light, SlotSize.mainlight],
-    supportSlots: [SlotSize.light, SlotSize.light, SlotSize.main],
+    weaponSlots: [SlotSize.Light, SlotSize.MainLight],
+    supportSlots: [SlotSize.Light, SlotSize.Light, SlotSize.Main],
     limitBreak: {
       name: 'Exterminate',
       type: 'Limit Break',
@@ -73,8 +73,8 @@ export const jobsData: iJob[] = [
         actionData: undefined,
       },
     ],
-    weaponSlots: [SlotSize.main],
-    supportSlots: [SlotSize.light, SlotSize.light],
+    weaponSlots: [SlotSize.Main],
+    supportSlots: [SlotSize.Light, SlotSize.Light],
     limitBreak: {
       name: 'TetraFlare',
       type: 'Limit Break',
