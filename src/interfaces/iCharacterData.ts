@@ -1,6 +1,6 @@
 import { ancestry, ancestryTrait } from '@/data/ancestriesData';
 import type iAncestry from './iAncestry';
-import { featureType, type iFeature } from './iFeature';
+import { featureType } from './iFeature';
 import type iJob from './iJobs';
 import { job } from '@/data/jobsData';
 import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';

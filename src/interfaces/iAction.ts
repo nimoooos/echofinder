@@ -1,5 +1,3 @@
-import type { iFeature } from './iFeature';
-
 export enum actionType {
   none = -1, // for features with no action associated
   stdMove = 0.1,
