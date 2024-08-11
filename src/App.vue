@@ -277,10 +277,12 @@ recalculateStats(); //run it once when things load
     </div>
     <div id="charsheet-supportItems">
       <h3 class="loadout-heading">Support Items</h3>
-      <FeatureCard :feature="feature(license('Assassin'), 'Reaper\'s Shroud')" />
+      <FeatureCard :feature="feature(license('Assassin'), 'Reaper\'s Shroud')" /> <FeatureCard :feature="feature(license('Assassin'), 'Poisoner\'s Kit')" />
     </div>
     <div id="charsheet-techniques">
       <h3 class="loadout-heading">Techniques</h3>
+      <FeatureCard :feature="feature(license('Equinox'), 'Exobomb')" />
+      <FeatureCard :feature="feature(license('Equinox'), 'Scar')" />
       <FeatureCard :feature="feature(license('Assassin'), 'Death Strike')" />
     </div>
     <div id="charsheet-talents">
