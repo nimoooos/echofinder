@@ -133,7 +133,7 @@ setTags();
 table {
   width: 370px;
   padding: 1px;
-  margin: 10px;
+  margin-right: 10px;
 }
 
 th {
