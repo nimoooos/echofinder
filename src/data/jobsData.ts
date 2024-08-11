@@ -7,7 +7,7 @@ import { jobClass } from '@/interfaces/iJobs';
 export const jobsData: iJob[] = [
   {
     name: 'Assassin',
-    class: [jobClass.Striker],
+    sourceLicense: [jobClass.Striker],
     baseStats: {
       scope: 8,
       saveTarget: 10,
@@ -33,7 +33,7 @@ export const jobsData: iJob[] = [
       },
     ],
     weaponSlots: [itemSize.light, itemSize.mainlight],
-    supportSlots: [], //make iSupport
+    supportSlots: [itemSize.light, itemSize.light, itemSize.main],
     limitBreak: {
       actionType: actionType.free,
       phase: phase.any,
@@ -44,7 +44,7 @@ export const jobsData: iJob[] = [
   },
   {
     name: 'Equinox',
-    class: [jobClass.Artillery],
+    sourceLicense: [jobClass.Artillery],
     baseStats: {
       scope: 12,
       saveTarget: 11,
@@ -85,8 +85,19 @@ export const jobsData: iJob[] = [
 export function job(jobName: string): iJob {
   let output: iJob = {
     name: '',
-    class: [],
-    baseStats: {},
+    sourceLicense: [],
+    baseStats: {
+      scope: 0,
+      memory: 0,
+      saveTarget: 0,
+      hp: 0,
+      stress: 0,
+      mp: 0,
+      recoveries: 0,
+      speed: 0,
+      dodge: 0,
+      adef: 0,
+    },
     jobTraits: [],
     weaponSlots: [],
     supportSlots: [],

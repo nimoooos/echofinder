@@ -8,5 +8,5 @@ export enum damageType {
 
 export interface iDamage {
   damageType: damageType;
-  amount: number;
+  amount: string;
 }

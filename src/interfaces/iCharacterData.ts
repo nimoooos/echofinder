@@ -27,9 +27,9 @@ interface iChosenStats {
 }
 
 /**
- * Derived stats after bonuses. All field are required.
+ * All bamm and attributes, required
  */
-export interface iDerivedStats {
+export interface iDerivedStats extends iStats {
   bulk: number;
   agility: number;
   mind: number;
@@ -50,9 +50,9 @@ export interface iDerivedStats {
 }
 
 /**
- * Amount of bonus stats offered by traits, equipment, etc. No fields are required.
+ * All bamm and attributes, optional fields. Useful for bonus stats
  */
-export interface iStatBonus {
+export interface iStats {
   bulk?: number;
   agility?: number;
   mind?: number;
@@ -70,6 +70,22 @@ export interface iStatBonus {
   speed?: number;
   dodge?: number;
   adef?: number;
+}
+
+/**
+ * All attributes provided by the job
+ */
+export interface iJobStats extends iStats {
+  scope: number;
+  memory: number;
+  saveTarget: number;
+  hp: number;
+  stress: number;
+  mp: number;
+  recoveries: number;
+  speed: number;
+  dodge: number;
+  adef: number;
 }
 
 export interface iCharacterData {

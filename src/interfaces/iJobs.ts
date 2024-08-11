@@ -1,5 +1,5 @@
 import type { iAction } from './iAction';
-import type { iDerivedStats } from './iCharacterData';
+import type { iJobStats } from './iCharacterData';
 import type { itemSize, iTrait } from './iItem';
 
 export enum jobClass {
@@ -12,8 +12,8 @@ export enum jobClass {
 
 export default interface iJob {
   name: string;
-  class: jobClass[];
-  baseStats: iDerivedStats;
+  sourceLicense: jobClass[];
+  baseStats: iJobStats;
   jobTraits: iTrait[];
   weaponSlots: itemSize[];
   supportSlots: itemSize[];

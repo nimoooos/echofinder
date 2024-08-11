@@ -4,6 +4,7 @@ import type { iTrait } from '@/interfaces/iItem';
 
 const props = defineProps<{
   traits: iTrait[];
+  preselect: string;
 }>();
 
 const emit = defineEmits<{
@@ -21,7 +22,7 @@ function onChange(event: iEvent) {
 <template>
   <select :onchange="onChange">
     <option selected disabled>Select Ancestry Trait</option>
-    <option v-for="opt in options" :value="opt" :key="opt">
+    <option v-for="opt in options" :selected="props.preselect === opt" :value="opt" :key="opt">
       {{ opt }}
     </option>
   </select>

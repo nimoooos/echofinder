@@ -9,6 +9,8 @@ import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
 import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
 import JobSelect from './components/CharacterCreator/jobSelect.vue';
 import NavBar from './components/NavBar/NavBar.vue';
+import FeatureCard from './views/featureCard.vue';
+import { feature, license } from './data/licenseData';
 
 const charData = ref<iCharacterData>(defaultCharData);
 
@@ -49,6 +51,9 @@ function recalculateStats(): void {
 
   //grit
   charData.value.derivedStats.grit = Math.floor(charData.value.basicInfo.level / 2);
+  charData.value.derivedStats.hp += charData.value.derivedStats.grit;
+  charData.value.derivedStats.saveTarget += charData.value.derivedStats.grit;
+  charData.value.derivedStats.memory += charData.value.derivedStats.grit;
 
   //calculate bonuses from bamm
   charData.value.derivedStats.hp += 2 * charData.value.derivedStats.bulk;
@@ -103,8 +108,9 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
   <div id="charsheet">
     <div id="charsheet-moniker">
       <h1 id="moniker-summary">
-        {{ charData.moniker.name }}, {{ charData.moniker.title }} ({{ charData.moniker.pronouns }})
-        <button @click="toggleEdit.moniker = !toggleEdit.moniker">📝</button>
+        {{ charData.moniker.name }}, {{ charData.moniker.title }} ({{ charData.moniker.pronouns }})<button @click="toggleEdit.moniker = !toggleEdit.moniker">
+          📝
+        </button>
       </h1>
       <div id="charsheet-moniker-edit" v-if="toggleEdit.moniker">
         <table id="charsheet-moniker-table">
@@ -128,10 +134,10 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </div>
     </div>
     <div id="charsheet-basicinfo">
-      <h2 id="basicinfo-summary">
-        Level {{ charData.basicInfo.level }} {{ charData.basicInfo.ancestry.name }} {{ charData.basicInfo.job.name }}
-        <button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
-      </h2>
+      <h1 id="basicinfo-summary">
+        Level {{ charData.basicInfo.level }} {{ charData.basicInfo.ancestry.name }} {{ charData.basicInfo.job.name
+        }}<button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
+      </h1>
       <div id="charsheet-basicinfo-edit" v-if="toggleEdit.basicinfo">
         <table id="charsheet-basicinfo-table">
           <tr>
@@ -151,10 +157,16 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
                     charData.basicInfo.ancestry = ancestry(anc);
                   }
                 "
+                :preselect="charData.basicInfo.ancestry.name"
               />
             </td>
             <td>
-              <AncestryTraitSelect v-bind:traits="charData.basicInfo.ancestry.traits" :key="charData.basicInfo.ancestry.name" @set-trait="setAncestryTrait" />
+              <AncestryTraitSelect
+                v-bind:traits="charData.basicInfo.ancestry.traits"
+                :key="charData.basicInfo.ancestry.name"
+                @set-trait="setAncestryTrait"
+                :preselect="charData.chosenStats.ancestryTrait.name"
+              />
             </td>
             <td>
               <JobSelect
@@ -163,6 +175,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
                     charData.basicInfo.job = job(jobName);
                   }
                 "
+                :preselect="charData.basicInfo.job.name"
               />
             </td>
           </tr>
@@ -252,25 +265,45 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
         </tr>
       </table>
     </div>
+    <div id="charsheet-traits">
+      <h3 class="loadout-heading">Traits</h3>
+      <FeatureCard v-for="trait in charData.basicInfo.job.jobTraits" v-bind:key="trait.name" :feature="trait" />
+      <FeatureCard :feature="charData.chosenStats.ancestryTrait" />
+    </div>
     <div id="charsheet-weapons">
-      <h3>Weapons</h3>
+      <h3 class="loadout-heading">Weapons</h3>
+      <FeatureCard :feature="feature(license('Assassin'), 'Throatcutter')" />
     </div>
     <div id="charsheet-supportItems">
-      <h3>Support Items</h3>
+      <h3 class="loadout-heading">Support Items</h3>
+      <FeatureCard :feature="feature(license('Assassin'), 'Reaper\'s Shroud')" />
     </div>
     <div id="charsheet-techniques">
-      <h3>Techniques</h3>
+      <h3 class="loadout-heading">Techniques</h3>
+      <FeatureCard :feature="feature(license('Assassin'), 'Death Strike')" />
     </div>
     <div id="charsheet-talents">
-      <h3>Talents</h3>
+      <h3 class="loadout-heading">Talents</h3>
     </div>
   </div>
 </template>
 
 <style scoped>
+#charsheet-moniker,
+#charsheet-basicinfo {
+  display: inline-block;
+  margin-right: 40px;
+}
+
 h3.table-heading {
   display: inline-block;
+  font-weight: 700;
 }
+
+h3.loadout-heading {
+  font-weight: 700;
+}
+
 p.caution {
   color: var(--color-accent-bold);
   display: inline-block;

@@ -2,6 +2,10 @@
 import { ancestriesData } from '@/data/ancestriesData';
 import type iEvent from '@/interfaces/iEvent';
 
+const props = defineProps<{
+  preselect: string;
+}>();
+
 const emit = defineEmits<{
   (e: 'setAncestry', newAncestryName: string): string;
 }>();
@@ -17,8 +21,8 @@ function onChange(event: iEvent) {
 
 <template>
   <select :onchange="onChange">
-    <option selected disabled>Select Ancestry</option>
-    <option v-for="opt in options" :value="opt" :key="opt">
+    <option disabled>Select Ancestry</option>
+    <option v-for="opt in options" :value="opt" :key="opt" :selected="props.preselect === opt">
       {{ opt }}
     </option>
   </select>

@@ -10,4 +10,5 @@ export enum rangeType {
   closeBlast,
   burst,
   line,
+  thrown,
 }

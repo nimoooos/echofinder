@@ -2,6 +2,10 @@
 import { jobsData } from '@/data/jobsData';
 import type iEvent from '@/interfaces/iEvent';
 
+const props = defineProps<{
+  preselect: string;
+}>();
+
 const emit = defineEmits<{
   (e: 'setJob', newJobName: string): string;
 }>();
@@ -17,7 +21,7 @@ function onChange(event: iEvent) {
 <template>
   <select :onchange="onChange">
     <option selected disabled>Select Job</option>
-    <option v-for="opt in options" :value="opt" :key="opt">
+    <option v-for="opt in options" :selected="props.preselect === opt" :value="opt" :key="opt">
       {{ opt }}
     </option>
   </select>

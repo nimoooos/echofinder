@@ -20,10 +20,6 @@ export enum itemSize {
 
 interface iItem extends iFeature {
   type: featureType.weapon | featureType.supportItem | featureType.technique;
-  tags?: {
-    name: string;
-    amount?: number;
-  };
   actionType?: actionType;
 }
 
@@ -43,13 +39,17 @@ export enum weaponType {
 }
 
 export interface iWeapon extends iItem {
-  attackProfiles: iAttackProfile[];
-  weaponSize: itemSize;
-  weaponType: weaponType[];
+  weaponData: {
+    attackProfiles: iAttackProfile[];
+    weaponSize: itemSize;
+    weaponType: weaponType[];
+  };
 }
 
 export interface iSupport extends iItem {
-  supportSize: itemSize;
+  supportData: {
+    supportSize: itemSize;
+  };
 }
 
 export enum techniqueType {
@@ -58,9 +58,11 @@ export enum techniqueType {
 }
 
 export interface iTechnique extends iItem {
-  techniqueType: techniqueType;
-  memoryCost: number;
-  attackProfiles?: iAttackProfile[];
+  techniqueData: {
+    techniqueType: techniqueType;
+    memoryCost: number;
+    attackProfiles?: iAttackProfile[];
+  };
 }
 
 export interface iAttackProfile {
