@@ -61,13 +61,13 @@ export const jobsData: iJob[] = [
       {
         name: 'Day/Night Cycle',
         type: featureType.trait,
-        text: "You have two special resources - Sun and Moon - that each start at 0. You can only have one of these resources at a time, and they reset to 0 at the end of each combat scene. \n Sun and Moon have the following effects: \n\t* Sun: For each Sun you have, your AOE spells and artifact weapons gain +1 to their AOEs (Line AOEs have their width increased by +1, instead); however, you must spend +1 MP each time you use one of these spells or weapons. If you can't, you immediately lose all Sun. \n\t* Moon: For each Moon you have, your Scope and Range with artifact weapons and spells that have a Range increase by +4; however, you take 1 Stress each time you target something with a spell or artifact weapon attack beyond your normal Scope or the weapon's Range.",
+        text: "You have two special resources - Sun and Moon - that each start at 0. You can only have one of these resources at a time, and they reset to 0 at the end of each combat scene. \n Sun and Moon have the following effects: \n\t⬦ Sun: For each Sun you have, your AOE spells and artifact weapons gain +1 to their AOEs (Line AOEs have their width increased by +1, instead); however, you must spend +1 MP each time you use one of these spells or weapons. If you can't, you immediately lose all Sun. \n\t⬦ Moon: For each Moon you have, your Scope and Range with artifact weapons and spells that have a Range increase by +4; however, you take 1 Stress each time you target something with a spell or artifact weapon attack beyond your normal Scope or the weapon's Range.",
         gainedAction: [], //TODO: add Day/Night Cycle Minor Action
       },
       {
         name: 'Mage Tower',
         type: featureType.trait,
-        text: "If you haven't moved since the start of your last turn, you gain both of the following benefits, which don't stack:\n\t* Surecast: Your ranged artifact weapon and spell attacks gain +1 ACC. \n\t* Sharpcast: Your Channel spells impose +1 DIF on any saves they trigger.",
+        text: "If you haven't moved since the start of your last turn, you gain both of the following benefits, which don't stack:\n\t⬦ Surecast: Your ranged artifact weapon and spell attacks gain +1 ACC. \n\t⬦ Sharpcast: Your Channel spells impose +1 DIF on any saves they trigger.",
       },
     ],
     weaponSlots: [itemSize.main],
