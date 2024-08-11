@@ -1,4 +1,4 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* color palette partically from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
@@ -20,16 +20,29 @@
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
-  --vt-c-blue-100: #e9f2ff;
-  --vt-c-blue-200: #cce0ff;
-  --vt-c-blue-300: #85b8ff;
-  --vt-c-blue-400: #579dff;
-  --vt-c-blue-500: #388bff;
-  --vt-c-blue-600: #1d7afc;
-  --vt-c-blue-700: #0c66e4;
-  --vt-c-blue-800: #0055cc;
-  --vt-c-blue-900: #09326c;
-  --vt-c-blue-1000: #1c2b41;
+  --theme-blue-100: #e9f2ff;
+  --theme-blue-200: #cce0ff;
+  --theme-blue-300: #85b8ff;
+  --theme-blue-400: #579dff;
+  --theme-blue-500: #388bff;
+  --theme-blue-600: #1d7afc;
+  --theme-blue-700: #0c66e4;
+  --theme-blue-800: #0055cc;
+  --theme-blue-900: #09326c;
+  --theme-blue-1000: #1c2b41;
+
+  --theme-limitbreak-bold: #c57b9e;
+  --theme-limitbreak-light: #f6ecf0;
+  --theme-skill-bold: #49aba8;
+  --theme-skill-light: #eaf2f1;
+  --theme-spell-bold: #5a7aab;
+  --theme-spell-light: #e9eaf2;
+  --theme-support-bold: #984a22;
+  --theme-support-light: #ede1d8;
+  --theme-trait-bold: #d55227;
+  --theme-trait-light: #f9e8dd;
+  --theme-weapon-bold: #242e62;
+  --theme-weapon-light: #dbd9e2;
 }
 
 /* semantic color variables for this project */
@@ -44,8 +57,8 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --color-accent: var(--vt-c-blue-100);
-  --color-accent-bold: var(--vt-c-blue-400);
+  --color-accent: var(--theme-blue-100);
+  --color-accent-bold: var(--theme-blue-400);
 
   --section-gap: 160px;
 }
@@ -62,8 +75,8 @@
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
 
-    --color-accent: var(--vt-c-blue-900);
-    --color-accent-bold: var(--vt-c-blue-800);
+    --color-accent: var(--theme-blue-900);
+    --color-accent-bold: var(--theme-blue-800);
   }
 }
 
