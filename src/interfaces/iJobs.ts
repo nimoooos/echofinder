@@ -1,6 +1,6 @@
 import type { iJobStats } from './iCharacterData';
 import type { iFeature } from './iFeature';
-import type { SlotSize, iTrait } from './iItem';
+import type { SlotSize, iSlot, iTrait } from './iItem';
 
 export enum JobClass {
   Artillery,
@@ -15,7 +15,7 @@ export default interface iJob {
   sourceLicense: JobClass[];
   baseStats: iJobStats;
   jobTraits: iTrait[];
-  weaponSlots: SlotSize[];
-  supportSlots: SlotSize[];
+  weaponSlots: iSlot[];
+  supportSlots: iSlot[];
   limitBreak: iFeature;
 }

@@ -18,6 +18,12 @@ export enum SlotSize {
   MainLight = 6,
 }
 
+export interface iSlot {
+  index: number;
+  slotSize: SlotSize;
+  special?: string; //innate, training, etc.
+}
+
 interface iItem extends iFeature {
   type: 'Weapon' | 'Support Item' | 'Technique';
   actionType?: ActionType;

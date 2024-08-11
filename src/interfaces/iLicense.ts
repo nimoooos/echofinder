@@ -4,8 +4,7 @@
  * License is the term they use in Lancer
  */
 
-import type { iFeature } from './iFeature';
-import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
+import type { iSupport, iTechnique, iWeapon } from './iItem';
 import type iJob from './iJobs';
 
 export interface iLicense {

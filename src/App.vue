@@ -11,6 +11,8 @@ import JobSelect from './components/CharacterCreator/jobSelect.vue';
 import NavBar from './components/NavBar/NavBar.vue';
 import FeatureCard from './views/featureCard.vue';
 import { feature, license } from './data/licenseData';
+import SlotSelect from './components/CharacterCreator/slotSelect.vue';
+import type { iSupport, iWeapon } from './interfaces/iItem';
 
 const charData = ref<iCharacterData>(defaultCharData);
 
@@ -95,6 +97,22 @@ function checkBamm(): { caution: boolean; message: string } {
   output.caution = bammSum != bammMax;
   output.message = `${bammSum}/${bammMax} pts`;
 
+  return output;
+}
+
+function getUnlockedWeapons(): iWeapon[] {
+  let output: iWeapon[] = [];
+  //TODO: get the weapons
+
+  output.push(feature(license('Assassin'), 'Throatcutter') as iWeapon);
+  output.push(feature(license('Equinox'), 'Saturn Rod') as iWeapon);
+
+  return output;
+}
+
+function getUnlockedSupportItems(): iSupport[] {
+  let output: iSupport[] = [];
+  //TODO: get the support items
   return output;
 }
 
@@ -273,11 +291,23 @@ recalculateStats(); //run it once when things load
     </div>
     <div id="charsheet-weapons">
       <h3 class="loadout-heading">Weapons</h3>
-      <FeatureCard :feature="feature(license('Assassin'), 'Throatcutter')" />
+      <SlotSelect
+        selector-type="Weapon"
+        v-for="weaponSlot in charData.basicInfo.job.weaponSlots"
+        :unlocks="getUnlockedWeapons()"
+        :slotData="weaponSlot"
+        v-bind:key="weaponSlot.index"
+      />
     </div>
     <div id="charsheet-supportItems">
       <h3 class="loadout-heading">Support Items</h3>
-      <FeatureCard :feature="feature(license('Assassin'), 'Reaper\'s Shroud')" /> <FeatureCard :feature="feature(license('Assassin'), 'Poisoner\'s Kit')" />
+      <SlotSelect
+        selector-type="Support Item"
+        v-for="supportSlot in charData.basicInfo.job.supportSlots"
+        :unlocks="getUnlockedSupportItems()"
+        :slotData="supportSlot"
+        v-bind:key="supportSlot.index"
+      />
     </div>
     <div id="charsheet-techniques">
       <h3 class="loadout-heading">Techniques</h3>

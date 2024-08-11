@@ -101,7 +101,7 @@ function setTags() {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="featureCard">
     <table :class="setStyle()">
       <tr>
         <th>
@@ -125,7 +125,7 @@ function setTags() {
 </template>
 
 <style scoped>
-.wrapper {
+.featureCard {
   display: inline-block;
 }
 
