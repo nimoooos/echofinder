@@ -34,21 +34,20 @@ export enum weaponType {
   club,
   longarm,
   magitech,
-  melee,
-  ranged,
 }
 
 export interface iWeapon extends iItem {
   weaponData: {
     attackProfiles: iAttackProfile[];
-    weaponSize: itemSize;
-    weaponType: weaponType[];
+    weaponSize: 'Light' | 'Main' | 'Heavy';
+    weaponRange: 'Ranged' | 'Melee' | 'Ranged/Melee';
+    weaponType: 'Artifact' | 'Blade' | 'Bow' | 'Club' | 'Longarm' | 'Magitech';
   };
 }
 
 export interface iSupport extends iItem {
   supportData: {
-    supportSize: itemSize;
+    supportSize: 'Light' | 'Main' | 'Heavy';
   };
 }
 
@@ -59,8 +58,9 @@ export enum techniqueType {
 
 export interface iTechnique extends iItem {
   techniqueData: {
-    techniqueType: techniqueType;
+    techniqueType: 'Spell' | 'Skill';
     memoryCost: number;
+    spellRange?: 'Melee' | 'Ranged';
     attackProfiles?: iAttackProfile[];
   };
 }
