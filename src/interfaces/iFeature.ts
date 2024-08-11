@@ -1,4 +1,6 @@
+import type { actionType, phase } from './iAction';
 import type { iStats } from './iCharacterData';
+import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
 
 /**
  * Used for feature type. Feature is called "Ability" in game.
@@ -8,7 +10,7 @@ export enum featureType {
   weapon,
   supportItem,
   technique,
-  action,
+  limitBreak,
 }
 
 /**
@@ -16,15 +18,21 @@ export enum featureType {
  */
 export interface iFeature {
   name: string;
-  type: featureType;
+  type: featureType | 'Trait' | 'Weapon' | 'Support Item' | 'Technique';
   text: string;
-  tags?: [
-    {
-      name: string;
-      amount?: number;
-    },
-  ];
+  tags?: {
+    name: string;
+    amount?: number;
+  }[];
+  actionData?: {
+    actionType: actionType;
+    phase: phase | phase[];
+    reaction?: {
+      trigger: string;
+      effect: string;
+    };
+  };
   synergies?: any; //TODO: this is for things like "when you do X..."
-  gainedAction?: iFeature[]; //new actions that get granted by this feature
+  gainedActions?: (iFeature | iTrait | iWeapon | iSupport | iTechnique)[]; //new actions that get granted by this feature
   statBonus?: iStats; //how much bonus stats you gain
 }

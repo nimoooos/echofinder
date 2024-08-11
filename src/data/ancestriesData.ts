@@ -48,7 +48,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Get the Flock Outta There',
         type: featureType.trait,
         text: 'You gain the "Get the Flock Outta There" reaction, which is equipped for free.',
-        gainedAction: [], //TODO: GtFOT reaction
+        gainedActions: [], //TODO: GtFOT reaction
       },
       {
         name: 'Flock Tactics',
@@ -59,7 +59,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Gust',
         type: featureType.trait,
         text: 'You gain the Gust spell, which is equipped for free.',
-        gainedAction: [], //TODO: Gust spell
+        gainedActions: [], //TODO: Gust spell
       },
     ],
   },
@@ -76,7 +76,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Nature Step',
         type: featureType.trait,
         text: 'You ignore movement penalties from difficult terrain, and gain +1 ACC on dangerous terrain checks.',
-        gainedAction: [], //TODO: Nature Step minor action
+        gainedActions: [], //TODO: Nature Step minor action
       },
       {
         name: 'Fast Movement',
@@ -90,7 +90,7 @@ export const ancestriesData: iAncestry[] = [
         name: 'Fey Step',
         type: featureType.trait,
         text: 'You gain the "Fey Step" free action, which is equipped for free.',
-        gainedAction: [], //TODO: Fey Step free action
+        gainedActions: [], //TODO: Fey Step free action
       },
     ],
   },

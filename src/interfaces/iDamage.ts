@@ -1,12 +1,4 @@
-export enum damageType {
-  physical,
-  force,
-  astral,
-  lunar,
-  discord,
-}
-
 export interface iDamage {
-  damageType: damageType;
+  damageType: 'Physical' | 'Force' | 'Astral' | 'Lunar' | 'Discord';
   amount: string;
 }

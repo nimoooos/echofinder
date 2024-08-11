@@ -283,7 +283,8 @@ recalculateStats(); //run it once when things load
       <h3 class="loadout-heading">Techniques</h3>
       <FeatureCard :feature="feature(license('Equinox'), 'Exobomb')" />
       <FeatureCard :feature="feature(license('Equinox'), 'Scar')" />
-      <FeatureCard :feature="feature(license('Assassin'), 'Death Strike')" />
+      <FeatureCard :feature="feature(license('Equinox'), 'Quickcast')" />
+      <FeatureCard :feature="feature(license('Equinox'), 'Dividing Line')" />
     </div>
     <div id="charsheet-talents">
       <h3 class="loadout-heading">Talents</h3>

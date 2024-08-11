@@ -3,7 +3,6 @@ import type iAncestry from './iAncestry';
 import { featureType, type iFeature } from './iFeature';
 import type iJob from './iJobs';
 import { job } from '@/data/jobsData';
-import type { iAction } from './iAction';
 import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
 
 interface iMoniker {
@@ -100,10 +99,6 @@ export interface iCharacterData {
     techniques: iTechnique[];
     talents: any[]; //TODO: make iTalent
   };
-  features: {
-    passives: iFeature[];
-    actives: iAction[];
-  };
 }
 
 export const blankCharData: iCharacterData = {
@@ -135,10 +130,6 @@ export const blankCharData: iCharacterData = {
     supportSlots: [],
     techniques: [],
     talents: [],
-  },
-  features: {
-    passives: [],
-    actives: [],
   },
 };
 
@@ -185,9 +176,5 @@ export const defaultCharData: iCharacterData = {
     supportSlots: [],
     techniques: [], //TODO: exobomb, scar
     talents: [], //TODO: Archmage 1, Enchanter 1, Leyline Walker 1
-  },
-  features: {
-    passives: [],
-    actives: [],
   },
 };

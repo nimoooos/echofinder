@@ -67,5 +67,5 @@ export interface iTechnique extends iItem {
 
 export interface iAttackProfile {
   range?: iRange;
-  damage?: iDamage;
+  damage?: iDamage[];
 }

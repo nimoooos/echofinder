@@ -1,9 +1,8 @@
 import type { iLicense } from '@/interfaces/iLicense';
 import { job } from './jobsData';
 import { featureType, type iFeature } from '@/interfaces/iFeature';
-import { itemSize, techniqueType, weaponType, type iSupport, type iTechnique, type iWeapon } from '@/interfaces/iItem';
-import { rangeType } from '@/interfaces/iRange';
-import { damageType } from '@/interfaces/iDamage';
+import { type iSupport, type iTechnique, type iWeapon } from '@/interfaces/iItem';
+import { actionType, phase } from '@/interfaces/iAction';
 
 export const licensesData: iLicense[] = [
   {
@@ -15,10 +14,14 @@ export const licensesData: iLicense[] = [
           name: 'Throatcutter',
           type: featureType.weapon,
           text: 'You can 5 Fight with this weapon during Phase 3 Skirmish.',
+          actionData: {
+            actionType: actionType.fight,
+            phase: [phase.skirmish, phase.brawl],
+          },
           weaponData: {
             attackProfiles: [
-              { range: { rangeType: rangeType.reach, amount: 1 }, damage: { damageType: damageType.physical, amount: '1d3+1' } },
-              { range: { rangeType: rangeType.thrown, amount: 5 }, damage: { damageType: damageType.physical, amount: '1d3+1' } },
+              { range: { rangeType: 'Reach', value: 1 }, damage: [{ damageType: 'Physical', amount: '1d3+1' }] },
+              { range: { rangeType: 'Thrown', value: 5 }, damage: [{ damageType: 'Physical', amount: '1d3+1' }] },
             ],
             weaponSize: 'Light',
             weaponType: 'Blade',
@@ -40,7 +43,7 @@ export const licensesData: iLicense[] = [
         {
           name: 'Garrote',
           type: featureType.supportItem,
-          text: 'When you successfully Grapple a target, they are Silenced for the duration of the grapple. Additionally, they take 1 Piercing Physical for every space moved while Grappled in this way, to a maximum amount of damage each turn equal to your Speed.\n\tYou can only garrote one target at a time, and a character can only be garroted by one character at a time.',
+          text: 'When you successfully Grapple a target, they are Silenced for the duration of the grapple. Additionally, they take 1 Piercing Physical for every space moved while Grappled in this way, to a maximum amount of damage each turn equal to your Speed.\nYou can only garrote one target at a time, and a character can only be garroted by one character at a time.',
           supportData: {
             supportSize: 'Light',
           },
@@ -87,13 +90,17 @@ export const licensesData: iLicense[] = [
           type: featureType.technique,
           text: 'On Channel: Choose one of the following options:\n\t⬦ Fireball: On Release: Characters in a Blast 2 AOE within Range are auto-hit, taking 2d6+2 Astral.\n  \t⬦ Squall: On Release: Center a Burst 1 AOE around a character within Range. All characters within the AOE are auto-hit for 2d6+2 Lunar and Slowed until the end of their next turn.',
           tags: [{ name: 'Mana', amount: 2 }],
+          actionData: {
+            actionType: actionType.channel,
+            phase: phase.channel,
+          },
           techniqueData: {
             techniqueType: 'Spell',
             memoryCost: 2,
             attackProfiles: [
-              { range: { rangeType: rangeType.range, amount: 'scope' } },
-              { range: { rangeType: rangeType.blast, amount: 2 }, damage: { damageType: damageType.astral, amount: '2d6+2' } },
-              { range: { rangeType: rangeType.burst, amount: 1 }, damage: { damageType: damageType.lunar, amount: '2d6+2' } },
+              { range: { rangeType: 'Range', value: 'Scope' } },
+              { range: { rangeType: 'Blast', value: 2 }, damage: [{ damageType: 'Astral', amount: '2d6+2' }] },
+              { range: { rangeType: 'Burst', value: 1 }, damage: [{ damageType: 'Lunar', amount: '2d6+2' }] },
             ],
           },
         },
@@ -102,18 +109,132 @@ export const licensesData: iLicense[] = [
           type: featureType.technique,
           text: "Deal 1 Piercing Force to an enemy within Range, or 3 Piercing Force if they're Bloodied.",
           tags: [{ name: 'Mana', amount: 1 }],
+          actionData: {
+            actionType: actionType.minor,
+            phase: phase.any,
+          },
           techniqueData: {
             techniqueType: 'Spell',
             memoryCost: 2,
             attackProfiles: [
-              { range: { rangeType: rangeType.range, amount: 'scope' }, damage: { damageType: damageType.force, amount: '1' } },
-              { range: { rangeType: rangeType.range, amount: 'scope' }, damage: { damageType: damageType.force, amount: '3' } },
+              { range: { rangeType: 'Range', value: 'Scope' }, damage: [{ damageType: 'Force', amount: '1' }] },
+              { range: { rangeType: 'Range', value: 'Scope' }, damage: [{ damageType: 'Force', amount: '3' }] },
             ],
           },
         },
       ],
-      2: [],
-      3: [],
+      2: [
+        {
+          name: 'Celestial Ray',
+          type: featureType.technique,
+          text: 'You gain the Ray of Fire and Ray of Cold ranged spell attacks.',
+          actionData: {
+            actionType: actionType.volley,
+            phase: phase.skirmish,
+          },
+          techniqueData: {
+            techniqueType: 'Spell',
+            spellRange: 'Ranged',
+            memoryCost: 1,
+          },
+          gainedActions: [
+            {
+              name: 'Ray of Fire',
+              type: featureType.technique,
+              text: 'On Hit: If the target was hit by Ray of Fire on your last turn, they also take 4 Discord.',
+              actionData: {
+                actionType: actionType.volley,
+                phase: phase.skirmish,
+              },
+              techniqueData: {
+                techniqueType: 'Spell',
+                spellRange: 'Ranged',
+                memoryCost: 0,
+                attackProfiles: [
+                  {
+                    range: { rangeType: 'Range', value: 'Scope' },
+                    damage: [
+                      { damageType: 'Astral', amount: '1d6+1' },
+                      { damageType: 'Discord', amount: '4' },
+                    ],
+                  },
+                ],
+              },
+            },
+            {
+              name: 'Ray of Cold',
+              type: featureType.technique,
+              text: 'On Hit: If the target is Immobilized, Slowed, Stunned, Grappled, or Prone, this ability deals 2d6+1 Lunar instead of its usual damage.',
+              actionData: {
+                actionType: actionType.volley,
+                phase: phase.skirmish,
+              },
+              techniqueData: {
+                techniqueType: 'Spell',
+                spellRange: 'Ranged',
+                memoryCost: 0,
+                attackProfiles: [
+                  {
+                    range: { rangeType: 'Range', value: 'Scope' },
+                    damage: [{ damageType: 'Lunar', amount: '1d6+1' }],
+                  },
+                  {
+                    range: { rangeType: 'Range', value: 'Scope' },
+                    damage: [{ damageType: 'Lunar', amount: '2d6+1' }],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+        {
+          name: 'Saturn Rod',
+          type: featureType.weapon,
+          text: '',
+          tags: [{ name: 'Homing' }, { name: 'Mana', amount: 1 }],
+          actionData: {
+            actionType: actionType.volley,
+            phase: phase.skirmish,
+          },
+          weaponData: {
+            weaponSize: 'Main',
+            weaponRange: 'Ranged',
+            weaponType: 'Artifact',
+            attackProfiles: [{ range: { rangeType: 'Range', value: 10 }, damage: [{ damageType: 'Force', amount: '1d3+3' }] }],
+          },
+        },
+      ],
+      3: [
+        {
+          name: 'Dividing Line',
+          type: featureType.technique,
+          text: 'On Release: Designate all adjacent spaces along one long side of the AOE as Astral and all adjacent spaces along the other as Lunar. The spaces at the tips of the line are unaffected.\nCharacters in or adjacent to the line, excluding yourself, must make an Agility save, taking damage of a type determined by their location.\n\t⬦Failure: They take 2d6+6 damage and are Sundered until the end of their next turn.\n\t⬦Success: They take 1d6+6 damage.\n\nCharacters on the astral side take Astral, characters on the Lunar side take Lunar, and characters in the center of the AOE take Force. Characters spanning more than one location choose which damage they take.',
+          tags: [{ name: 'Mana', amount: 3 }],
+          actionData: {
+            actionType: actionType.channel,
+            phase: phase.channel,
+          },
+          techniqueData: {
+            techniqueType: 'Spell',
+            memoryCost: 2,
+            attackProfiles: [{ range: { rangeType: 'Line', value: 15 } }],
+          },
+        },
+        {
+          name: 'Quickcast',
+          type: featureType.technique,
+          text: 'The next time you 2 Channel an ability this round, you release it immediately.',
+          tags: [{ name: 'Mana', amount: 2 }],
+          actionData: {
+            actionType: actionType.minor,
+            phase: phase.any,
+          },
+          techniqueData: {
+            memoryCost: 3,
+            techniqueType: 'Skill',
+          },
+        },
+      ],
     },
   },
 ];

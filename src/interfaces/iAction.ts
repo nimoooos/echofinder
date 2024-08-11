@@ -64,13 +64,3 @@ export function phaseNameToNumber(phaseName: string) {
 export function actionToPhaseNumber(action: actionType) {
   return Math.floor(action);
 }
-
-export interface iAction extends iFeature {
-  actionType: actionType;
-  phase: phase;
-}
-
-export interface iReaction extends iAction {
-  trigger: string;
-  effect: string;
-}
