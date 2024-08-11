@@ -66,6 +66,7 @@ function recalculateStats(): void {
   charData.value.derivedStats.mp += Math.floor(charData.value.derivedStats.magic / 2);
 
   //get traits
+  charData.value.loadout.traits = [...charData.value.basicInfo.job.jobTraits, charData.value.chosenStats.ancestryTrait];
   //get weapons
   //get supports
   //get techniques
@@ -101,6 +102,7 @@ function checkBamm(): { caution: boolean; message: string } {
 watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData) => {
   recalculateStats();
 });
+recalculateStats(); //run it once when things load
 </script>
 
 <template>
@@ -267,8 +269,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
     </div>
     <div id="charsheet-traits">
       <h3 class="loadout-heading">Traits</h3>
-      <FeatureCard v-for="trait in charData.basicInfo.job.jobTraits" v-bind:key="trait.name" :feature="trait" />
-      <FeatureCard :feature="charData.chosenStats.ancestryTrait" />
+      <FeatureCard v-for="trait in charData.loadout.traits" v-bind:key="trait.name" :feature="trait" />
     </div>
     <div id="charsheet-weapons">
       <h3 class="loadout-heading">Weapons</h3>
