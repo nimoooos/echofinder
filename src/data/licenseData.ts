@@ -20,8 +20,8 @@ export const licensesData: iLicense[] = [
           },
           weaponData: {
             attackProfiles: [
-              { range: { type: 'Reach', value: 1 }, damage: [{ damageType: 'Physical', amount: '1d3+1' }] },
-              { range: { type: 'Thrown', value: 5 }, damage: [{ damageType: 'Physical', amount: '1d3+1' }] },
+              { range: { type: 'Reach', value: 1 }, damage: [{ type: 'Physical', value: '1d3+1' }] },
+              { range: { type: 'Thrown', value: 5 }, damage: [{ type: 'Physical', value: '1d3+1' }] },
             ],
             weaponSize: 'Light',
             weaponType: 'Blade',
@@ -99,8 +99,8 @@ export const licensesData: iLicense[] = [
             memoryCost: 2,
             attackProfiles: [
               { range: { type: 'Range', value: 'Scope' } },
-              { range: { type: 'Blast', value: 2 }, damage: [{ damageType: 'Astral', amount: '2d6+2' }] },
-              { range: { type: 'Burst', value: 1 }, damage: [{ damageType: 'Lunar', amount: '2d6+2' }] },
+              { range: { type: 'Blast', value: 2 }, damage: [{ type: 'Astral', value: '2d6+2' }] },
+              { range: { type: 'Burst', value: 1 }, damage: [{ type: 'Lunar', value: '2d6+2' }] },
             ],
           },
         },
@@ -117,8 +117,8 @@ export const licensesData: iLicense[] = [
             techniqueType: 'Spell',
             memoryCost: 2,
             attackProfiles: [
-              { range: { type: 'Range', value: 'Scope' }, damage: [{ damageType: 'Force', amount: '1' }] },
-              { range: { type: 'Range', value: 'Scope' }, damage: [{ damageType: 'Force', amount: '3' }] },
+              { range: { type: 'Range', value: 'Scope' }, damage: [{ type: 'Force', value: '1' }] },
+              { range: { type: 'Range', value: 'Scope' }, damage: [{ type: 'Force', value: '3' }] },
             ],
           },
         },
@@ -154,8 +154,8 @@ export const licensesData: iLicense[] = [
                   {
                     range: { type: 'Range', value: 'Scope' },
                     damage: [
-                      { damageType: 'Astral', amount: '1d6+1' },
-                      { damageType: 'Discord', amount: '4' },
+                      { type: 'Astral', value: '1d6+1' },
+                      { type: 'Discord', value: '4' },
                     ],
                   },
                 ],
@@ -176,11 +176,11 @@ export const licensesData: iLicense[] = [
                 attackProfiles: [
                   {
                     range: { type: 'Range', value: 'Scope' },
-                    damage: [{ damageType: 'Lunar', amount: '1d6+1' }],
+                    damage: [{ type: 'Lunar', value: '1d6+1' }],
                   },
                   {
                     range: { type: 'Range', value: 'Scope' },
-                    damage: [{ damageType: 'Lunar', amount: '2d6+1' }],
+                    damage: [{ type: 'Lunar', value: '2d6+1' }],
                   },
                 ],
               },
@@ -200,7 +200,7 @@ export const licensesData: iLicense[] = [
             weaponSize: 'Main',
             weaponRange: 'Ranged',
             weaponType: 'Artifact',
-            attackProfiles: [{ range: { type: 'Range', value: 10 }, damage: [{ damageType: 'Force', amount: '1d3+3' }] }],
+            attackProfiles: [{ range: { type: 'Range', value: 10 }, damage: [{ type: 'Force', value: '1d3+3' }] }],
           },
         },
       ],
