@@ -98,7 +98,6 @@ function setTags() {
   });
   return tagsArray;
 }
-setTags();
 </script>
 
 <template>
