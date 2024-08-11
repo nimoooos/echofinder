@@ -2,15 +2,15 @@
  * for weapon, support, or technique
  */
 
-import type { actionType } from './iAction';
+import type { ActionType } from './iAction';
 import type { iDamage } from './iDamage';
-import type { featureType, iFeature } from './iFeature';
+import type { iFeature } from './iFeature';
 import type { iRange } from './iRange';
 
 /**
  * For weapons and support items. Light=2, Main=3, Heavy=5. Multiply the primes for linked weapons
  */
-export enum itemSize {
+export enum SlotSize {
   light = 2,
   main = 3,
   lightlight = 4,
@@ -19,21 +19,12 @@ export enum itemSize {
 }
 
 interface iItem extends iFeature {
-  type: featureType.weapon | featureType.supportItem | featureType.technique;
-  actionType?: actionType;
+  type: 'Weapon' | 'Support Item' | 'Technique';
+  actionType?: ActionType;
 }
 
 export interface iTrait extends iFeature {
-  type: featureType.trait;
-}
-
-export enum weaponType {
-  artifact,
-  blade,
-  bow,
-  club,
-  longarm,
-  magitech,
+  type: 'Trait';
 }
 
 export interface iWeapon extends iItem {
@@ -49,11 +40,6 @@ export interface iSupport extends iItem {
   supportData: {
     supportSize: 'Light' | 'Main' | 'Heavy';
   };
-}
-
-export enum techniqueType {
-  spell,
-  skill,
 }
 
 export interface iTechnique extends iItem {

@@ -2,7 +2,7 @@
 //TODO: set up props to receive trait data
 //TODO: put it into a format that's easily readable by the template
 //TODO: dynamic style based on feature type
-import { featureType, type iFeature } from '@/interfaces/iFeature';
+import { type iFeature } from '@/interfaces/iFeature';
 import { type iSupport, type iTechnique, type iTrait, type iWeapon } from '@/interfaces/iItem';
 
 const props = defineProps<{
@@ -10,9 +10,9 @@ const props = defineProps<{
 }>();
 
 function setStyle() {
-  let styleType: featureType | string = props.feature.type;
+  let styleType: string = props.feature.type;
   let style: string = 'style-';
-  if (styleType == featureType.technique) {
+  if (styleType == 'Technique') {
     styleType = (props.feature as iTechnique).techniqueData.techniqueType;
     switch (styleType) {
       case 'Skill':
@@ -24,13 +24,13 @@ function setStyle() {
     }
   } else {
     switch (styleType) {
-      case featureType.trait:
+      case 'Trait':
         style += 'trait';
         break;
-      case featureType.weapon:
+      case 'Weapon':
         style += 'weapon';
         break;
-      case featureType.supportItem:
+      case 'Support Item':
         style += 'support';
         break;
     }
@@ -43,21 +43,21 @@ function setTags() {
 
   //Feature type
   switch (props.feature.type) {
-    case featureType.trait: {
+    case 'Trait': {
       tagsArray.push('Trait');
       break;
     }
-    case featureType.weapon: {
+    case 'Weapon': {
       tagsArray.push(`${(props.feature as iWeapon).weaponData.weaponRange} Weapon`);
       tagsArray.push(`${(props.feature as iWeapon).weaponData.weaponSize} ${(props.feature as iWeapon).weaponData.weaponType}`);
       break;
     }
-    case featureType.supportItem: {
+    case 'Support Item': {
       tagsArray.push('Support Item');
       tagsArray.push((props.feature as iSupport).supportData.supportSize);
       break;
     }
-    case featureType.technique: {
+    case 'Technique': {
       switch ((props.feature as iTechnique).techniqueData.techniqueType) {
         case 'Skill': {
           tagsArray.push('Skill');
@@ -84,7 +84,7 @@ function setTags() {
   }
 
   //Memory Cost
-  if (props.feature.type == featureType.technique) {
+  if (props.feature.type == 'Technique') {
     tagsArray.push(`${(props.feature as iTechnique).techniqueData.memoryCost} Memory`);
   }
 

@@ -1,6 +1,5 @@
 import { ancestry, ancestryTrait } from '@/data/ancestriesData';
 import type iAncestry from './iAncestry';
-import { featureType } from './iFeature';
 import type iJob from './iJobs';
 import { job } from '@/data/jobsData';
 import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
@@ -12,16 +11,16 @@ interface iMoniker {
 }
 
 interface iBasicInfo {
-  level: number;
+  level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   ancestry: iAncestry;
   job: iJob;
 }
 
 interface iChosenStats {
-  bulk: number;
-  agility: number;
-  mind: number;
-  magic: number;
+  bulk: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  agility: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  mind: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  magic: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   ancestryTrait: iTrait;
 }
 
@@ -104,7 +103,7 @@ export interface iCharacterData {
 export const blankCharData: iCharacterData = {
   moniker: { name: '', title: '', pronouns: '' },
   basicInfo: { level: 1, ancestry: ancestry(''), job: job('') },
-  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', type: featureType.trait, text: '' } },
+  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', type: 'Trait', text: '' } },
   derivedStats: {
     bulk: 0,
     agility: 0,

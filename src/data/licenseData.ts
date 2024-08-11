@@ -1,8 +1,8 @@
 import type { iLicense } from '@/interfaces/iLicense';
 import { job } from './jobsData';
-import { featureType, type iFeature } from '@/interfaces/iFeature';
+import { type iFeature } from '@/interfaces/iFeature';
 import { type iSupport, type iTechnique, type iWeapon } from '@/interfaces/iItem';
-import { actionType, phase } from '@/interfaces/iAction';
+import { ActionType, Phase } from '@/interfaces/iAction';
 
 export const licensesData: iLicense[] = [
   {
@@ -12,11 +12,11 @@ export const licensesData: iLicense[] = [
       1: [
         {
           name: 'Throatcutter',
-          type: featureType.weapon,
+          type: 'Weapon',
           text: 'You can 5 Fight with this weapon during Phase 3 Skirmish.',
           actionData: {
-            actionType: actionType.fight,
-            phase: [phase.skirmish, phase.brawl],
+            actionType: ActionType.fight,
+            phase: [Phase.skirmish, Phase.brawl],
           },
           weaponData: {
             attackProfiles: [
@@ -31,7 +31,7 @@ export const licensesData: iLicense[] = [
         },
         {
           name: 'Master of Stealth',
-          type: featureType.technique,
+          type: 'Technique',
           text: 'To end your Hidden status at the end of their turn, enemies must be within 10 spaces of you. Additionally, enemies receive +1 to Search for you.',
           techniqueData: {
             techniqueType: 'Skill',
@@ -42,7 +42,7 @@ export const licensesData: iLicense[] = [
       2: [
         {
           name: 'Garrote',
-          type: featureType.supportItem,
+          type: 'Support Item',
           text: 'When you successfully Grapple a target, they are Silenced for the duration of the grapple. Additionally, they take 1 Piercing Physical for every space moved while Grappled in this way, to a maximum amount of damage each turn equal to your Speed.\nYou can only garrote one target at a time, and a character can only be garroted by one character at a time.',
           supportData: {
             supportSize: 'Light',
@@ -50,7 +50,7 @@ export const licensesData: iLicense[] = [
         },
         {
           name: "Poisoner's Kit",
-          type: featureType.supportItem,
+          type: 'Support Item',
           text: "You can expend a charge when you hit with a non-Aetheric weapon attack. The target takes 1 Discord. As long as they take any amount of Discord from his ability after resistances, immunity, and so on, they are then affected by one of the following poisons (your choice): \n\t⬦ Deathbite: Whenever the target fails the Magic check to clear their Discord, their Discord doubles before they take discord damage.\n\t⬦ Ghoulblood: The target is Weakened.\n\t⬦ Midnight Malice: The target is Blinded and can't reveal Hidden enemies. \nThis effect lasts until cleared.",
           supportData: {
             supportSize: 'Main',
@@ -61,7 +61,7 @@ export const licensesData: iLicense[] = [
       3: [
         {
           name: "Reaper's Shroud",
-          type: featureType.supportItem,
+          type: 'Support Item',
           text: '+1 Armor. Whenever you defeat an enemy, you become Invisible until the start of your next turn.',
           supportData: {
             supportSize: 'Light',
@@ -70,7 +70,7 @@ export const licensesData: iLicense[] = [
         },
         {
           name: 'Death Strike',
-          type: featureType.technique,
+          type: 'Technique',
           text: '1/round when you critically hit a Bloodied or Breaking enemy with a weapon or spell attack, there is a chance the target will take an instant Wound or Overstress: \n\t⬦ If the target is Bloodied and the attack deals damage, they must make a Bulk save. Failure: They take a Wound instead of taking the usual damage.\n\t⬦ If the target is Breaking and the attack deals Stress, they must make a Mind save. Failure: They take an Overstress instead of taking the usual damage.',
           techniqueData: {
             techniqueType: 'Skill',
@@ -87,12 +87,12 @@ export const licensesData: iLicense[] = [
       1: [
         {
           name: 'Exobomb',
-          type: featureType.technique,
+          type: 'Technique',
           text: 'On Channel: Choose one of the following options:\n\t⬦ Fireball: On Release: Characters in a Blast 2 AOE within Range are auto-hit, taking 2d6+2 Astral.\n  \t⬦ Squall: On Release: Center a Burst 1 AOE around a character within Range. All characters within the AOE are auto-hit for 2d6+2 Lunar and Slowed until the end of their next turn.',
           tags: [{ name: 'Mana', amount: 2 }],
           actionData: {
-            actionType: actionType.channel,
-            phase: phase.channel,
+            actionType: ActionType.channel,
+            phase: Phase.channel,
           },
           techniqueData: {
             techniqueType: 'Spell',
@@ -106,12 +106,12 @@ export const licensesData: iLicense[] = [
         },
         {
           name: 'Scar',
-          type: featureType.technique,
+          type: 'Technique',
           text: "Deal 1 Piercing Force to an enemy within Range, or 3 Piercing Force if they're Bloodied.",
           tags: [{ name: 'Mana', amount: 1 }],
           actionData: {
-            actionType: actionType.minor,
-            phase: phase.any,
+            actionType: ActionType.minor,
+            phase: Phase.any,
           },
           techniqueData: {
             techniqueType: 'Spell',
@@ -126,11 +126,11 @@ export const licensesData: iLicense[] = [
       2: [
         {
           name: 'Celestial Ray',
-          type: featureType.technique,
+          type: 'Technique',
           text: 'You gain the Ray of Fire and Ray of Cold ranged spell attacks.',
           actionData: {
-            actionType: actionType.volley,
-            phase: phase.skirmish,
+            actionType: ActionType.volley,
+            phase: Phase.skirmish,
           },
           techniqueData: {
             techniqueType: 'Spell',
@@ -140,11 +140,11 @@ export const licensesData: iLicense[] = [
           gainedActions: [
             {
               name: 'Ray of Fire',
-              type: featureType.technique,
+              type: 'Technique',
               text: 'On Hit: If the target was hit by Ray of Fire on your last turn, they also take 4 Discord.',
               actionData: {
-                actionType: actionType.volley,
-                phase: phase.skirmish,
+                actionType: ActionType.volley,
+                phase: Phase.skirmish,
               },
               techniqueData: {
                 techniqueType: 'Spell',
@@ -163,11 +163,11 @@ export const licensesData: iLicense[] = [
             },
             {
               name: 'Ray of Cold',
-              type: featureType.technique,
+              type: 'Technique',
               text: 'On Hit: If the target is Immobilized, Slowed, Stunned, Grappled, or Prone, this ability deals 2d6+1 Lunar instead of its usual damage.',
               actionData: {
-                actionType: actionType.volley,
-                phase: phase.skirmish,
+                actionType: ActionType.volley,
+                phase: Phase.skirmish,
               },
               techniqueData: {
                 techniqueType: 'Spell',
@@ -189,12 +189,12 @@ export const licensesData: iLicense[] = [
         },
         {
           name: 'Saturn Rod',
-          type: featureType.weapon,
+          type: 'Weapon',
           text: '',
           tags: [{ name: 'Homing' }, { name: 'Mana', amount: 1 }],
           actionData: {
-            actionType: actionType.volley,
-            phase: phase.skirmish,
+            actionType: ActionType.volley,
+            phase: Phase.skirmish,
           },
           weaponData: {
             weaponSize: 'Main',
@@ -207,12 +207,12 @@ export const licensesData: iLicense[] = [
       3: [
         {
           name: 'Dividing Line',
-          type: featureType.technique,
+          type: 'Technique',
           text: 'On Release: Designate all adjacent spaces along one long side of the AOE as Astral and all adjacent spaces along the other as Lunar. The spaces at the tips of the line are unaffected.\nCharacters in or adjacent to the line, excluding yourself, must make an Agility save, taking damage of a type determined by their location.\n\t⬦Failure: They take 2d6+6 damage and are Sundered until the end of their next turn.\n\t⬦Success: They take 1d6+6 damage.\n\nCharacters on the astral side take Astral, characters on the Lunar side take Lunar, and characters in the center of the AOE take Force. Characters spanning more than one location choose which damage they take.',
           tags: [{ name: 'Mana', amount: 3 }],
           actionData: {
-            actionType: actionType.channel,
-            phase: phase.channel,
+            actionType: ActionType.channel,
+            phase: Phase.channel,
           },
           techniqueData: {
             techniqueType: 'Spell',
@@ -222,12 +222,12 @@ export const licensesData: iLicense[] = [
         },
         {
           name: 'Quickcast',
-          type: featureType.technique,
+          type: 'Technique',
           text: 'The next time you 2 Channel an ability this round, you release it immediately.',
           tags: [{ name: 'Mana', amount: 2 }],
           actionData: {
-            actionType: actionType.minor,
-            phase: phase.any,
+            actionType: ActionType.minor,
+            phase: Phase.any,
           },
           techniqueData: {
             memoryCost: 3,
@@ -240,22 +240,21 @@ export const licensesData: iLicense[] = [
 ];
 
 export function feature(license: iLicense, featureName: string): iFeature | iWeapon | iSupport | iTechnique {
-  let output = {
+  let output: iFeature | iWeapon | iSupport | iTechnique = {
     name: '',
-    type: featureType.trait,
+    type: 'Trait',
     text: '',
   };
 
-  const allUnlocks = [...license.unlocks[1], ...license.unlocks[2], ...license.unlocks[3]];
-  console.log('Searching the following for the name:', featureName);
-  console.log(allUnlocks);
+  const allUnlocks: (iFeature | iWeapon | iSupport | iTechnique)[] = [...license.unlocks[1], ...license.unlocks[2], ...license.unlocks[3]];
+  console.log('Searching the following for the name:', featureName, allUnlocks);
 
-  allUnlocks.map((unlk) => {
-    if (unlk.name === featureName) {
-      output = unlk;
+  allUnlocks.map((unlock) => {
+    if (unlock.name === featureName) {
+      output = unlock;
     }
   });
-
+  console.log(output);
   return output;
 }
 
