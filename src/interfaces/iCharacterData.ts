@@ -1,9 +1,7 @@
 import { ancestry, ancestryTrait } from '@/data/ancestriesData';
 import type iAncestry from './iAncestry';
-import { featureType, type iFeature } from './iFeature';
 import type iJob from './iJobs';
 import { job } from '@/data/jobsData';
-import type { iAction } from './iAction';
 import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
 
 interface iMoniker {
@@ -13,27 +11,54 @@ interface iMoniker {
 }
 
 interface iBasicInfo {
-  level: number;
+  level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   ancestry: iAncestry;
   job: iJob;
 }
 
 interface iChosenStats {
+  bulk: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  agility: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  mind: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  magic: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  ancestryTrait: iTrait;
+}
+
+/**
+ * All bamm and attributes, required
+ */
+export interface iDerivedStats extends iStats {
   bulk: number;
   agility: number;
   mind: number;
   magic: number;
-  ancestryTrait: iTrait;
+  grit: number;
+  size: number;
+  scope: number;
+  armor: number;
+  memory: number;
+  saveTarget: number;
+  hp: number;
+  stress: number;
+  mp: number;
+  recoveries: number;
+  speed: number;
+  dodge: number;
+  adef: number;
 }
 
-export interface iDerivedStats {
+/**
+ * All bamm and attributes, optional fields. Useful for bonus stats
+ */
+export interface iStats {
   bulk?: number;
   agility?: number;
   mind?: number;
   magic?: number;
-  size?: number;
   grit?: number;
+  size?: number;
   scope?: number;
+  armor?: number;
   memory?: number;
   saveTarget?: number;
   hp?: number;
@@ -43,6 +68,22 @@ export interface iDerivedStats {
   speed?: number;
   dodge?: number;
   adef?: number;
+}
+
+/**
+ * All attributes provided by the job
+ */
+export interface iJobStats extends iStats {
+  scope: number;
+  memory: number;
+  saveTarget: number;
+  hp: number;
+  stress: number;
+  mp: number;
+  recoveries: number;
+  speed: number;
+  dodge: number;
+  adef: number;
 }
 
 export interface iCharacterData {
@@ -57,23 +98,20 @@ export interface iCharacterData {
     techniques: iTechnique[];
     talents: any[]; //TODO: make iTalent
   };
-  features: {
-    passives: iFeature[];
-    actives: iAction[];
-  };
 }
 
 export const blankCharData: iCharacterData = {
   moniker: { name: '', title: '', pronouns: '' },
   basicInfo: { level: 1, ancestry: ancestry(''), job: job('') },
-  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', type: featureType.trait, text: '' } },
+  chosenStats: { bulk: 0, agility: 0, mind: 0, magic: 0, ancestryTrait: { name: '', type: 'Trait', text: '' } },
   derivedStats: {
     bulk: 0,
     agility: 0,
     mind: 0,
     magic: 0,
-    size: 0,
     grit: 0,
+    size: 0,
+    armor: 0,
     scope: 0,
     memory: 0,
     saveTarget: 0,
@@ -92,10 +130,6 @@ export const blankCharData: iCharacterData = {
     techniques: [],
     talents: [],
   },
-  features: {
-    passives: [],
-    actives: [],
-  },
 };
 
 export const defaultCharData: iCharacterData = {
@@ -112,8 +146,8 @@ export const defaultCharData: iCharacterData = {
   chosenStats: {
     bulk: 0,
     agility: 0,
-    mind: 0,
-    magic: 0,
+    mind: 1,
+    magic: 1,
     ancestryTrait: ancestryTrait(ancestry('Elf'), 'Elven Accuracy'),
   },
   derivedStats: {
@@ -121,28 +155,25 @@ export const defaultCharData: iCharacterData = {
     agility: 0,
     mind: 0,
     magic: 0,
-    size: 1,
-    grit: 1,
-    scope: 12,
-    memory: 8,
-    saveTarget: 12,
-    hp: 7,
-    stress: 6,
-    mp: 5,
-    recoveries: 3,
-    speed: 4,
-    dodge: 6,
-    adef: 11,
+    size: 0,
+    grit: 0,
+    scope: 0,
+    memory: 0,
+    saveTarget: 0,
+    hp: 0,
+    stress: 0,
+    mp: 0,
+    recoveries: 0,
+    speed: 0,
+    dodge: 0,
+    adef: 0,
+    armor: 0,
   },
   loadout: {
     traits: [],
     weaponSlots: [],
     supportSlots: [],
-    techniques: [],
-    talents: [],
-  },
-  features: {
-    passives: [],
-    actives: [],
+    techniques: [], //TODO: exobomb, scar
+    talents: [], //TODO: Archmage 1, Enchanter 1, Leyline Walker 1
   },
 };

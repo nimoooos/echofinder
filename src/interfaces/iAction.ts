@@ -1,6 +1,4 @@
-import type { iFeature } from './iFeature';
-
-export enum actionType {
+export enum ActionType {
   none = -1, // for features with no action associated
   stdMove = 0.1,
   minor = 0.2,
@@ -24,7 +22,7 @@ export enum actionType {
   delay = 8,
 }
 
-export enum phase {
+export enum Phase {
   any = phaseNameToNumber('any'),
   bolster = phaseNameToNumber('bolster'),
   channel = phaseNameToNumber('channel'),
@@ -58,19 +56,9 @@ export function phaseNameToNumber(phaseName: string) {
 
 /**
  * convert action enum to phase number
- * @param action actionType enum
+ * @param action ActionType enum
  * @returns phase number of the chosen action
  */
-export function actionToPhaseNumber(action: actionType) {
+export function actionToPhaseNumber(action: ActionType) {
   return Math.floor(action);
-}
-
-export interface iAction extends iFeature {
-  actionType: actionType;
-  phase: phase;
-}
-
-export interface iReaction extends iAction {
-  trigger: string;
-  effect: string;
 }

@@ -2,23 +2,212 @@
 //TODO: set up props to receive trait data
 //TODO: put it into a format that's easily readable by the template
 //TODO: dynamic style based on feature type
+import { type iFeature } from '@/interfaces/iFeature';
+import { type iSupport, type iTechnique, type iTrait, type iWeapon } from '@/interfaces/iItem';
+
+const props = defineProps<{
+  feature: iFeature | iTrait | iWeapon | iSupport | iTechnique; //TODO: or iTalent
+}>();
+
+function setStyle() {
+  let styleType: string = props.feature.type;
+  let style: string = 'style-';
+  if (styleType == 'Technique') {
+    styleType = (props.feature as iTechnique).techniqueData.techniqueType;
+    switch (styleType) {
+      case 'Skill':
+        style += 'skill';
+        break;
+      case 'Spell':
+        style += 'spell';
+        break;
+    }
+  } else {
+    switch (styleType) {
+      case 'Trait':
+        style += 'trait';
+        break;
+      case 'Weapon':
+        style += 'weapon';
+        break;
+      case 'Support Item':
+        style += 'support';
+        break;
+    }
+  }
+  return style;
+}
+
+function setTags() {
+  let tagsArray: string[] = [''];
+
+  //Feature type
+  switch (props.feature.type) {
+    case 'Trait': {
+      tagsArray.push('Trait');
+      break;
+    }
+    case 'Weapon': {
+      tagsArray.push(`${(props.feature as iWeapon).weaponData.weaponRange} Weapon`);
+      tagsArray.push(`${(props.feature as iWeapon).weaponData.weaponSize} ${(props.feature as iWeapon).weaponData.weaponType}`);
+      break;
+    }
+    case 'Support Item': {
+      tagsArray.push('Support Item');
+      tagsArray.push((props.feature as iSupport).supportData.supportSize);
+      break;
+    }
+    case 'Technique': {
+      switch ((props.feature as iTechnique).techniqueData.techniqueType) {
+        case 'Skill': {
+          tagsArray.push('Skill');
+          break;
+        }
+        case 'Spell': {
+          switch ((props.feature as iTechnique).techniqueData.spellRange) {
+            case 'Melee': {
+              tagsArray.push('Melee Spell Attack');
+              break;
+            }
+            case 'Ranged': {
+              tagsArray.push('Ranged Spell Attack');
+              break;
+            }
+            case undefined: {
+              tagsArray.push('Spell');
+            }
+          }
+        }
+      }
+    }
+    //TODO: case talent
+  }
+
+  //Memory Cost
+  if (props.feature.type == 'Technique') {
+    tagsArray.push(`${(props.feature as iTechnique).techniqueData.memoryCost} Memory`);
+  }
+
+  //Other tags
+  props.feature.tags?.forEach((tag) => {
+    if (tag.amount) {
+      tagsArray.push(`${tag.name}${' ' + tag.amount}`);
+    } else {
+      tagsArray.push(`${tag.name}`);
+    }
+  });
+  return tagsArray;
+}
 </script>
 
 <template>
-  <div>
-    <table>
+  <div class="featureCard">
+    <table :class="setStyle()">
       <tr>
         <th>
-          <h1>Feature name</h1>
-          <p>tag1, tag2, tag3</p>
+          <p class="feature-name">{{ props.feature.name }}</p>
+          <p class="tags">
+            {{
+              setTags().reduce((acc, val) => {
+                return `${acc} ${val} ⬩`;
+              })
+            }}
+          </p>
         </th>
       </tr>
-      <p>rules text</p>
       <tr>
-        <td></td>
+        <td>
+          <p class="rules-text">{{ props.feature.text }}</p>
+        </td>
       </tr>
     </table>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.featureCard {
+  display: inline-block;
+}
+
+table {
+  width: 370px;
+  padding: 1px;
+  margin-right: 10px;
+}
+
+th {
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-border);
+  border-top-right-radius: 15px;
+  text-align: start;
+  padding: 0.3rem 1rem;
+}
+
+td {
+  border: 1px solid var(--color-border);
+  border-bottom-right-radius: 15px;
+  padding: 0.3rem 1rem;
+}
+
+table.style-trait th {
+  background-color: var(--theme-trait-bold);
+  color: var(--vt-c-white);
+}
+
+table.style-trait td {
+  background-color: var(--theme-trait-light);
+  color: rgb(0, 0, 0);
+}
+
+table.style-weapon th {
+  background-color: var(--theme-weapon-bold);
+  color: var(--vt-c-white);
+}
+
+table.style-weapon td {
+  background-color: var(--theme-weapon-light);
+  color: rgb(0, 0, 0);
+}
+
+table.style-support th {
+  background-color: var(--theme-support-bold);
+  color: var(--vt-c-white);
+}
+
+table.style-support td {
+  background-color: var(--theme-support-light);
+  color: rgb(0, 0, 0);
+}
+
+table.style-skill th {
+  background-color: var(--theme-skill-bold);
+  color: var(--vt-c-white);
+}
+
+table.style-skill td {
+  background-color: var(--theme-skill-light);
+  color: rgb(0, 0, 0);
+}
+
+table.style-spell th {
+  background-color: var(--theme-spell-bold);
+  color: var(--vt-c-white);
+}
+
+table.style-spell td {
+  background-color: var(--theme-spell-light);
+  color: rgb(0, 0, 0);
+}
+
+.feature-name {
+  font: 1.1em sans-serif;
+}
+
+.tags {
+  font: 0.8em;
+}
+
+.rules-text {
+  white-space: break-spaces;
+}
+</style>

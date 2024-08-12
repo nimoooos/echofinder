@@ -1,24 +1,30 @@
-import type { iDerivedStats } from './iCharacterData';
-
 /**
  * Used for feature type. Feature is called "Ability" in game.
  */
-export enum featureType {
-  trait,
-  weapon,
-  supportItem,
-  technique,
-  action,
-}
+import type { ActionType, Phase } from './iAction';
+import type { iStats } from './iCharacterData';
+import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
 
 /**
  * basic feature with name, feature type, and rules text
  */
 export interface iFeature {
   name: string;
-  type: featureType;
+  type: 'Trait' | 'Weapon' | 'Support Item' | 'Technique' | 'Limit Break';
   text: string;
+  tags?: {
+    name: string;
+    amount?: number;
+  }[];
+  actionData?: {
+    actionType: ActionType;
+    phase: Phase | Phase[];
+    reaction?: {
+      trigger: string;
+      effect: string;
+    };
+  };
   synergies?: any; //TODO: this is for things like "when you do X..."
-  gainedAction?: iFeature[]; //new actions that get granted by this feature
-  statBonus?: iDerivedStats; //how much stat you gain
+  gainedActions?: (iFeature | iTrait | iWeapon | iSupport | iTechnique)[]; //new actions that get granted by this feature
+  statBonus?: iStats; //how much bonus stats you gain
 }

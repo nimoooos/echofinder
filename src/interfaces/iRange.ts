@@ -1,13 +1,4 @@
 export interface iRange {
-  rangeType: rangeType;
-  amount: number | 'scope';
-}
-
-export enum rangeType {
-  range,
-  reach,
-  blast,
-  closeBlast,
-  burst,
-  line,
+  type: 'Range' | 'Reach' | 'Blast' | 'Close Blast' | 'Burst' | 'Line' | 'Thrown';
+  value: number | 'Scope';
 }

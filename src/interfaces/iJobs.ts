@@ -1,8 +1,8 @@
-import type { iAction } from './iAction';
-import type { iDerivedStats } from './iCharacterData';
-import type { itemSize, iTrait } from './iItem';
+import type { iJobStats } from './iCharacterData';
+import type { iFeature } from './iFeature';
+import type { SlotSize, iSlot, iTrait } from './iItem';
 
-export enum jobClass {
+export enum JobClass {
   Artillery,
   Controller,
   Defender,
@@ -12,10 +12,10 @@ export enum jobClass {
 
 export default interface iJob {
   name: string;
-  class: jobClass[];
-  baseStats: iDerivedStats;
+  sourceLicense: JobClass[];
+  baseStats: iJobStats;
   jobTraits: iTrait[];
-  weaponSlots: itemSize[];
-  supportSlots: itemSize[];
-  limitBreak: iAction;
+  weaponSlots: iSlot[];
+  supportSlots: iSlot[];
+  limitBreak: iFeature;
 }

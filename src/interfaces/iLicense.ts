@@ -4,15 +4,15 @@
  * License is the term they use in Lancer
  */
 
-import type { iFeature } from './iFeature';
+import type { iSupport, iTechnique, iWeapon } from './iItem';
 import type iJob from './iJobs';
 
 export interface iLicense {
   name: string;
   jobs: iJob[]; //what jobs you unlock from the license
   unlocks: {
-    1: iFeature[];
-    2: iFeature[];
-    3: iFeature[];
+    1: (iWeapon | iSupport | iTechnique)[];
+    2: (iWeapon | iSupport | iTechnique)[];
+    3: (iWeapon | iSupport | iTechnique)[];
   };
 }

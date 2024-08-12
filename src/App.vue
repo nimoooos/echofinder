@@ -9,15 +9,23 @@ import AncestrySelect from './components/CharacterCreator/ancestrySelect.vue';
 import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSelect.vue';
 import JobSelect from './components/CharacterCreator/jobSelect.vue';
 import NavBar from './components/NavBar/NavBar.vue';
+import FeatureCard from './views/featureCard.vue';
+import { feature, license } from './data/licenseData';
+import SlotSelect from './components/CharacterCreator/slotSelect.vue';
+import type { iSupport, iWeapon } from './interfaces/iItem';
 
 const charData = ref<iCharacterData>(defaultCharData);
 
 const toggleEdit = ref({
   moniker: false,
   basicinfo: false,
+  bamm: false,
 });
 
-function recalculateStats() {
+/**
+ * calculates stats again each time there's a change
+ */
+function recalculateStats(): void {
   console.log('calculating...');
   //initialize derived stats
   charData.value.derivedStats = blankCharData.derivedStats;
@@ -37,35 +45,82 @@ function recalculateStats() {
   charData.value.derivedStats.adef = charData.value.basicInfo.job.baseStats.adef;
   charData.value.derivedStats.mp = charData.value.basicInfo.job.baseStats.mp;
 
-  //get extra stuff from jobs
-
-  //get extra stuff from ancestry
-
   //calcaulate derived bamm (mostly reserves)
-  //calculate bonuses from bamm
+  charData.value.derivedStats.bulk = charData.value.chosenStats.bulk;
+  charData.value.derivedStats.agility = charData.value.chosenStats.agility;
+  charData.value.derivedStats.mind = charData.value.chosenStats.mind;
+  charData.value.derivedStats.magic = charData.value.chosenStats.magic;
 
-  //get stuff from weapons
-  //get stuff from supports
-  //get stuff from techniques
-  //get stuff from talents
+  //grit
+  charData.value.derivedStats.grit = Math.floor(charData.value.basicInfo.level / 2);
+  charData.value.derivedStats.hp += charData.value.derivedStats.grit;
+  charData.value.derivedStats.saveTarget += charData.value.derivedStats.grit;
+  charData.value.derivedStats.memory += charData.value.derivedStats.grit;
+
+  //calculate bonuses from bamm
+  charData.value.derivedStats.hp += 2 * charData.value.derivedStats.bulk;
+  charData.value.derivedStats.recoveries += Math.floor(charData.value.derivedStats.bulk / 2);
+  charData.value.derivedStats.dodge += charData.value.derivedStats.agility;
+  charData.value.derivedStats.speed += Math.floor(charData.value.derivedStats.agility / 2);
+  charData.value.derivedStats.stress += charData.value.derivedStats.mind;
+  charData.value.derivedStats.memory += Math.floor(charData.value.derivedStats.mind / 2);
+  charData.value.derivedStats.adef += charData.value.derivedStats.magic;
+  charData.value.derivedStats.mp += Math.floor(charData.value.derivedStats.magic / 2);
 
   //get traits
+  charData.value.loadout.traits = [...charData.value.basicInfo.job.jobTraits, charData.value.chosenStats.ancestryTrait];
   //get weapons
   //get supports
   //get techniques
+
+  //get stat bonus from traits
+  //get stat bonus from weapons
+  //get stat bonus from supports
+  //get stat bonus from techniques
+  //get stat bonus from talents
 
   //print new charData
   console.log(charData.value);
 }
 
-function setAncestryTrait(newAncestryTraitName: string) {
+/**
+ * sets ancestry trait, called by ancestry trait menu
+ */
+function setAncestryTrait(newAncestryTraitName: string): void {
   charData.value.chosenStats.ancestryTrait = ancestryTrait(charData.value.basicInfo.ancestry, newAncestryTraitName);
+}
+
+function checkBamm(): { caution: boolean; message: string } {
+  let output = { caution: false, message: '' };
+  const bammSum = charData.value.chosenStats.bulk + charData.value.chosenStats.agility + charData.value.chosenStats.mind + charData.value.chosenStats.magic;
+  const bammMax = charData.value.basicInfo.level + 1;
+  output.caution = bammSum != bammMax;
+  output.message = `${bammSum}/${bammMax} pts`;
+
+  return output;
+}
+
+function getUnlockedWeapons(): iWeapon[] {
+  let output: iWeapon[] = [];
+  //TODO: get the weapons
+
+  output.push(feature(license('Assassin'), 'Throatcutter') as iWeapon);
+  output.push(feature(license('Equinox'), 'Saturn Rod') as iWeapon);
+
+  return output;
+}
+
+function getUnlockedSupportItems(): iSupport[] {
+  let output: iSupport[] = [];
+  //TODO: get the support items
+  return output;
 }
 
 //recalculate stats whenever data changes
 watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData) => {
   recalculateStats();
 });
+recalculateStats(); //run it once when things load
 </script>
 
 <template>
@@ -73,8 +128,9 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
   <div id="charsheet">
     <div id="charsheet-moniker">
       <h1 id="moniker-summary">
-        {{ charData.moniker.name }}, {{ charData.moniker.title }} ({{ charData.moniker.pronouns }})
-        <button @click="toggleEdit.moniker = !toggleEdit.moniker">📝</button>
+        {{ charData.moniker.name }}, {{ charData.moniker.title }} ({{ charData.moniker.pronouns }})<button @click="toggleEdit.moniker = !toggleEdit.moniker">
+          📝
+        </button>
       </h1>
       <div id="charsheet-moniker-edit" v-if="toggleEdit.moniker">
         <table id="charsheet-moniker-table">
@@ -98,10 +154,10 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </div>
     </div>
     <div id="charsheet-basicinfo">
-      <h2 id="basicinfo-summary">
-        Level {{ charData.basicInfo.level }} {{ charData.basicInfo.ancestry.name }} {{ charData.basicInfo.job.name }}
-        <button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
-      </h2>
+      <h1 id="basicinfo-summary">
+        Level {{ charData.basicInfo.level }} {{ charData.basicInfo.ancestry.name }} {{ charData.basicInfo.job.name
+        }}<button @click="toggleEdit.basicinfo = !toggleEdit.basicinfo">📝</button>
+      </h1>
       <div id="charsheet-basicinfo-edit" v-if="toggleEdit.basicinfo">
         <table id="charsheet-basicinfo-table">
           <tr>
@@ -121,10 +177,16 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
                     charData.basicInfo.ancestry = ancestry(anc);
                   }
                 "
+                :preselect="charData.basicInfo.ancestry.name"
               />
             </td>
             <td>
-              <AncestryTraitSelect v-bind:traits="charData.basicInfo.ancestry.traits" :key="charData.basicInfo.ancestry.name" @set-trait="setAncestryTrait" />
+              <AncestryTraitSelect
+                v-bind:traits="charData.basicInfo.ancestry.traits"
+                :key="charData.basicInfo.ancestry.name"
+                @set-trait="setAncestryTrait"
+                :preselect="charData.chosenStats.ancestryTrait.name"
+              />
             </td>
             <td>
               <JobSelect
@@ -133,6 +195,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
                     charData.basicInfo.job = job(jobName);
                   }
                 "
+                :preselect="charData.basicInfo.job.name"
               />
             </td>
           </tr>
@@ -140,7 +203,12 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </div>
     </div>
     <div id="charsheet-bamm">
-      <h3>Ability Scores</h3>
+      <h3 class="table-heading">Ability Scores</h3>
+      <p class="caution" id="bamm-caution" :v-if="checkBamm().caution">
+        {{ checkBamm().message }}
+      </p>
+      <button @click="toggleEdit.bamm = !toggleEdit.bamm">📝</button>
+
       <table id="charsheet-bamm-table">
         <tr>
           <th>Bulk</th>
@@ -148,7 +216,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
           <th>Mind</th>
           <th>Magic</th>
         </tr>
-        <tr>
+        <tr class="middle-row" v-if="toggleEdit.bamm">
           <td>
             <input id="input-bulk" type="number" min="0" max="6" v-model="charData.chosenStats.bulk" />
           </td>
@@ -162,14 +230,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
             <input id="input-magic" type="number" min="0" max="6" v-model="charData.chosenStats.magic" />
           </td>
         </tr>
-        <h3>with Modifications</h3>
-        <tr>
-          <th>Bulk</th>
-          <th>Agility</th>
-          <th>Mind</th>
-          <th>Magic</th>
-        </tr>
-        <tr>
+        <tr v-if="!toggleEdit.bamm">
           <td><input type="number" disabled v-model="charData.derivedStats.bulk" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.agility" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.mind" /></td>
@@ -178,7 +239,7 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
       </table>
     </div>
     <div id="charsheet-derivedstats">
-      <h3>Derived Stats</h3>
+      <h3 class="table-heading">Attributes</h3>
       <table id="charsheet-derivedstats-table">
         <tr>
           <th>Size</th>
@@ -192,11 +253,13 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
         </tr>
         <tr>
           <th>HP</th>
+          <th>Armor</th>
           <th>Stress Cap</th>
           <th>MP</th>
         </tr>
         <tr>
           <td><input type="number" disabled v-model="charData.derivedStats.hp" /></td>
+          <td><input type="number" disabled v-model="charData.derivedStats.armor" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.stress" /></td>
           <td><input type="number" disabled v-model="charData.derivedStats.mp" /></td>
         </tr>
@@ -222,10 +285,64 @@ watch([charData.value.basicInfo, charData.value.chosenStats], (newData, oldData)
         </tr>
       </table>
     </div>
+    <div id="charsheet-traits">
+      <h3 class="loadout-heading">Traits</h3>
+      <FeatureCard v-for="trait in charData.loadout.traits" v-bind:key="trait.name" :feature="trait" />
+    </div>
+    <div id="charsheet-weapons">
+      <h3 class="loadout-heading">Weapons</h3>
+      <SlotSelect
+        selector-type="Weapon"
+        v-for="weaponSlot in charData.basicInfo.job.weaponSlots"
+        :unlocks="getUnlockedWeapons()"
+        :slotData="weaponSlot"
+        v-bind:key="weaponSlot.index"
+      />
+    </div>
+    <div id="charsheet-supportItems">
+      <h3 class="loadout-heading">Support Items</h3>
+      <SlotSelect
+        selector-type="Support Item"
+        v-for="supportSlot in charData.basicInfo.job.supportSlots"
+        :unlocks="getUnlockedSupportItems()"
+        :slotData="supportSlot"
+        v-bind:key="supportSlot.index"
+      />
+    </div>
+    <div id="charsheet-techniques">
+      <h3 class="loadout-heading">Techniques</h3>
+      <FeatureCard :feature="feature(license('Equinox'), 'Exobomb')" />
+      <FeatureCard :feature="feature(license('Equinox'), 'Scar')" />
+      <FeatureCard :feature="feature(license('Equinox'), 'Quickcast')" />
+      <FeatureCard :feature="feature(license('Equinox'), 'Dividing Line')" />
+    </div>
+    <div id="charsheet-talents">
+      <h3 class="loadout-heading">Talents</h3>
+    </div>
   </div>
 </template>
 
 <style scoped>
+#charsheet-moniker,
+#charsheet-basicinfo {
+  display: inline-block;
+  margin-right: 40px;
+}
+
+h3.table-heading {
+  display: inline-block;
+  font-weight: 700;
+}
+
+h3.loadout-heading {
+  font-weight: 700;
+}
+
+p.caution {
+  color: var(--color-accent-bold);
+  display: inline-block;
+  margin-left: 1rem;
+}
 th {
   border: 1px solid var(--color-border);
   border-top-right-radius: 1rem;
@@ -239,6 +356,9 @@ td {
   background-color: var(--color-background-soft);
   padding: 0 1rem;
 }
+tr.middle-row td {
+  border-bottom-right-radius: 0rem;
+}
 
 input,
 select {
@@ -247,12 +367,12 @@ select {
   border: 0;
   background-color: var(--color-background-soft);
   color: var(--color-text);
+  text-align: center;
 }
 
 input:disabled {
   -webkit-appearance: none;
   -moz-appearance: textfield;
-  text-align: center;
 }
 
 button {
