@@ -118,7 +118,7 @@ export function job(jobName: string): iJob {
     supportSlots: [],
     limitBreak: {
       name: '',
-      type: 'Trait',
+      type: 'Limit Break',
       text: '',
       actionData: {
         actionType: ActionType.none,
