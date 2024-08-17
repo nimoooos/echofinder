@@ -73,16 +73,16 @@ const slot2Feature = ref<string>();
   border: 3px dotted var(--color-border);
   width: 380px;
   display: inline-block;
+  margin: 5px;
 }
 
 .SlotSelectWrapper.WideWrapper {
-  border: 3px dotted var(--color-border);
   width: 765px;
-  display: inline-block;
 }
 
 table#slot-holder {
   width: 100%;
+  table-layout: fixed;
 }
 
 select {
