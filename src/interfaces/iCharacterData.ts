@@ -3,6 +3,8 @@ import type iAncestry from './iAncestry';
 import type iJob from './iJobs';
 import { job } from '@/data/jobsData';
 import type { iSupport, iTechnique, iTrait, iWeapon } from './iItem';
+import type { iLicense } from './iLicense';
+import { license } from '@/data/licenseData';
 
 interface iMoniker {
   name: string;
@@ -91,6 +93,7 @@ export interface iCharacterData {
   basicInfo: iBasicInfo;
   chosenStats: iChosenStats;
   derivedStats: iDerivedStats;
+  licenses: { license: iLicense; rank: 1 | 2 | 3 }[];
   loadout: {
     traits: iTrait[];
     weaponSlots: iWeapon[];
@@ -130,6 +133,7 @@ export const blankCharData: iCharacterData = {
     techniques: [],
     talents: [],
   },
+  licenses: [],
 };
 
 export const defaultCharData: iCharacterData = {
@@ -176,4 +180,5 @@ export const defaultCharData: iCharacterData = {
     techniques: [], //TODO: exobomb, scar
     talents: [], //TODO: Archmage 1, Enchanter 1, Leyline Walker 1
   },
+  licenses: [{ license: license('Equinox'), rank: 1 }],
 };

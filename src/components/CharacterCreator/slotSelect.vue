@@ -37,7 +37,7 @@ const slot2Feature = ref<string>();
 <template>
   <div :class="{ SlotSelectWrapper: true, WideWrapper: slot2Type != undefined }">
     <p>{{ componentTitle }}</p>
-    <table id="slot-holder">
+    <table id="slot-holder" :key="props.unlocks.length + props.slotData.slotSize">
       <tr>
         <td>
           <select id="slot1" v-model="slot1Feature">
@@ -73,16 +73,16 @@ const slot2Feature = ref<string>();
   border: 3px dotted var(--color-border);
   width: 380px;
   display: inline-block;
+  margin: 5px;
 }
 
 .SlotSelectWrapper.WideWrapper {
-  border: 3px dotted var(--color-border);
   width: 765px;
-  display: inline-block;
 }
 
 table#slot-holder {
   width: 100%;
+  table-layout: fixed;
 }
 
 select {

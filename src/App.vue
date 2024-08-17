@@ -13,6 +13,8 @@ import FeatureCard from './views/featureCard.vue';
 import { feature } from './data/licenseData';
 import SlotSelect from './components/CharacterCreator/slotSelect.vue';
 import type { iSupport, iWeapon } from './interfaces/iItem';
+import LicenseSelect from './components/CharacterCreator/licenseSelect.vue';
+import type { iLicense } from './interfaces/iLicense';
 
 const charData = ref<iCharacterData>(defaultCharData);
 
@@ -67,6 +69,10 @@ function recalculateStats(): void {
   charData.value.derivedStats.adef += charData.value.derivedStats.magic;
   charData.value.derivedStats.mp += Math.floor(charData.value.derivedStats.magic / 2);
 
+  //get unlocks
+  getUnlockedWeapons();
+  getUnlockedSupportItems();
+
   //get traits
   charData.value.loadout.traits = [...charData.value.basicInfo.job.jobTraits, charData.value.chosenStats.ancestryTrait];
   //get weapons
@@ -80,7 +86,7 @@ function recalculateStats(): void {
   //get stat bonus from talents
 
   //print new charData
-  console.log(charData.value);
+  console.log('New charData:', charData.value);
 }
 
 /**
@@ -88,6 +94,11 @@ function recalculateStats(): void {
  */
 function setAncestryTrait(newAncestryTraitName: string): void {
   charData.value.chosenStats.ancestryTrait = ancestryTrait(charData.value.basicInfo.ancestry, newAncestryTraitName);
+}
+
+function setLicenses(newLicenses: { license: iLicense; rank: 1 | 2 | 3 }[]): void {
+  charData.value.licenses = newLicenses;
+  console.log('licenses set:', charData.value.licenses);
 }
 
 function checkBamm(): { caution: boolean; message: string } {
@@ -100,24 +111,71 @@ function checkBamm(): { caution: boolean; message: string } {
   return output;
 }
 
-function getUnlockedWeapons(): iWeapon[] {
-  let output: iWeapon[] = [];
-  //TODO: get the weapons
-
-  output.push(feature('Throatcutter') as iWeapon);
-  output.push(feature('Saturn Rod') as iWeapon);
+function checkLicenses(): { caution: boolean; message: string } {
+  let output = { caution: false, message: '' };
+  const licensesSum = charData.value.licenses.reduce((acc, currentLicense) => acc + currentLicense.rank, 0);
+  output.message = `${licensesSum}/${charData.value.basicInfo.level} chosen`;
+  output.caution = licensesSum != charData.value.basicInfo.level;
 
   return output;
 }
 
+function getUnlockedWeapons(): iWeapon[] {
+  let unlockedWeapons: iWeapon[] = [];
+  charData.value.licenses.forEach((lcs) => {
+    if (lcs.rank >= 1) {
+      lcs.license.unlocks[1].forEach((ulk) => {
+        if (ulk.type === 'Weapon') {
+          unlockedWeapons.push(ulk as iWeapon);
+        }
+      });
+    }
+    if (lcs.rank >= 2) {
+      lcs.license.unlocks[2].forEach((ulk) => {
+        if (ulk.type === 'Weapon') {
+          unlockedWeapons.push(ulk as iWeapon);
+        }
+      });
+    }
+    if (lcs.rank == 3) {
+      lcs.license.unlocks[3].forEach((ulk) => {
+        if (ulk.type === 'Weapon') {
+          unlockedWeapons.push(ulk as iWeapon);
+        }
+      });
+    }
+  });
+
+  return unlockedWeapons;
+}
+
 function getUnlockedSupportItems(): iSupport[] {
-  let output: iSupport[] = [];
-  //TODO: get the support items
-
-  output.push(feature('Garrote') as iSupport);
-  output.push(feature("Poisoner's Kit") as iSupport);
-
-  return output;
+  let unlockedSupportItems: iSupport[] = [];
+  charData.value.licenses.forEach((lcs) => {
+    if (lcs.rank >= 1) {
+      lcs.license.unlocks[1].forEach((ulk) => {
+        if (ulk.type === 'Support Item') {
+          unlockedSupportItems.push(ulk as iSupport);
+        }
+      });
+    }
+    if (lcs.rank >= 2) {
+      lcs.license.unlocks[2].forEach((ulk) => {
+        if (ulk.type === 'Support Item') {
+          unlockedSupportItems.push(ulk as iSupport);
+        }
+      });
+    }
+    if (lcs.rank == 3) {
+      lcs.license.unlocks[3].forEach((ulk) => {
+        if (ulk.type === 'Support Item') {
+          unlockedSupportItems.push(ulk as iSupport);
+        }
+      });
+    }
+  });
+  console.log('Unlocked Support Items:', unlockedSupportItems.length);
+  return unlockedSupportItems;
 }
 
 //recalculate stats whenever data changes
@@ -200,6 +258,7 @@ recalculateStats(); //run it once when things load
                   }
                 "
                 :preselect="charData.basicInfo.job.name"
+                :job-options="charData.licenses.flatMap((lcs) => lcs.license.jobs)"
               />
             </td>
           </tr>
@@ -208,7 +267,7 @@ recalculateStats(); //run it once when things load
     </div>
     <div id="charsheet-bamm">
       <h3 class="table-heading">Ability Scores</h3>
-      <p class="caution" id="bamm-caution" :v-if="checkBamm().caution">
+      <p class="caution" id="bamm-caution" :class="{ cautionActive: checkBamm().caution }">
         {{ checkBamm().message }}
       </p>
       <button @click="toggleEdit.bamm = !toggleEdit.bamm">📝</button>
@@ -289,6 +348,16 @@ recalculateStats(); //run it once when things load
         </tr>
       </table>
     </div>
+
+    <div id="charsheet-licenses">
+      <h3 class="loadout-heading">
+        Class Ranks
+        <p class="caution" :class="{ cautionActive: checkLicenses().caution }">
+          {{ checkLicenses().message }}
+        </p>
+      </h3>
+      <LicenseSelect :currentLicenses="charData.licenses" @set-licenses="setLicenses" />
+    </div>
     <div id="charsheet-traits">
       <h3 class="loadout-heading">Traits</h3>
       <FeatureCard v-for="trait in charData.loadout.traits" v-bind:key="trait.name" :feature="trait" />
@@ -300,7 +369,7 @@ recalculateStats(); //run it once when things load
         v-for="weaponSlot in charData.basicInfo.job.weaponSlots"
         :unlocks="getUnlockedWeapons()"
         :slotData="weaponSlot"
-        v-bind:key="weaponSlot.index"
+        v-bind:key="weaponSlot.index + weaponSlot.slotSize + getUnlockedWeapons().length"
       />
     </div>
     <div id="charsheet-supportItems">
@@ -310,7 +379,7 @@ recalculateStats(); //run it once when things load
         v-for="supportSlot in charData.basicInfo.job.supportSlots"
         :unlocks="getUnlockedSupportItems()"
         :slotData="supportSlot"
-        v-bind:key="supportSlot.index"
+        v-bind:key="supportSlot.index + supportSlot.slotSize + getUnlockedSupportItems().length"
       />
     </div>
     <div id="charsheet-techniques">
@@ -346,7 +415,12 @@ p.caution {
   color: var(--color-accent-bold);
   display: inline-block;
   margin-left: 1rem;
+  font-size: small;
 }
+p.caution.cautionActive {
+  color: darkred;
+}
+
 th {
   border: 1px solid var(--color-border);
   border-top-right-radius: 1rem;
