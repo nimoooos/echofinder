@@ -33,6 +33,9 @@ function setStyle() {
       case 'Support Item':
         style += 'support';
         break;
+      case 'Limit Break':
+        style += 'limitbreak';
+        break;
     }
   }
   return style;
@@ -57,6 +60,10 @@ function setTags() {
       tagsArray.push(`${(props.feature as iSupport).itemSize}`);
       break;
     }
+    case 'Limit Break': {
+      tagsArray.push('Limit Break');
+      break;
+    }
     case 'Technique': {
       switch ((props.feature as iTechnique).techniqueData.techniqueType) {
         case 'Skill': {
@@ -75,11 +82,14 @@ function setTags() {
             }
             case undefined: {
               tagsArray.push('Spell');
+              break;
             }
           }
+          break;
         }
       }
     }
+
     //TODO: case talent
   }
 
@@ -178,7 +188,7 @@ table.style-trait th {
 
 table.style-trait td {
   background-color: var(--theme-trait-light);
-  color: rgb(0, 0, 0);
+  color: var(--vt-c-black);
 }
 
 table.style-weapon th {
@@ -188,7 +198,7 @@ table.style-weapon th {
 
 table.style-weapon td {
   background-color: var(--theme-weapon-light);
-  color: rgb(0, 0, 0);
+  color: var(--vt-c-black);
 }
 
 table.style-support th {
@@ -198,7 +208,7 @@ table.style-support th {
 
 table.style-support td {
   background-color: var(--theme-support-light);
-  color: rgb(0, 0, 0);
+  color: var(--vt-c-black);
 }
 
 table.style-skill th {
@@ -208,7 +218,7 @@ table.style-skill th {
 
 table.style-skill td {
   background-color: var(--theme-skill-light);
-  color: rgb(0, 0, 0);
+  color: var(--vt-c-black);
 }
 
 table.style-spell th {
@@ -218,7 +228,17 @@ table.style-spell th {
 
 table.style-spell td {
   background-color: var(--theme-spell-light);
-  color: rgb(0, 0, 0);
+  color: var(--vt-c-black);
+}
+
+table.style-limitbreak th {
+  background-color: var(--theme-limitbreak-bold);
+  color: var(--vt-c-white);
+}
+
+table.style-limitbreak td {
+  background-color: var(--theme-limitbreak-light);
+  color: var(--vt-c-black);
 }
 
 .feature-name {

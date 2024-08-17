@@ -358,6 +358,10 @@ recalculateStats(); //run it once when things load
       </h3>
       <LicenseSelect :currentLicenses="charData.licenses" @set-licenses="setLicenses" />
     </div>
+    <div id="charsheet-limitbreak">
+      <h3 class="loadout-heading">Limit Break</h3>
+      <FeatureCard :feature="charData.basicInfo.job.limitBreak" />
+    </div>
     <div id="charsheet-traits">
       <h3 class="loadout-heading">Traits</h3>
       <FeatureCard v-for="trait in charData.loadout.traits" v-bind:key="trait.name" :feature="trait" />
