@@ -239,14 +239,20 @@ export const licensesData: iLicense[] = [
   },
 ];
 
-export function feature(license: iLicense, featureName: string): iFeature | iWeapon | iSupport | iTechnique {
+export function feature(featureName: string): iFeature | iWeapon | iSupport | iTechnique {
   let output: iFeature | iWeapon | iSupport | iTechnique = {
     name: '',
     type: 'Trait',
     text: '',
   };
 
-  const allUnlocks: (iFeature | iWeapon | iSupport | iTechnique)[] = [...license.unlocks[1], ...license.unlocks[2], ...license.unlocks[3]];
+  let allUnlocks: (iFeature | iWeapon | iSupport | iTechnique)[] = [];
+  licensesData.forEach((lcs) => {
+    const unlocksFromLicense: (iFeature | iWeapon | iSupport | iTechnique)[] = [...lcs.unlocks[1], ...lcs.unlocks[2], ...lcs.unlocks[3]];
+    unlocksFromLicense.forEach((ulk) => allUnlocks.push(ulk));
+  });
+
+  allUnlocks = [...allUnlocks];
   console.log('Searching the following for the name:', featureName, allUnlocks);
 
   allUnlocks.map((unlock) => {
