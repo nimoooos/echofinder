@@ -15,7 +15,7 @@ export interface iFeature {
   itemSize?: 'Light' | 'Main' | 'Heavy';
   tags?: {
     name: string;
-    amount?: number;
+    value?: number;
   }[];
   actionData?: {
     actionType: ActionType;

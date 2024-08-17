@@ -28,7 +28,7 @@ export const licensesData: iLicense[] = [
             weaponType: 'Blade',
             weaponRange: 'Melee',
           },
-          tags: [{ name: 'Thrown', amount: 5 }],
+          tags: [{ name: 'Thrown', value: 5 }],
         },
         {
           name: 'Master of Stealth',
@@ -58,7 +58,7 @@ export const licensesData: iLicense[] = [
           supportData: {
             supportSize: 'Main',
           },
-          tags: [{ name: 'Consumable', amount: 3 }],
+          tags: [{ name: 'Consumable', value: 3 }],
         },
       ],
       3: [
@@ -112,7 +112,7 @@ export const licensesData: iLicense[] = [
           name: 'Scar',
           type: 'Technique',
           text: "Deal 1 Piercing Force to an enemy within Range, or 3 Piercing Force if they're Bloodied.",
-          tags: [{ name: 'Mana', amount: 1 }],
+          tags: [{ name: 'Mana', value: 1 }],
           actionData: {
             actionType: ActionType.minor,
             phase: Phase.any,
@@ -195,7 +195,7 @@ export const licensesData: iLicense[] = [
           name: 'Saturn Rod',
           type: 'Weapon',
           text: '',
-          tags: [{ name: 'Homing' }, { name: 'Mana', amount: 1 }],
+          tags: [{ name: 'Homing' }, { name: 'Mana', value: 1 }],
           actionData: {
             actionType: ActionType.volley,
             phase: Phase.skirmish,
@@ -214,7 +214,7 @@ export const licensesData: iLicense[] = [
           name: 'Dividing Line',
           type: 'Technique',
           text: 'On Release: Designate all adjacent spaces along one long side of the AOE as Astral and all adjacent spaces along the other as Lunar. The spaces at the tips of the line are unaffected.\nCharacters in or adjacent to the line, excluding yourself, must make an Agility save, taking damage of a type determined by their location.\n\t⬦Failure: They take 2d6+6 damage and are Sundered until the end of their next turn.\n\t⬦Success: They take 1d6+6 damage.\n\nCharacters on the astral side take Astral, characters on the Lunar side take Lunar, and characters in the center of the AOE take Force. Characters spanning more than one location choose which damage they take.',
-          tags: [{ name: 'Mana', amount: 3 }],
+          tags: [{ name: 'Mana', value: 3 }],
           actionData: {
             actionType: ActionType.channel,
             phase: Phase.channel,
@@ -229,7 +229,7 @@ export const licensesData: iLicense[] = [
           name: 'Quickcast',
           type: 'Technique',
           text: 'The next time you 2 Channel an ability this round, you release it immediately.',
-          tags: [{ name: 'Mana', amount: 2 }],
+          tags: [{ name: 'Mana', value: 2 }],
           actionData: {
             actionType: ActionType.minor,
             phase: Phase.any,

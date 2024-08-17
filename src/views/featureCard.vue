@@ -90,8 +90,8 @@ function setTags() {
 
   //Other tags
   props.feature.tags?.forEach((tag) => {
-    if (tag.amount) {
-      tagsArray.push(`${tag.name}${' ' + tag.amount}`);
+    if (tag.value) {
+      tagsArray.push(`${tag.name}${' ' + tag.value}`);
     } else {
       tagsArray.push(`${tag.name}`);
     }
