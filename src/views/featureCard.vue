@@ -49,12 +49,12 @@ function setTags() {
     }
     case 'Weapon': {
       tagsArray.push(`${(props.feature as iWeapon).weaponData.weaponRange} Weapon`);
-      tagsArray.push(`${(props.feature as iWeapon).weaponData.weaponSize} ${(props.feature as iWeapon).weaponData.weaponType}`);
+      tagsArray.push(`${props.feature.itemSize} ${(props.feature as iWeapon).weaponData.weaponType}`);
       break;
     }
     case 'Support Item': {
       tagsArray.push('Support Item');
-      tagsArray.push((props.feature as iSupport).supportData.supportSize);
+      tagsArray.push(`${props.feature.itemSize}`);
       break;
     }
     case 'Technique': {

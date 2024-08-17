@@ -12,6 +12,7 @@ export interface iFeature {
   name: string;
   type: 'Trait' | 'Weapon' | 'Support Item' | 'Technique' | 'Limit Break';
   text: string;
+  itemSize?: 'Light' | 'Main' | 'Heavy';
   tags?: {
     name: string;
     amount?: number;

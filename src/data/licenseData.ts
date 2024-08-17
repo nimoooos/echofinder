@@ -18,6 +18,7 @@ export const licensesData: iLicense[] = [
             actionType: ActionType.fight,
             phase: [Phase.skirmish, Phase.brawl],
           },
+          itemSize: 'Light',
           weaponData: {
             attackProfiles: [
               { range: { type: 'Reach', value: 1 }, damage: [{ type: 'Physical', value: '1d3+1' }] },
@@ -44,6 +45,7 @@ export const licensesData: iLicense[] = [
           name: 'Garrote',
           type: 'Support Item',
           text: 'When you successfully Grapple a target, they are Silenced for the duration of the grapple. Additionally, they take 1 Piercing Physical for every space moved while Grappled in this way, to a maximum amount of damage each turn equal to your Speed.\nYou can only garrote one target at a time, and a character can only be garroted by one character at a time.',
+          itemSize: 'Light',
           supportData: {
             supportSize: 'Light',
           },
@@ -52,6 +54,7 @@ export const licensesData: iLicense[] = [
           name: "Poisoner's Kit",
           type: 'Support Item',
           text: "You can expend a charge when you hit with a non-Aetheric weapon attack. The target takes 1 Discord. As long as they take any amount of Discord from his ability after resistances, immunity, and so on, they are then affected by one of the following poisons (your choice): \n\t⬦ Deathbite: Whenever the target fails the Magic check to clear their Discord, their Discord doubles before they take discord damage.\n\t⬦ Ghoulblood: The target is Weakened.\n\t⬦ Midnight Malice: The target is Blinded and can't reveal Hidden enemies. \nThis effect lasts until cleared.",
+          itemSize: 'Light',
           supportData: {
             supportSize: 'Main',
           },
@@ -63,6 +66,7 @@ export const licensesData: iLicense[] = [
           name: "Reaper's Shroud",
           type: 'Support Item',
           text: '+1 Armor. Whenever you defeat an enemy, you become Invisible until the start of your next turn.',
+          itemSize: 'Light',
           supportData: {
             supportSize: 'Light',
           },
@@ -196,6 +200,7 @@ export const licensesData: iLicense[] = [
             actionType: ActionType.volley,
             phase: Phase.skirmish,
           },
+          itemSize: 'Light',
           weaponData: {
             weaponSize: 'Main',
             weaponRange: 'Ranged',
