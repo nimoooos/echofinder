@@ -289,6 +289,10 @@ recalculateStats(); //run it once when things load
         </tr>
       </table>
     </div>
+
+    <div id="charsheet-classranks">
+      <h3 class="loadout-heading">Class Ranks</h3>
+    </div>
     <div id="charsheet-traits">
       <h3 class="loadout-heading">Traits</h3>
       <FeatureCard v-for="trait in charData.loadout.traits" v-bind:key="trait.name" :feature="trait" />
