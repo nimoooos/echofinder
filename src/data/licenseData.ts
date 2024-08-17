@@ -93,7 +93,7 @@ export const licensesData: iLicense[] = [
           name: 'Exobomb',
           type: 'Technique',
           text: 'On Channel: Choose one of the following options:\n\t⬦ Fireball: On Release: Characters in a Blast 2 AOE within Range are auto-hit, taking 2d6+2 Astral.\n  \t⬦ Squall: On Release: Center a Burst 1 AOE around a character within Range. All characters within the AOE are auto-hit for 2d6+2 Lunar and Slowed until the end of their next turn.',
-          tags: [{ name: 'Mana', amount: 2 }],
+          tags: [{ name: 'Mana', value: 2 }],
           actionData: {
             actionType: ActionType.channel,
             phase: Phase.channel,
