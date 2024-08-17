@@ -94,9 +94,11 @@ button {
   text-align: center;
 }
 
-select {
+select,
+option {
   border: 0;
   background-color: transparent;
+  color: var(--color-text);
   width: 100%;
   height: 100%;
 }
