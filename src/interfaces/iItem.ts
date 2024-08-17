@@ -34,6 +34,7 @@ export interface iTrait extends iFeature {
 }
 
 export interface iWeapon extends iItem {
+  type: 'Weapon';
   weaponData: {
     attackProfiles: iAttackProfile[];
     weaponSize: 'Light' | 'Main' | 'Heavy';
@@ -43,12 +44,14 @@ export interface iWeapon extends iItem {
 }
 
 export interface iSupport extends iItem {
+  type: 'Support Item';
   supportData: {
     supportSize: 'Light' | 'Main' | 'Heavy';
   };
 }
 
 export interface iTechnique extends iItem {
+  type: 'Technique';
   techniqueData: {
     techniqueType: 'Spell' | 'Skill';
     memoryCost: number;
