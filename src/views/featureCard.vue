@@ -143,10 +143,30 @@ th {
   padding: 0.3rem 1rem;
 }
 
+th p.feature-name {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-stretch: extra-condensed;
+}
+
+th p.tags {
+  font-family: serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-stretch: condensed;
+  font-variant: small-caps;
+}
+
 td {
   border: 1px solid var(--color-border);
   border-bottom-right-radius: 15px;
   padding: 0.3rem 1rem;
+}
+
+td p.rules-text {
+  font-family: sans-serif;
+  line-height: 1.1rem;
 }
 
 table.style-trait th {
