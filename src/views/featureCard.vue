@@ -98,11 +98,13 @@ function setTags() {
   });
   return tagsArray;
 }
+
+const isValidFeature: boolean = props.feature.name != '';
 </script>
 
 <template>
   <div class="featureCard">
-    <table :class="setStyle()">
+    <table v-if="isValidFeature" :class="setStyle()">
       <tr>
         <th>
           <p class="feature-name">{{ props.feature.name }}</p>
