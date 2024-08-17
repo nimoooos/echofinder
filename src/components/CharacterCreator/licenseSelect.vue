@@ -41,8 +41,14 @@ function licenseRowChangeHandler(event: iEvent, licenseName: string) {
   }
 }
 
+/**
+ * Removes selected license from license array
+ * @param licenseName name of license to remove
+ */
 function removeLicense(licenseName: string) {
-  //get rid of the chosen license
+  console.log('Removing', licenseName);
+  const newLicenses = props.currentLicenses.filter((lcsRow) => lcsRow.license.name != licenseName);
+  emit('setLicenses', newLicenses);
 }
 </script>
 
@@ -61,7 +67,7 @@ function removeLicense(licenseName: string) {
             @change="(event) => licenseRowChangeHandler(event as unknown as iEvent, lcsRow.license.name)"
           />
         </td>
-        <td><button>X</button></td>
+        <td><button @click="(event) => removeLicense(lcsRow.license.name)">X</button></td>
       </tr>
       <tr>
         <th>
