@@ -10,7 +10,7 @@ import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSele
 import JobSelect from './components/CharacterCreator/jobSelect.vue';
 import NavBar from './components/NavBar/NavBar.vue';
 import FeatureCard from './views/featureCard.vue';
-import { feature, license } from './data/licenseData';
+import { feature } from './data/licenseData';
 import SlotSelect from './components/CharacterCreator/slotSelect.vue';
 import type { iSupport, iWeapon } from './interfaces/iItem';
 
