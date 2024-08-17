@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { jobsData } from '@/data/jobsData';
 import type iEvent from '@/interfaces/iEvent';
+import type iJob from '@/interfaces/iJobs';
 
 const props = defineProps<{
   preselect: string;
+  jobOptions: iJob[];
 }>();
 
 const emit = defineEmits<{
   (e: 'setJob', newJobName: string): string;
 }>();
-
-const options = jobsData.map((anc) => anc.name);
 
 function onChange(event: iEvent) {
   let input = event.target.value;
@@ -21,8 +20,8 @@ function onChange(event: iEvent) {
 <template>
   <select :onchange="onChange">
     <option selected disabled>Select Job</option>
-    <option v-for="opt in options" :selected="props.preselect === opt" :value="opt" :key="opt">
-      {{ opt }}
+    <option v-for="opt in jobOptions" :selected="props.preselect === opt.name" :value="opt.name" :key="opt.name">
+      {{ opt.name }}
     </option>
   </select>
 </template>

@@ -216,6 +216,7 @@ recalculateStats(); //run it once when things load
                   }
                 "
                 :preselect="charData.basicInfo.job.name"
+                :job-options="charData.licenses.flatMap((lcs) => lcs.license.jobs)"
               />
             </td>
           </tr>
