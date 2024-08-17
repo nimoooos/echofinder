@@ -61,7 +61,7 @@ function removeLicense(licenseName: string) {
           <input
             :id="lcsRow.license.name + '-RankInput'"
             type="number"
-            min="0"
+            min="1"
             max="3"
             v-model="lcsRow.rank"
             @change="(event) => licenseRowChangeHandler(event as unknown as iEvent, lcsRow.license.name)"
