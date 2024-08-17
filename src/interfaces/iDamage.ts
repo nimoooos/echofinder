@@ -1,4 +1,4 @@
 export interface iDamage {
-  type: 'Physical' | 'Force' | 'Astral' | 'Lunar' | 'Discord';
+  type: 'Physical' | 'Force' | 'Astral' | 'Lunar' | 'Discord' | 'Stress';
   value: string;
 }
