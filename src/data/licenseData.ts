@@ -253,14 +253,14 @@ export function feature(featureName: string): iFeature | iWeapon | iSupport | iT
   });
 
   allUnlocks = [...allUnlocks];
-  console.log('Searching the following for the name:', featureName, allUnlocks);
+  // console.log('Searching:', featureName);
 
   allUnlocks.map((unlock) => {
     if (unlock.name === featureName) {
       output = unlock;
     }
   });
-  console.log(output);
+  // console.log('Found:', output);
   return output;
 }
 

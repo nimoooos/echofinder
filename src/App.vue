@@ -13,6 +13,8 @@ import FeatureCard from './views/featureCard.vue';
 import { feature } from './data/licenseData';
 import SlotSelect from './components/CharacterCreator/slotSelect.vue';
 import type { iSupport, iWeapon } from './interfaces/iItem';
+import LicenseSelect from './components/CharacterCreator/licenseSelect.vue';
+import type { iLicense } from './interfaces/iLicense';
 
 const charData = ref<iCharacterData>(defaultCharData);
 
@@ -80,7 +82,7 @@ function recalculateStats(): void {
   //get stat bonus from talents
 
   //print new charData
-  console.log(charData.value);
+  console.log('New charData:', charData.value);
 }
 
 /**
@@ -88,6 +90,11 @@ function recalculateStats(): void {
  */
 function setAncestryTrait(newAncestryTraitName: string): void {
   charData.value.chosenStats.ancestryTrait = ancestryTrait(charData.value.basicInfo.ancestry, newAncestryTraitName);
+}
+
+function setLicenses(newLicenses: { license: iLicense; rank: 1 | 2 | 3 }[]): void {
+  charData.value.licenses = newLicenses;
+  console.log('licenses set:', charData.value.licenses);
 }
 
 function checkBamm(): { caution: boolean; message: string } {
@@ -299,13 +306,14 @@ recalculateStats(); //run it once when things load
       </table>
     </div>
 
-    <div id="charsheet-classranks">
+    <div id="charsheet-licenses">
       <h3 class="loadout-heading">
         Class Ranks
         <p class="caution" :class="{ cautionActive: checkLicenses().caution }">
           {{ checkLicenses().message }}
         </p>
       </h3>
+      <LicenseSelect :currentLicenses="charData.licenses" @set-licenses="setLicenses" />
     </div>
     <div id="charsheet-traits">
       <h3 class="loadout-heading">Traits</h3>
