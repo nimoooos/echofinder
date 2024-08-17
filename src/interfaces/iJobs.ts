@@ -1,6 +1,6 @@
 import type { iJobStats } from './iCharacterData';
 import type { iFeature } from './iFeature';
-import type { SlotSize, iSlot, iTrait } from './iItem';
+import type { iSlot, iTrait } from './iItem';
 
 export enum JobClass {
   Artillery,
