@@ -95,6 +95,82 @@ export const jobsData: iJob[] = [
       },
     },
   },
+  {
+    name: 'Seeker',
+    sourceLicense: [JobClass.Artillery, JobClass.Controller],
+    baseStats: {
+      scope: 20,
+      memory: 6,
+      saveTarget: 11,
+      hp: 6,
+      stress: 4,
+      mp: 3,
+      recoveries: 3,
+      speed: 5,
+      dodge: 8,
+      adef: 9,
+    },
+    jobTraits: [
+      {
+        type: 'Trait',
+        name: "Marksman's Eye",
+        text: 'Your allies gain +2 ACC instead of +1 ACC when consuming Marks against targets within your SCOPE.',
+      },
+      {
+        type: 'Trait',
+        name: "Seeker's Sight",
+        text: 'You 3 Mark.',
+        tags: [{ name: 'mana', value: 1 }],
+        actionData: {
+          actionType: ActionType.free,
+          phase: Phase.any,
+        },
+      },
+      {
+        type: 'Trait',
+        name: 'Guided Shot',
+        text: 'You gain the Guided Shot skill, which is equipped for free.',
+        gainedActions: [
+          {
+            name: 'Guided Shot',
+            text: '',
+            type: 'Technique',
+            techniqueData: {
+              techniqueType: 'Skill',
+              memoryCost: 0,
+            },
+            actionData: {
+              actionType: ActionType.reaction,
+              phase: Phase.any,
+              reaction: {
+                trigger: 'A ranged or thrown attack misses an enemy within your SCOPE.',
+                effect:
+                  "The attack roll misses, but the attacker may reroll the attack roll against a different target within Range 5 of the original target. A target can't be hit more than once by the same attack.",
+              },
+            },
+          },
+        ],
+      },
+    ],
+    weaponSlots: [
+      { index: 0, slotSize: SlotSize.Main },
+      { index: 1, slotSize: SlotSize.Heavy },
+    ],
+    supportSlots: [
+      { index: 0, slotSize: SlotSize.Light },
+      { index: 1, slotSize: SlotSize.Main },
+    ],
+    limitBreak: {
+      name: 'Heavenly Starfall',
+      type: 'Limit Break',
+      tags: [{ name: 'Arcing' }],
+      text: 'You create three non-overlapping Blast 2 zones within Range 40. All enemies in one or more of these zones must make an Agility save. Failure: They take 1d3+1 Force. Success: They take half damage. Each character only takes this damage once, even if they are in multiple zones.\n\tWhile any of these zones exist, you can spend 1 MP as a minor action to Mark all enemies in these zones and make them Dazed until the end of their next turn.\n\tAt the end of each of your turns, one of the zones disappears.',
+      actionData: {
+        actionType: ActionType.skirmish,
+        phase: Phase.skirmish,
+      },
+    },
+  },
 ];
 
 export function job(jobName: string): iJob {

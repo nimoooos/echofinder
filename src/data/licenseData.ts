@@ -21,8 +21,8 @@ export const licensesData: iLicense[] = [
           itemSize: 'Light',
           weaponData: {
             attackProfiles: [
-              { range: { type: 'Reach', value: 1 }, damage: [{ type: 'Physical', value: '1d3+1' }] },
-              { range: { type: 'Thrown', value: 5 }, damage: [{ type: 'Physical', value: '1d3+1' }] },
+              { range: [{ type: 'Reach', value: 1 }], damage: [{ type: 'Physical', value: '1d3+1' }] },
+              { range: [{ type: 'Thrown', value: 5 }], damage: [{ type: 'Physical', value: '1d3+1' }] },
             ],
             weaponType: 'Blade',
             weaponRange: 'Melee',
@@ -101,9 +101,20 @@ export const licensesData: iLicense[] = [
             techniqueType: 'Spell',
             memoryCost: 2,
             attackProfiles: [
-              { range: { type: 'Range', value: 'Scope' } },
-              { range: { type: 'Blast', value: 2 }, damage: [{ type: 'Astral', value: '2d6+2' }] },
-              { range: { type: 'Burst', value: 1 }, damage: [{ type: 'Lunar', value: '2d6+2' }] },
+              {
+                range: [
+                  { type: 'Range', value: 'Scope' },
+                  { type: 'Blast', value: 2 },
+                ],
+                damage: [{ type: 'Astral', value: '2d6+2' }],
+              },
+              {
+                range: [
+                  { type: 'Range', value: 'Scope' },
+                  { type: 'Burst', value: 1 },
+                ],
+                damage: [{ type: 'Lunar', value: '2d6+2' }],
+              },
             ],
           },
         },
@@ -120,8 +131,8 @@ export const licensesData: iLicense[] = [
             techniqueType: 'Spell',
             memoryCost: 2,
             attackProfiles: [
-              { range: { type: 'Range', value: 'Scope' }, damage: [{ type: 'Force', value: '1' }] },
-              { range: { type: 'Range', value: 'Scope' }, damage: [{ type: 'Force', value: '3' }] },
+              { range: [{ type: 'Range', value: 'Scope' }], damage: [{ type: 'Force', value: '1' }] },
+              { range: [{ type: 'Range', value: 'Scope' }], damage: [{ type: 'Force', value: '3' }] },
             ],
           },
         },
@@ -155,7 +166,7 @@ export const licensesData: iLicense[] = [
                 memoryCost: 0,
                 attackProfiles: [
                   {
-                    range: { type: 'Range', value: 'Scope' },
+                    range: [{ type: 'Range', value: 'Scope' }],
                     damage: [
                       { type: 'Astral', value: '1d6+1' },
                       { type: 'Discord', value: '4' },
@@ -178,11 +189,11 @@ export const licensesData: iLicense[] = [
                 memoryCost: 0,
                 attackProfiles: [
                   {
-                    range: { type: 'Range', value: 'Scope' },
+                    range: [{ type: 'Range', value: 'Scope' }],
                     damage: [{ type: 'Lunar', value: '1d6+1' }],
                   },
                   {
-                    range: { type: 'Range', value: 'Scope' },
+                    range: [{ type: 'Range', value: 'Scope' }],
                     damage: [{ type: 'Lunar', value: '2d6+1' }],
                   },
                 ],
@@ -203,7 +214,7 @@ export const licensesData: iLicense[] = [
           weaponData: {
             weaponRange: 'Ranged',
             weaponType: 'Artifact',
-            attackProfiles: [{ range: { type: 'Range', value: 10 }, damage: [{ type: 'Force', value: '1d3+3' }] }],
+            attackProfiles: [{ range: [{ type: 'Range', value: 10 }], damage: [{ type: 'Force', value: '1d3+3' }] }],
           },
         },
       ],
@@ -220,7 +231,7 @@ export const licensesData: iLicense[] = [
           techniqueData: {
             techniqueType: 'Spell',
             memoryCost: 2,
-            attackProfiles: [{ range: { type: 'Line', value: 15 } }],
+            attackProfiles: [{ range: [{ type: 'Line', value: 15 }], damage: [] }],
           },
         },
         {
@@ -235,6 +246,112 @@ export const licensesData: iLicense[] = [
           techniqueData: {
             memoryCost: 3,
             techniqueType: 'Skill',
+          },
+        },
+      ],
+    },
+  },
+  {
+    name: 'Seeker',
+    jobs: [job('Seeker')],
+    unlocks: {
+      1: [
+        {
+          name: 'Heartseeker',
+          type: 'Weapon',
+          text: 'If this attack consumes a Mark, it is Piercing.',
+          tags: [{ name: 'Homing' }],
+          itemSize: 'Main',
+          weaponData: {
+            weaponRange: 'Ranged',
+            weaponType: 'Bow',
+            attackProfiles: [
+              {
+                range: [{ type: 'Range', value: 15 }],
+                damage: [
+                  { type: 'Force', value: '1d3' },
+                  { type: 'Discord', value: '1' },
+                ],
+              },
+            ],
+          },
+          actionData: {
+            actionType: ActionType.volley,
+            phase: Phase.skirmish,
+          },
+        },
+        {
+          name: 'Chain Shot',
+          type: 'Technique',
+          tags: [{ name: 'Aetheric' }],
+          text: 'On Hit: Choose one of the following: \n\n\t* Grounding Chain: The target must make a Magic save. Failure: They are Immobilized until the end of their next turn. You can spend 1 MP to force all characters adjacent to the target to make the save as well.\n\t* Linked Chain (1 MP): You center a Burst 2 AOE around the target. Characters in the AOE must make a Bulk save. Failure: They are pulled to the closest free space adjacent to the original target.',
+          techniqueData: {
+            techniqueType: 'Spell',
+            spellRange: 'Ranged',
+            memoryCost: 2,
+            attackProfiles: [{ range: [{ type: 'Range', value: 'Scope' }], damage: [{ type: 'Lunar', value: '1d3' }] }],
+          },
+        },
+      ],
+      2: [
+        {
+          name: 'Spectral Shot',
+          type: 'Technique',
+          tags: [{ name: 'Mana', value: 1 }],
+          text: 'Your single-target ranged attacks pass through objects (including terrain). As long as you have line of sight to a target, you can ignore cover when attacking. You can still attack targets without line of sight, but they benefit from hard cover.',
+          techniqueData: {
+            techniqueType: 'Skill',
+            memoryCost: 2,
+          },
+        },
+        {
+          name: 'Swarming Shot',
+          type: 'Technique',
+          tags: [{ name: 'Aetheric' }, { name: 'Indirect' }, { name: 'Mana', value: 1 }],
+          text: 'On Attack: Choose one of the following:\n\n* Buzzing Swarm: The AOE becomes a zone until the start of your next turn. Any character that starts their turn in the zone or enters it during their turn becomes Dazed until the end of their next turn.\n\t*On Hit: The target is Dazed until the end of their next turn.\n\n* Distracting Swarm: The AOE becomes a zone until the start of your next turn. Any character that starts their turn in the zone or enters it during their turn becomes Marked.\n\t* On Hit: The target is Marked until the end of their next turn',
+          techniqueData: {
+            techniqueType: 'Spell',
+            memoryCost: 2,
+            spellRange: 'Ranged',
+            attackProfiles: [
+              {
+                range: [
+                  { type: 'Range', value: 'Scope' },
+                  { type: 'Blast', value: 1 },
+                ],
+                damage: [{ type: 'Stress', value: '2' }],
+              },
+            ],
+          },
+          actionData: {
+            actionType: ActionType.volley,
+            phase: Phase.skirmish,
+          },
+        },
+      ],
+      3: [
+        {
+          name: 'Astral Barrage',
+          type: 'Weapon',
+          text: "Instead of attacking normally, you can choose to attack every Marked enemy within this weapon's Range. You consume each enemy's Mark, taking 1 Stress for every additional target beyond the first",
+          tags: [{ name: 'Reloading' }, { name: 'Unique' }],
+          itemSize: 'Heavy',
+          weaponData: {
+            attackProfiles: [{ range: [{ type: 'Range', value: 20 }], damage: [{ type: 'Force', value: '2d6' }] }],
+            weaponRange: 'Ranged',
+            weaponType: 'Bow',
+          },
+        },
+        {
+          name: 'Coiling Shot',
+          type: 'Technique',
+          text: 'On Hit: Choose one of the following:\n\n* Constricting Serpent: The target cannot make Opportunity Attacks until the end of their next turn.\n* Striking Serpent: A spectral serpent coils around the target. Until the end of their next turn, if the target ends their turn adjacent to one of their allies, the ally takes 3 Force and is Dazed until the end of their next turn',
+          tags: [{ name: 'Aetheric' }],
+          techniqueData: {
+            techniqueType: 'Spell',
+            memoryCost: 1,
+            spellRange: 'Ranged',
+            attackProfiles: [{ range: [{ type: 'Range', value: 'Scope' }], damage: [{ type: 'Force', value: '1d6+4' }] }],
           },
         },
       ],
