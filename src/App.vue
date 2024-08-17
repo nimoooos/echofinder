@@ -100,6 +100,15 @@ function checkBamm(): { caution: boolean; message: string } {
   return output;
 }
 
+function checkLicenses(): { caution: boolean; message: string } {
+  let output = { caution: false, message: '' };
+  const licensesSum = charData.value.licenses.reduce((acc, currentLicense) => acc + currentLicense.rank, 0);
+  output.message = `${licensesSum}/${charData.value.basicInfo.level} chosen`;
+  output.caution = licensesSum != charData.value.basicInfo.level;
+
+  return output;
+}
+
 function getUnlockedWeapons(): iWeapon[] {
   let output: iWeapon[] = [];
   //TODO: get the weapons
@@ -208,7 +217,7 @@ recalculateStats(); //run it once when things load
     </div>
     <div id="charsheet-bamm">
       <h3 class="table-heading">Ability Scores</h3>
-      <p class="caution" id="bamm-caution" :v-if="checkBamm().caution">
+      <p class="caution" id="bamm-caution" :class="{ cautionActive: checkBamm().caution }">
         {{ checkBamm().message }}
       </p>
       <button @click="toggleEdit.bamm = !toggleEdit.bamm">📝</button>
@@ -291,7 +300,12 @@ recalculateStats(); //run it once when things load
     </div>
 
     <div id="charsheet-classranks">
-      <h3 class="loadout-heading">Class Ranks</h3>
+      <h3 class="loadout-heading">
+        Class Ranks
+        <p class="caution" :class="{ cautionActive: checkLicenses().caution }">
+          {{ checkLicenses().message }}
+        </p>
+      </h3>
     </div>
     <div id="charsheet-traits">
       <h3 class="loadout-heading">Traits</h3>
@@ -350,7 +364,12 @@ p.caution {
   color: var(--color-accent-bold);
   display: inline-block;
   margin-left: 1rem;
+  font-size: small;
 }
+p.caution.cautionActive {
+  color: darkred;
+}
+
 th {
   border: 1px solid var(--color-border);
   border-top-right-radius: 1rem;
