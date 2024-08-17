@@ -10,7 +10,7 @@ import AncestryTraitSelect from './components/CharacterCreator/ancestryTraitSele
 import JobSelect from './components/CharacterCreator/jobSelect.vue';
 import NavBar from './components/NavBar/NavBar.vue';
 import FeatureCard from './views/featureCard.vue';
-import { feature, license } from './data/licenseData';
+import { feature } from './data/licenseData';
 import SlotSelect from './components/CharacterCreator/slotSelect.vue';
 import type { iSupport, iWeapon } from './interfaces/iItem';
 
@@ -104,8 +104,8 @@ function getUnlockedWeapons(): iWeapon[] {
   let output: iWeapon[] = [];
   //TODO: get the weapons
 
-  output.push(feature(license('Assassin'), 'Throatcutter') as iWeapon);
-  output.push(feature(license('Equinox'), 'Saturn Rod') as iWeapon);
+  output.push(feature('Throatcutter') as iWeapon);
+  output.push(feature('Saturn Rod') as iWeapon);
 
   return output;
 }
@@ -113,6 +113,10 @@ function getUnlockedWeapons(): iWeapon[] {
 function getUnlockedSupportItems(): iSupport[] {
   let output: iSupport[] = [];
   //TODO: get the support items
+
+  output.push(feature('Garrote') as iSupport);
+  output.push(feature("Poisoner's Kit") as iSupport);
+
   return output;
 }
 
@@ -311,10 +315,10 @@ recalculateStats(); //run it once when things load
     </div>
     <div id="charsheet-techniques">
       <h3 class="loadout-heading">Techniques</h3>
-      <FeatureCard :feature="feature(license('Equinox'), 'Exobomb')" />
-      <FeatureCard :feature="feature(license('Equinox'), 'Scar')" />
-      <FeatureCard :feature="feature(license('Equinox'), 'Quickcast')" />
-      <FeatureCard :feature="feature(license('Equinox'), 'Dividing Line')" />
+      <FeatureCard :feature="feature('Exobomb')" />
+      <FeatureCard :feature="feature('Scar')" />
+      <FeatureCard :feature="feature('Quickcast')" />
+      <FeatureCard :feature="feature('Dividing Line')" />
     </div>
     <div id="charsheet-talents">
       <h3 class="loadout-heading">Talents</h3>
