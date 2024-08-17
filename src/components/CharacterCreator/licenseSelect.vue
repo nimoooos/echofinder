@@ -97,7 +97,7 @@ button {
 select,
 option {
   border: 0;
-  background-color: transparent;
+  background-color: var(--color-accent);
   color: var(--color-text);
   width: 100%;
   height: 100%;
