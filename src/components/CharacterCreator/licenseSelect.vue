@@ -56,7 +56,7 @@ function removeLicense(licenseName: string) {
   <div>
     <table>
       <tr v-for="lcsRow in props.currentLicenses" :key="lcsRow.license.name">
-        <th>{{ lcsRow.license.name }}</th>
+        <th class="LicenseName">{{ lcsRow.license.name }}</th>
         <td>
           <input
             :id="lcsRow.license.name + '-RankInput'"
@@ -67,19 +67,63 @@ function removeLicense(licenseName: string) {
             @change="(event) => licenseRowChangeHandler(event as unknown as iEvent, lcsRow.license.name)"
           />
         </td>
-        <td><button @click="(event) => removeLicense(lcsRow.license.name)">X</button></td>
+        <td><button :id="lcsRow.license.name + '-RemoveButton'" @click="(event) => removeLicense(lcsRow.license.name)">❌</button></td>
       </tr>
       <tr>
-        <th>
-          <select :onchange="addNewLicense">
+        <th colspan="3" id="addNewRow">
+          <select :onchange="addNewLicense" :key="props.currentLicenses.length">
             <option disabled selected>new class</option>
             <option v-for="lcs in licensesData" :key="lcs.name" :value="lcs.name">
               {{ lcs.name }}
             </option>
           </select>
         </th>
-        <td></td>
       </tr>
     </table>
   </div>
 </template>
+
+<style scoped>
+input,
+button {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
+  text-align: center;
+}
+
+select {
+  border: 0;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+}
+
+table {
+  border: 3px dotted var(--color-border);
+  table-layout: fixed;
+}
+
+table th {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+table th.LicenseName {
+  width: 100px;
+}
+
+table td {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
+  width: 50px;
+}
+
+#addNewRow {
+  border-bottom-right-radius: 1rem;
+}
+</style>
