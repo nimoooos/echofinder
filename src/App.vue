@@ -69,6 +69,10 @@ function recalculateStats(): void {
   charData.value.derivedStats.adef += charData.value.derivedStats.magic;
   charData.value.derivedStats.mp += Math.floor(charData.value.derivedStats.magic / 2);
 
+  //get unlocks
+  getUnlockedWeapons();
+  getUnlockedSupportItems();
+
   //get traits
   charData.value.loadout.traits = [...charData.value.basicInfo.job.jobTraits, charData.value.chosenStats.ancestryTrait];
   //get weapons
@@ -117,23 +121,61 @@ function checkLicenses(): { caution: boolean; message: string } {
 }
 
 function getUnlockedWeapons(): iWeapon[] {
-  let output: iWeapon[] = [];
-  //TODO: get the weapons
+  let unlockedWeapons: iWeapon[] = [];
+  charData.value.licenses.forEach((lcs) => {
+    if (lcs.rank >= 1) {
+      lcs.license.unlocks[1].forEach((ulk) => {
+        if (ulk.type === 'Weapon') {
+          unlockedWeapons.push(ulk as iWeapon);
+        }
+      });
+    }
+    if (lcs.rank >= 2) {
+      lcs.license.unlocks[2].forEach((ulk) => {
+        if (ulk.type === 'Weapon') {
+          unlockedWeapons.push(ulk as iWeapon);
+        }
+      });
+    }
+    if (lcs.rank == 3) {
+      lcs.license.unlocks[3].forEach((ulk) => {
+        if (ulk.type === 'Weapon') {
+          unlockedWeapons.push(ulk as iWeapon);
+        }
+      });
+    }
+  });
 
-  output.push(feature('Throatcutter') as iWeapon);
-  output.push(feature('Saturn Rod') as iWeapon);
-
-  return output;
+  return unlockedWeapons;
 }
 
 function getUnlockedSupportItems(): iSupport[] {
-  let output: iSupport[] = [];
-  //TODO: get the support items
-
-  output.push(feature('Garrote') as iSupport);
-  output.push(feature("Poisoner's Kit") as iSupport);
-
-  return output;
+  let unlockedSupportItems: iSupport[] = [];
+  charData.value.licenses.forEach((lcs) => {
+    if (lcs.rank >= 1) {
+      lcs.license.unlocks[1].forEach((ulk) => {
+        if (ulk.type === 'Support Item') {
+          unlockedSupportItems.push(ulk as iSupport);
+        }
+      });
+    }
+    if (lcs.rank >= 2) {
+      lcs.license.unlocks[2].forEach((ulk) => {
+        if (ulk.type === 'Support Item') {
+          unlockedSupportItems.push(ulk as iSupport);
+        }
+      });
+    }
+    if (lcs.rank == 3) {
+      lcs.license.unlocks[3].forEach((ulk) => {
+        if (ulk.type === 'Support Item') {
+          unlockedSupportItems.push(ulk as iSupport);
+        }
+      });
+    }
+  });
+  console.log('Unlocked Support Items:', unlockedSupportItems.length);
+  return unlockedSupportItems;
 }
 
 //recalculate stats whenever data changes
@@ -327,7 +369,7 @@ recalculateStats(); //run it once when things load
         v-for="weaponSlot in charData.basicInfo.job.weaponSlots"
         :unlocks="getUnlockedWeapons()"
         :slotData="weaponSlot"
-        v-bind:key="weaponSlot.index"
+        v-bind:key="weaponSlot.index + weaponSlot.slotSize + getUnlockedWeapons().length"
       />
     </div>
     <div id="charsheet-supportItems">
@@ -337,7 +379,7 @@ recalculateStats(); //run it once when things load
         v-for="supportSlot in charData.basicInfo.job.supportSlots"
         :unlocks="getUnlockedSupportItems()"
         :slotData="supportSlot"
-        v-bind:key="supportSlot.index"
+        v-bind:key="supportSlot.index + supportSlot.slotSize + getUnlockedSupportItems().length"
       />
     </div>
     <div id="charsheet-techniques">
