@@ -24,7 +24,6 @@ export const licensesData: iLicense[] = [
               { range: { type: 'Reach', value: 1 }, damage: [{ type: 'Physical', value: '1d3+1' }] },
               { range: { type: 'Thrown', value: 5 }, damage: [{ type: 'Physical', value: '1d3+1' }] },
             ],
-            weaponSize: 'Light',
             weaponType: 'Blade',
             weaponRange: 'Melee',
           },
@@ -200,9 +199,8 @@ export const licensesData: iLicense[] = [
             actionType: ActionType.volley,
             phase: Phase.skirmish,
           },
-          itemSize: 'Light',
+          itemSize: 'Main',
           weaponData: {
-            weaponSize: 'Main',
             weaponRange: 'Ranged',
             weaponType: 'Artifact',
             attackProfiles: [{ range: { type: 'Range', value: 10 }, damage: [{ type: 'Force', value: '1d3+3' }] }],

@@ -20,11 +20,11 @@ const componentTitle = `${convertedSlotSize} ${props.selectorType}`;
 let slot1Unlocks = ref<iWeapon[] | iSupport[]>(props.unlocks);
 let slot2Unlocks = ref<iWeapon[] | iSupport[]>(props.unlocks);
 if (props.selectorType === 'Weapon') {
-  slot1Unlocks = ref<iWeapon[]>((props.unlocks as iWeapon[]).filter((unlk) => unlk.weaponData.weaponSize == slot1Type));
-  slot2Unlocks = ref<iWeapon[]>((props.unlocks as iWeapon[]).filter((unlk) => unlk.weaponData.weaponSize == slot2Type));
+  slot1Unlocks = ref<iWeapon[]>((props.unlocks as iWeapon[]).filter((unlk) => unlk.itemSize == slot1Type));
+  slot2Unlocks = ref<iWeapon[]>((props.unlocks as iWeapon[]).filter((unlk) => unlk.itemSize == slot2Type));
 } else if (props.selectorType === 'Support Item') {
-  slot1Unlocks = ref<iSupport[]>((props.unlocks as iSupport[]).filter((unlk) => unlk.supportData.supportSize == slot1Type));
-  slot2Unlocks = ref<iSupport[]>((props.unlocks as iSupport[]).filter((unlk) => unlk.supportData.supportSize == slot2Type));
+  slot1Unlocks = ref<iSupport[]>((props.unlocks as iSupport[]).filter((unlk) => unlk.itemSize == slot1Type));
+  slot2Unlocks = ref<iSupport[]>((props.unlocks as iSupport[]).filter((unlk) => unlk.itemSize == slot2Type));
 } else {
   slot1Unlocks = ref<iWeapon[] | iSupport[]>(props.unlocks);
   slot2Unlocks = ref<iWeapon[] | iSupport[]>(props.unlocks);

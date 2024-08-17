@@ -35,9 +35,9 @@ export interface iTrait extends iFeature {
 
 export interface iWeapon extends iItem {
   type: 'Weapon';
+  itemSize: 'Light' | 'Main' | 'Heavy';
   weaponData: {
     attackProfiles: iAttackProfile[];
-    weaponSize: 'Light' | 'Main' | 'Heavy';
     weaponRange: 'Ranged' | 'Melee' | 'Ranged/Melee';
     weaponType: 'Artifact' | 'Blade' | 'Bow' | 'Club' | 'Longarm' | 'Magitech';
   };
@@ -45,9 +45,8 @@ export interface iWeapon extends iItem {
 
 export interface iSupport extends iItem {
   type: 'Support Item';
-  supportData: {
-    supportSize: 'Light' | 'Main' | 'Heavy';
-  };
+  itemSize: 'Light' | 'Main' | 'Heavy';
+  supportData: {};
 }
 
 export interface iTechnique extends iItem {
