@@ -1,5 +1,5 @@
 /**
- * Just here to avoid "any" typing
+ * Event object for javascript event handlers
  */
 export default interface iEvent {
   target: {
