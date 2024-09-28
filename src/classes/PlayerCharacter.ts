@@ -3,6 +3,7 @@ import type { iSupport, iTechnique, iTrait, iWeapon } from '@/interfaces/iItem';
 import type iJob from '@/interfaces/iJobs';
 import type { iLicense } from '@/interfaces/iLicense';
 import type { iTalentTree } from '@/interfaces/iTalent';
+import type { SimpleItem, SimpleItemSlot } from './SimpleItem';
 
 class PlayerCharacter {
   // #region Properties
@@ -37,6 +38,13 @@ class PlayerCharacter {
   private _dodge: number;
   private _a_defense: number;
 
+  private _limit_break: SimpleItem;
+  private _traits: SimpleItem[];
+  private _weapon_slots: SimpleItemSlot[];
+  private _support_item_slots: SimpleItemSlot[];
+  private _techniques: SimpleItem[];
+  private _talents: iTalentTree[];
+
   private _unlocked_items: {
     ancestry_traits: iTrait[];
     jobs: iJob[];
@@ -55,6 +63,7 @@ class PlayerCharacter {
     classes: iLicense[];
   };
 
+  // #region Constructor
   public constructor() {
     this._name = 'Name';
     this._title = 'Title';
@@ -83,6 +92,13 @@ class PlayerCharacter {
     this._speed = 0;
     this._dodge = 0;
     this._a_defense = 0;
+
+    this._limit_break = { name: 'No Limit Break', tags: [], text: 'No Limit Break' };
+    this._traits = [];
+    this._weapon_slots = [];
+    this._support_item_slots = [];
+    this._techniques = [];
+    this._talents = [];
 
     this._unlocked_items = {
       ancestry_traits: [],
@@ -222,6 +238,25 @@ class PlayerCharacter {
     };
   }
 
+  public get limit_break(): SimpleItem {
+    return this._limit_break;
+  }
+  public get traits(): SimpleItem[] {
+    return this._traits;
+  }
+  public get weapon_slots(): SimpleItemSlot[] {
+    return this._weapon_slots;
+  }
+  public get support_item_slots(): SimpleItemSlot[] {
+    return this._support_item_slots;
+  }
+  public get techniques(): SimpleItem[] {
+    return this._techniques;
+  }
+  public get talents(): iTalentTree[] {
+    return this._talents;
+  }
+
   public get unlocked_items(): Object {
     return this._unlocked_items;
   }
@@ -348,6 +383,25 @@ class PlayerCharacter {
     this._a_defense = new_a_defense;
   }
 
+  public set limit_break(new_limit_break: SimpleItem) {
+    this._limit_break = new_limit_break;
+  }
+  public set traits(new_traits: SimpleItem[]) {
+    this._traits = new_traits;
+  }
+  public set weapon_slots(new_weapon_slots: SimpleItemSlot[]) {
+    this._weapon_slots = new_weapon_slots;
+  }
+  public set support_item_slots(new_support_item_slots: SimpleItemSlot[]) {
+    this._support_item_slots = new_support_item_slots;
+  }
+  public set techniques(new_techniques: SimpleItem[]) {
+    this._techniques = new_techniques;
+  }
+  public set talents(new_talents: iTalentTree[]) {
+    this._talents = new_talents;
+  }
+
   // setters for _unlocked_items
   public set unlocked_ancestry_traits(new_ancestry_traits: iTrait[]) {
     this._unlocked_items.ancestry_traits = new_ancestry_traits;
@@ -406,6 +460,61 @@ class PlayerCharacter {
     this._point_allocation.classes = new_classes;
   }
   // #endregion
+
+  /**
+   * Recalculate the stat changes whenever ancestral trait, ancestry, job, bamm, or equipment changes
+   */
+  public recalculate(): void {
+    console.log('Recalculating...');
+    // stuff from ancestry (size and traits)
+    if (this.ancestry == null) {
+      console.log('No ancestry detected. Cannot determine size.');
+      this.size = 0;
+    } else {
+      this.size = this.ancestry.size;
+      this.unlocked_ancestry_traits = this.ancestry.traits;
+    }
+
+    // baseline attributes
+    if (this.job == null) {
+      console.log('No job detected. Cannot determine attributes.');
+    } else {
+      this.scope = this.job.baseStats.scope;
+      this.save_target = this.job.baseStats.saveTarget;
+      this.hp = this.job.baseStats.hp;
+      this.recoveries = this.job.baseStats.recoveries;
+      this.dodge = this.job.baseStats.dodge;
+      this.speed = this.job.baseStats.speed;
+      this.stress_cap = this.job.baseStats.stress;
+      this.memory = this.job.baseStats.memory;
+      this.a_defense = this.job.baseStats.adef;
+      this.mp = this.job.baseStats.mp;
+    }
+
+    // baseline bamm
+    this.bulk = this.bulk_allocation;
+    this.agility = this.agility_allocation;
+    this.mind = this.mind_allocation;
+    this.magic = this.magic_allocation;
+
+    // grit
+    this.grit = Math.floor(this.level / 2);
+    this.hp += this.grit;
+    this.save_target += this.grit;
+    this.memory += this.grit;
+
+    // calculate bonuses from bamm
+    this.hp += 2 * this.bulk;
+    this.recoveries += Math.floor(this.bulk / 2);
+    this.dodge += this.agility;
+    this.speed += Math.floor(this.agility / 2);
+    this.stress_cap += this.mind;
+    this.memory += Math.floor(this.mind / 2);
+    this.a_defense += this.magic;
+    this.mp += Math.floor(this.magic / 2);
+
+    // get license unlocks
+  }
 }
 
 export { PlayerCharacter };
